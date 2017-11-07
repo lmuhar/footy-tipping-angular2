@@ -1,0 +1,16 @@
+<app-loading [condition]="isLoading"></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<div>
+    <tbody>
+        <tr colspan="4">
+            <form fclass="form-inline" #form="ngForm" (ngSubmit)="addRound(round)">
+                <div class="form-group">
+                    <input class="form-control" type="number" name="name" [(ngModel)]="round.number" placeholder="Number" required>
+                </div>
+            </form>
+            <button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.form.valid"><i class="fa fa-floppy-o"></i> Save</button>
+        </tr>
+    </tbody>
+</div>
