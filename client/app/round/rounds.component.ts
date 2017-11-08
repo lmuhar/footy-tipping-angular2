@@ -84,9 +84,6 @@ export class RoundsComponent implements OnInit {
             ]
         };
 
-        // tslint:disable-next-line:no-debugger
-        debugger;
-
         this.roundService.addRound(this.addRoundForm.value).subscribe(
             res => {
                 const newRound = res.json();
