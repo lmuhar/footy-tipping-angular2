@@ -21,6 +21,10 @@ export class RoundsComponent implements OnInit {
     number = new FormControl('', Validators.required);
     dateStart = new FormControl(null, Validators.required);
     dateEnd = new FormControl(null, Validators.required);
+    homeTeam = new FormControl(null, Validators.required);
+    awayTeam = new FormControl(null, Validators.required);
+    location = new FormControl(null, Validators.required);
+    dateTime = new FormControl(null, Validators.required);
 
     constructor(private roundService: RoundService,
                 private formBuilder: FormBuilder,
@@ -53,6 +57,26 @@ export class RoundsComponent implements OnInit {
     }
 
     addRound() {
+        const value = {
+            dateEnd: '2017-11-10',
+            dateStart: '2017-11-09',
+            number: 10,
+            games: [
+                {
+                    homeTeam: 'Richmond',
+                    awayTeam: 'Adelaide',
+                    location: 'MCG',
+                    dateTime: '2017-11-10T01:01:01'
+                },
+                {
+                    homeTeam: 'Bulldogs',
+                    awayTeam: 'Sydney',
+                    location: 'MCG',
+                    dateTime: '2017-11-10T01:01:01'
+                }
+            ]
+        };
+
         this.roundService.addRound(this.addRoundForm.value).subscribe(
             res => {
                 const newRound = res.json();
@@ -62,5 +86,18 @@ export class RoundsComponent implements OnInit {
             },
             error => console.log(error)
         );
+    }
+
+    deleteRound(round) {
+        if (window.confirm('Are you sure you want to permanently delete this item?')) {
+            this.roundService.deleteRound(round).subscribe(
+                res => {
+                    const pos = this.rounds.map(elem => elem._id).indexOf(round._id);
+                    this.rounds.splice(pos, 1);
+                    this.toast.setMessage('item deleted successfully.', 'success');
+                },
+                error =>  console.log(error)
+            );
+        }
     }
 }

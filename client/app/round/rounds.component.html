@@ -13,6 +13,13 @@
             <td>{{round.number}}</td>
             <td>{{round.dateStart | date}}</td>
             <td>{{round.dateEnd | date}}</td>
+            <td *ngFor="let games of round.games">
+                {{games.homeTeam}} v {{games.awayTeam}}
+                {{games.dateTime | date}}
+            </td>
+            <td>
+                <button class="btn btn-sm btn-danger" (click)="deleteRound(round)"><i class="fa fa-trash"></i> Delete</button>
+            </td>
         </tr>
     </tbody>
     <tbody>
@@ -27,6 +34,8 @@
                 <div class="form-group">
                     <input class="form-control" type="date" name="dateEnd" formControlName="dateEnd" placeholder="Date End" required>
                 </div>
+
+
                 <button class="btn btn-sm btn-primary" type="submit" [disabled]="!addRoundForm.valid">
                     <i class="fa fa-floppy-o"></i> Save
                 </button>
