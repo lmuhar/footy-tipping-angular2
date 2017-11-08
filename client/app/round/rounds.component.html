@@ -34,9 +34,16 @@
                 <div class="form-group">
                     <input class="form-control" type="date" name="dateEnd" formControlName="dateEnd" placeholder="Date End" required>
                 </div>
+                <div formArrayName="games">
+                    <div *ngFor="let game of addRoundForm.get('games').controls; let i=index">
+                        <div class="form-group" [formGroupName]="i">
+                            <input class="form-control" name="awayTeam" formControlName="awayTeam" placeholder="Away Team" required>
+                            <input class="form-control" name="homeTeam" formControlName="homeTeam" placeholder="Home Team" required>
+                        </div>
+                    </div>
+                </div>
 
-
-                <button class="btn btn-sm btn-primary" type="submit" [disabled]="!addRoundForm.valid">
+                <button class="btn btn-sm btn-primary" type="submit">
                     <i class="fa fa-floppy-o"></i> Save
                 </button>
             </form>

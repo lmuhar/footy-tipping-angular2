@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 
 import { RoundService } from '../services/round.service';
 import { ToastComponent } from '../shared/toast/toast.component';
@@ -16,6 +16,8 @@ export class RoundsComponent implements OnInit {
     totalRounds = 0;
     isLoading = true;
     isEditing = false;
+    games: any[] = [];
+    stuff: any[] = [];
 
     addRoundForm: FormGroup;
     number = new FormControl('', Validators.required);
@@ -25,10 +27,20 @@ export class RoundsComponent implements OnInit {
     awayTeam = new FormControl(null, Validators.required);
     location = new FormControl(null, Validators.required);
     dateTime = new FormControl(null, Validators.required);
+    // games = new FormArray([new FormControl('')]);
 
     constructor(private roundService: RoundService,
                 private formBuilder: FormBuilder,
                 public toast: ToastComponent) { }
+
+    createGame(): FormGroup {
+        return this.formBuilder.group({
+            homeTeam: this.homeTeam,
+            awayTeam: this.awayTeam,
+            location: this.location,
+            dateTime: this.dateTime
+        });
+    }
 
     ngOnInit() {
         this.getRounds();
@@ -37,12 +49,7 @@ export class RoundsComponent implements OnInit {
             number: this.number,
             dateStart: this.dateStart,
             dateEnd: this.dateEnd,
-            games: this.formBuilder.group({
-                homeTeam: this.homeTeam,
-                awayTeam: this.awayTeam,
-                location: this.location,
-                dateTime: this.dateTime
-            })
+            games: this.formBuilder.array([ this.createGame() ]),
         });
     }
 
