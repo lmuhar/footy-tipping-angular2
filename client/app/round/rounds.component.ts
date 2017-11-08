@@ -13,11 +13,14 @@ export class RoundsComponent implements OnInit {
 
     round = {};
     rounds = [];
+    totalRounds = 0;
     isLoading = true;
     isEditing = false;
 
     addRoundForm: FormGroup;
     number = new FormControl('', Validators.required);
+    dateStart = new FormControl(null, Validators.required);
+    dateEnd = new FormControl(null, Validators.required);
 
     constructor(private roundService: RoundService,
                 private formBuilder: FormBuilder,
@@ -25,9 +28,20 @@ export class RoundsComponent implements OnInit {
 
     ngOnInit() {
         this.getRounds();
+        this.countRounds();
         this.addRoundForm = this.formBuilder.group({
-            number: this.number
+            number: this.number,
+            dateStart: this.dateStart,
+            dateEnd: this.dateEnd
         });
+    }
+
+    countRounds() {
+        this.roundService.countRounds().subscribe(
+            data => this.totalRounds = data,
+            error => console.log(error),
+            () => this.isLoading = false
+        );
     }
 
     getRounds() {

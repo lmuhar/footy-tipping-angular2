@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose';
 const roundSchema = new mongoose.Schema({
     number: Number,
     dateStart: Date,
+    dateEnd: Date,
     games: {
         homeTeam: String,
         awayTeam: String,

@@ -11,6 +11,8 @@
     <tbody>
         <tr *ngFor="let round of rounds" >
             <td>{{round.number}}</td>
+            <td>{{round.dateStart | date}}</td>
+            <td>{{round.dateEnd | date}}</td>
         </tr>
     </tbody>
     <tbody>
@@ -19,10 +21,20 @@
                 <div class="form-group">
                     <input class="form-control" type="number" name="number" formControlName="number" placeholder="Number" required>
                 </div>
+                <div class="form-group">
+                    <input class="form-control" type="date" name="dateStart" formControlName="dateStart" placeholder= "Date Started" required>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="date" name="dateEnd" formControlName="dateEnd" placeholder="Date End" required>
+                </div>
                 <button class="btn btn-sm btn-primary" type="submit" [disabled]="!addRoundForm.valid">
                     <i class="fa fa-floppy-o"></i> Save
                 </button>
             </form>
         </tr>
     </tbody>
+    <div>
+        <label>Total Rounds:</label>
+        <div>{{totalRounds}}</div>
+    </div>
 </div>
