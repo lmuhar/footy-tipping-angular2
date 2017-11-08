@@ -41,7 +41,6 @@ export class RoundsComponent implements OnInit {
 
     ngOnInit() {
         this.getRounds();
-        this.countRounds();
         this.addRoundForm = this.formBuilder.group({
             number: this.number,
             dateStart: this.dateStart,
@@ -49,15 +48,6 @@ export class RoundsComponent implements OnInit {
             games: new FormArray([ this.createGame() ]),
         });
     }
-
-    countRounds() {
-        this.roundService.countRounds().subscribe(
-            data => this.totalRounds = data,
-            error => console.log(error),
-            () => this.isLoading = false
-        );
-    }
-
     getRounds() {
         this.roundService.getRounds().subscribe(
             data => this.rounds = data,
