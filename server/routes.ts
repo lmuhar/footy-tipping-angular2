@@ -37,8 +37,8 @@ export default function setRoutes(app) {
   router.route('/rounds/count').get(roundCtrl.count);
   router.route('/round').post(roundCtrl.insert);
   router.route('/round/:id').get(roundCtrl.get);
-  router.route('/round/:id').get(roundCtrl.update);
-  router.route('/round/:id').get(roundCtrl.delete);
+  router.route('/round/:id').put(roundCtrl.update);
+  router.route('/round/:id').delete(roundCtrl.delete);
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);

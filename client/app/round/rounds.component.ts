@@ -36,7 +36,13 @@ export class RoundsComponent implements OnInit {
         this.addRoundForm = this.formBuilder.group({
             number: this.number,
             dateStart: this.dateStart,
-            dateEnd: this.dateEnd
+            dateEnd: this.dateEnd,
+            games: this.formBuilder.group({
+                homeTeam: this.homeTeam,
+                awayTeam: this.awayTeam,
+                location: this.location,
+                dateTime: this.dateTime
+            })
         });
     }
 
