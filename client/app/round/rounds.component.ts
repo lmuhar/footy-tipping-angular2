@@ -16,8 +16,6 @@ export class RoundsComponent implements OnInit {
     totalRounds = 0;
     isLoading = true;
     isEditing = false;
-    games: any[] = [];
-    stuff: any[] = [];
 
     addRoundForm: FormGroup;
     number = new FormControl('', Validators.required);
@@ -27,7 +25,6 @@ export class RoundsComponent implements OnInit {
     awayTeam = new FormControl(null, Validators.required);
     location = new FormControl(null, Validators.required);
     dateTime = new FormControl(null, Validators.required);
-    // games = new FormArray([new FormControl('')]);
 
     constructor(private roundService: RoundService,
                 private formBuilder: FormBuilder,
@@ -49,7 +46,7 @@ export class RoundsComponent implements OnInit {
             number: this.number,
             dateStart: this.dateStart,
             dateEnd: this.dateEnd,
-            games: this.formBuilder.array([ this.createGame() ]),
+            games: new FormArray([ this.createGame() ]),
         });
     }
 
@@ -67,6 +64,10 @@ export class RoundsComponent implements OnInit {
             error => console.log(error),
             () => this.isLoading = false
         );
+    }
+
+    add(): void {
+        (this.addRoundForm.get('games') as FormArray).push(this.createGame());
     }
 
     addRound() {
