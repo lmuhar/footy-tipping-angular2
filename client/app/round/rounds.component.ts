@@ -45,7 +45,7 @@ export class RoundsComponent implements OnInit {
             number: this.number,
             dateStart: this.dateStart,
             dateEnd: this.dateEnd,
-            games: new FormArray([ this.createGame() ]),
+            games: this.formBuilder.array([ this.createGame() ]),
         });
     }
     getRounds() {
@@ -56,8 +56,11 @@ export class RoundsComponent implements OnInit {
         );
     }
 
-    add(): void {
-        (this.addRoundForm.get('games') as FormArray).push(this.createGame());
+    add() {
+        const control = <FormArray>this.addRoundForm.controls['games'];
+        const addCtrl = this.createGame();
+
+        control.push(addCtrl);
     }
 
     addRound() {
@@ -80,6 +83,9 @@ export class RoundsComponent implements OnInit {
                 }
             ]
         };
+
+        // tslint:disable-next-line:no-debugger
+        debugger;
 
         this.roundService.addRound(this.addRoundForm.value).subscribe(
             res => {
