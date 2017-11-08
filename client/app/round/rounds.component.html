@@ -3,14 +3,26 @@
 <app-toast [message]="toast.message"></app-toast>
 
 <div>
+    <thead class="thead-default">
+        <tr>
+            <th>Round Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let round of rounds" >
+            <td>{{round.number}}</td>
+        </tr>
+    </tbody>
     <tbody>
         <tr colspan="4">
-            <form fclass="form-inline" #form="ngForm" (ngSubmit)="addRound(round)">
+            <form class="form-inline" [formGroup]="addRoundForm" (ngSubmit)="addRound()">
                 <div class="form-group">
-                    <input class="form-control" type="number" name="name" [(ngModel)]="round.number" placeholder="Number" required>
+                    <input class="form-control" type="number" name="number" formControlName="number" placeholder="Number" required>
                 </div>
+                <button class="btn btn-sm btn-primary" type="submit" [disabled]="!addRoundForm.valid">
+                    <i class="fa fa-floppy-o"></i> Save
+                </button>
             </form>
-            <button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.form.valid"><i class="fa fa-floppy-o"></i> Save</button>
         </tr>
     </tbody>
 </div>

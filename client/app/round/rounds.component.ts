@@ -39,7 +39,6 @@ export class RoundsComponent implements OnInit {
     }
 
     addRound() {
-        debugger;
         this.roundService.addRound(this.addRoundForm.value).subscribe(
             res => {
                 const newRound = res.json();
