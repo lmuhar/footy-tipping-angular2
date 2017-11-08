@@ -13,7 +13,7 @@ export class RoundService {
     constructor(private http: Http) { }
 
     getRounds(): Observable<any> {
-        return this.http.get('api/rounds').map(res => res.json());
+        return this.http.get('/api/rounds').map(res => res.json());
     }
 
     countRounds(): Observable<any> {

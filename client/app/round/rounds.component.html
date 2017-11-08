@@ -3,14 +3,64 @@
 <app-toast [message]="toast.message"></app-toast>
 
 <div>
+    <thead class="thead-default">
+        <tr>
+            <th>Round Number</th>
+        </tr>
+    </thead>
     <tbody>
-        <tr colspan="4">
-            <form fclass="form-inline" #form="ngForm" (ngSubmit)="addRound(round)">
-                <div class="form-group">
-                    <input class="form-control" type="number" name="name" [(ngModel)]="round.number" placeholder="Number" required>
-                </div>
-            </form>
-            <button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.form.valid"><i class="fa fa-floppy-o"></i> Save</button>
+        <tr *ngFor="let round of rounds" >
+            <td>{{round.number}}</td>
+            <td>{{round.dateStart | date}}</td>
+            <td>{{round.dateEnd | date}}</td>
+            <td *ngFor="let games of round.games">
+                {{games.homeTeam}} v {{games.awayTeam}}
+                {{games.dateTime | date}}
+            </td>
+            <td>
+                <button class="btn btn-sm btn-danger" (click)="deleteRound(round)"><i class="fa fa-trash"></i> Delete</button>
+            </td>
         </tr>
     </tbody>
+
+    <div class="card">
+        <div class="card-block">
+            <form class="form-inline" [formGroup]="addRoundForm" (ngSubmit)="addRound()">
+                <div class="form-group">
+                    <input class="form-control" type="number" name="number" formControlName="number" placeholder="Number" required>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="date" name="dateStart" formControlName="dateStart" placeholder="Date Started" required>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="date" name="dateEnd" formControlName="dateEnd" placeholder="Date End" required>
+                </div>
+                <div formArrayName="games">
+                    <div class="form-inline" *ngFor="let game of addRoundForm.get('games').controls; let i=index">
+                        <span>Game {{i + 1}}</span>
+                        <div [formGroupName]="i">
+                            <div class="form-group" >
+                                <input class="form-control" input="text" name="homeTeam" formControlName="homeTeam" placeholder="Home Team" required>
+                                
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" id="awayTeam_{{i}}" input="text" name="awayTeam" formControlName="awayTeam" placeholder="Away Team"required>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <button class="btn btn-sm btn-primary" type="submit">
+                    <i class="fa fa-floppy-o"></i> Save
+                </button>
+            </form>
+            <button class="btn btn-sm btn-primary" (click)="add()">Add Round</button>
+        </div>
+    </div>
+
+    <div>
+        <pre>form value: {{addRoundForm.value | json}}</pre>
+        <label>Total Rounds: {{this.rounds.length}}</label>
+    </div>
 </div>
