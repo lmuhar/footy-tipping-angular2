@@ -53,11 +53,13 @@ export class RoundsComponent implements OnInit {
             this.roundService.getRounds(),
             this.teamService.getTeams(),
             this.locationService.getLocations()
-        ).subscribe(results => {
+        ).subscribe(
+            (results) => {
             this.rounds = results[0];
             this.teams = results[1];
             this.locations = results[2];
-        });
+        }, error => console.log(error),
+        () => this.isLoading = false);
 
         this.addRoundForm = this.formBuilder.group({
             number: this.number,
