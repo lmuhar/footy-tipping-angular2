@@ -2,33 +2,38 @@
 
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="card">
-    <h4 class="card-header">Rounds ({{rounds.length}})</h4>
-    <div class="card-block">
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let round of rounds | sort:'dateStart'">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Round {{round.number}}
+            </mat-panel-title>
+            <mat-panel-description>
+                {{round.dateStart | date}} - {{round.dateEnd | date}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
         <table class="table table-bordered table-striped">
             <thead class="thead-default">
                 <tr>
-                    <th>Round Number</th>
-                    <th>Start</th>
-                    <th>End</th>
-                    <th>Games</th>
-                    <th>Actions</th>
+                    <th>Home</th>
+                    <th>Away</th>
+                    <th>Location</th>
+                    <th>Time</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let round of rounds | sort: 'dateStart'" >
-                    <td>{{round.number}}</td>
-                    <td>{{round.dateStart | date}}</td>
-                    <td>{{round.dateEnd | date}}</td>
-                    <td>{{round.games.length}}</td>
-                    <td>
-                        <button class="btn btn-sm btn-danger" (click)="deleteRound(round)"><i class="fa fa-trash"></i> Delete</button>
-                    </td>
+                <tr *ngFor="let game of rounds.games">
+                    <td>{{game.homeTeam}}</td>
+                    <td>{{game.awayTeam}}</td>
+                    <td>{{game.location}}</td>
+                    <td>{{game.dateTime | date}}</td>
                 </tr>
             </tbody>
         </table>
-    </div>
-</div>
+        <button class="btn btn-sm btn-danger" (click)="deleteRound(round)">
+            <i class="fa fa-trash"></i> Delete</button>
+    </mat-expansion-panel>
+</mat-accordion>
 
 <div class="card">
     <div class="card-block">
