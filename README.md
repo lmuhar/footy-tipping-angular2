@@ -80,3 +80,8 @@ To get more help on the `angular-cli` use `ng --help` or go check out the [Angul
 
 ### Author
 * [Davide Violante](https://github.com/DavideViolante)
+
+## Notes
+* Create migration file - node ./node_modules/mongodb-migrate -runmm create
+* Run migrations - node ./node_modules/mongodb-migrate -runmm -dbn dbSettings up
+
