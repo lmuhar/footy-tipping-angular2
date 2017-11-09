@@ -32,7 +32,7 @@
 
 <div class="card">
     <div class="card-block">
-        <form class="form-inline" [formGroup]="addRoundForm" (ngSubmit)="addRound()">
+        <form class="form-inline" [formGroup]="addRoundForm">
             <div class="form-group">
                 <label>Round</label>
                 <input class="form-control" type="number" name="number" formControlName="number" placeholder="Number" required>
@@ -71,7 +71,7 @@
                 </div>
             </div>
         
-            <button class="btn btn-sm btn-primary" type="submit">
+            <button class="btn btn-sm btn-primary" (click)="addRound()">
                 <i class="fa fa-floppy-o"></i> Save
             </button>
         </form>
