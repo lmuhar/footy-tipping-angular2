@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 
 import { RoundService } from '../services/round.service';
+import { TeamService } from '../services/team.service';
+import { LocationService } from '../services/location.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
 @Component({
@@ -13,6 +15,8 @@ export class RoundsComponent implements OnInit {
 
     round = {};
     rounds = [];
+    teams = [];
+    locations = [];
     totalRounds = 0;
     isLoading = true;
     isEditing = false;
@@ -27,6 +31,8 @@ export class RoundsComponent implements OnInit {
     dateTime = new FormControl(null, Validators.required);
 
     constructor(private roundService: RoundService,
+                private teamService: TeamService,
+                private locationService: LocationService,
                 private formBuilder: FormBuilder,
                 public toast: ToastComponent) { }
 
@@ -41,6 +47,8 @@ export class RoundsComponent implements OnInit {
 
     ngOnInit() {
         this.getRounds();
+        this.getTeams();
+        this.getLocations();
         this.addRoundForm = this.formBuilder.group({
             number: this.number,
             dateStart: this.dateStart,
@@ -56,6 +64,22 @@ export class RoundsComponent implements OnInit {
         );
     }
 
+    getTeams() {
+        this.teamService.getTeams().subscribe(
+            data => this.teams = data,
+            error => console.log(error),
+            () => this.isLoading = false
+        );
+    }
+
+    getLocations() {
+        this.locationService.getLocations().subscribe(
+            data => this.locations = data,
+            error => console.log(error),
+            () => this.isLoading = false
+        );
+    }
+
     add() {
         const control = <FormArray>this.addRoundForm.controls['games'];
         const addCtrl = this.createGame();
@@ -64,25 +88,6 @@ export class RoundsComponent implements OnInit {
     }
 
     addRound() {
-        const value = {
-            dateEnd: '2017-11-10',
-            dateStart: '2017-11-09',
-            number: 10,
-            games: [
-                {
-                    homeTeam: 'Richmond',
-                    awayTeam: 'Adelaide',
-                    location: 'MCG',
-                    dateTime: '2017-11-10T01:01:01'
-                },
-                {
-                    homeTeam: 'Bulldogs',
-                    awayTeam: 'Sydney',
-                    location: 'MCG',
-                    dateTime: '2017-11-10T01:01:01'
-                }
-            ]
-        };
 
         this.roundService.addRound(this.addRoundForm.value).subscribe(
             res => {

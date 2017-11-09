@@ -40,12 +40,19 @@
                         <span>Game {{i + 1}}</span>
                         <div [formGroupName]="i">
                             <div class="form-group" >
-                                <input class="form-control" input="text" name="homeTeam" formControlName="homeTeam" placeholder="Home Team" required>
-                                
+                                <select class="form-control" name="homeTeam" formControlName="homeTeam" required>
+                                    <option *ngFor="let t of teams" [ngValue]="t.value">{{t.name}}</option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="awayTeam_{{i}}" input="text" name="awayTeam" formControlName="awayTeam" placeholder="Away Team"required>
-
+                                <select class="form-control" name="awayTeam" formControlName="awayTeam" required>
+                                    <option *ngFor="let t of teams" [ngValue]="t.value">{{t.name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" name="location" formControlName="location" required>
+                                    <option *ngFor="let l of locations | sort: 'name'" [ngValue]="l.name">{{l.name}}</option>
+                                </select>
                             </div>
                         </div>
                     </div>
