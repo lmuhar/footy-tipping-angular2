@@ -7,6 +7,7 @@ import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { RoundService } from './services/round.service';
 import { TeamService } from './services/team.service';
+import { LocationService } from './services/location.service';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -46,7 +47,8 @@ import { RoundsComponent } from './round/rounds.component';
     CatService,
     UserService,
     RoundService,
-    TeamService
+    TeamService,
+    LocationService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

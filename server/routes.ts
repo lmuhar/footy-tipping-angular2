@@ -4,10 +4,13 @@ import CatCtrl from './controllers/cat';
 import UserCtrl from './controllers/user';
 import RoundCtrl from './controllers/round';
 import TeamCtrl from './controllers/team';
+import LocationCtrl from './controllers/location';
 
 import Cat from './models/cat';
 import User from './models/user';
 import Round from './models/rounds';
+import Team from './models/team';
+import Location from './models/location';
 
 export default function setRoutes(app) {
 
@@ -17,6 +20,7 @@ export default function setRoutes(app) {
   const userCtrl = new UserCtrl();
   const roundCtrl = new RoundCtrl();
   const teamCtrl = new TeamCtrl();
+  const locationCtrl = new LocationCtrl();
 
   // Cats
   router.route('/cats').get(catCtrl.getAll);
@@ -45,6 +49,9 @@ export default function setRoutes(app) {
 
   // Teams
   router.route('/teams').get(teamCtrl.getAll);
+
+  // Locations
+  router.route('/locations').get(locationCtrl.getAll);
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);
