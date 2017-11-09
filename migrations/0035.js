@@ -16,7 +16,7 @@ exports.up = function(db, next){
     locations.insert({ name: 'GMHBA Stadium' });
     locations.insert({ name: 'Adelaide Arena' });
     locations.insert({ name: 'Spotless Stadium' });
-    locations.insert({ name: 'Tio Traeger Park' });
+    locations.insert({ name: 'TIO Traeger Park' });
     locations.insert({ name: 'University of Tasmania Stadium' });
     locations.insert({ name: 'Metricon Stadium' });
     locations.insert({ name: 'TIO Stadium' });

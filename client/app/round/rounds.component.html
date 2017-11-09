@@ -51,7 +51,7 @@
                             </div>
                             <div class="form-group">
                                 <select class="form-control" name="location" formControlName="location" required>
-                                    <option *ngFor="let l of locations" [ngValue]="l.name">{{l.name}}</option>
+                                    <option *ngFor="let l of locations | sort: 'name'" [ngValue]="l.name">{{l.name}}</option>
                                 </select>
                             </div>
                         </div>
