@@ -27,10 +27,6 @@ export class RoundsComponent implements OnInit {
     number = new FormControl('', Validators.required);
     dateStart = new FormControl(null, Validators.required);
     dateEnd = new FormControl(null, Validators.required);
-    homeTeam = new FormControl(null, Validators.required);
-    awayTeam = new FormControl(null, Validators.required);
-    location = new FormControl(null, Validators.required);
-    dateTime = new FormControl(null, Validators.required);
 
     constructor(private roundService: RoundService,
                 private teamService: TeamService,
@@ -40,10 +36,10 @@ export class RoundsComponent implements OnInit {
 
     createGame(): FormGroup {
         return this.formBuilder.group({
-            homeTeam: this.homeTeam,
-            awayTeam: this.awayTeam,
-            location: this.location,
-            dateTime: this.dateTime
+            homeTeam: new FormControl(null, Validators.required),
+            awayTeam: new FormControl(null, Validators.required),
+            location: new FormControl(null, Validators.required),
+            dateTime: new FormControl(null, Validators.required)
         });
     }
 
