@@ -20,7 +20,7 @@ exports.up = function(db, next){
     locations.insert({ name: 'University of Tasmania Stadium' });
     locations.insert({ name: 'Metricon Stadium' });
     locations.insert({ name: 'TIO Stadium' });
-    locations.insert({ name: 'Mars Stadium' });
+    locations.insert({ name: 'Mars Stadium' }, next);
 };
 
 exports.down = function(db, next){
