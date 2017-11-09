@@ -6,6 +6,8 @@ import { TeamService } from '../services/team.service';
 import { LocationService } from '../services/location.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
+import { Observable } from 'rxjs/Rx';
+
 @Component({
     selector: 'app-round',
     templateUrl: './rounds.component.html',
@@ -46,38 +48,23 @@ export class RoundsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getRounds();
-        this.getTeams();
-        this.getLocations();
+
+        Observable.forkJoin(
+            this.roundService.getRounds(),
+            this.teamService.getTeams(),
+            this.locationService.getLocations()
+        ).subscribe(results => {
+            this.rounds = results[0];
+            this.teams = results[1];
+            this.locations = results[2];
+        });
+
         this.addRoundForm = this.formBuilder.group({
             number: this.number,
             dateStart: this.dateStart,
             dateEnd: this.dateEnd,
             games: this.formBuilder.array([ this.createGame() ]),
         });
-    }
-    getRounds() {
-        this.roundService.getRounds().subscribe(
-            data => this.rounds = data,
-            error => console.log(error),
-            () => this.isLoading = false
-        );
-    }
-
-    getTeams() {
-        this.teamService.getTeams().subscribe(
-            data => this.teams = data,
-            error => console.log(error),
-            () => this.isLoading = false
-        );
-    }
-
-    getLocations() {
-        this.locationService.getLocations().subscribe(
-            data => this.locations = data,
-            error => console.log(error),
-            () => this.isLoading = false
-        );
     }
 
     add() {
