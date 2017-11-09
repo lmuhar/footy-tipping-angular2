@@ -6,6 +6,8 @@ import { TeamService } from '../services/team.service';
 import { LocationService } from '../services/location.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
+import { Observable } from 'rxjs/Rx';
+
 @Component({
     selector: 'app-round',
     templateUrl: './rounds.component.html',
@@ -25,10 +27,6 @@ export class RoundsComponent implements OnInit {
     number = new FormControl('', Validators.required);
     dateStart = new FormControl(null, Validators.required);
     dateEnd = new FormControl(null, Validators.required);
-    homeTeam = new FormControl(null, Validators.required);
-    awayTeam = new FormControl(null, Validators.required);
-    location = new FormControl(null, Validators.required);
-    dateTime = new FormControl(null, Validators.required);
 
     constructor(private roundService: RoundService,
                 private teamService: TeamService,
@@ -38,46 +36,33 @@ export class RoundsComponent implements OnInit {
 
     createGame(): FormGroup {
         return this.formBuilder.group({
-            homeTeam: this.homeTeam,
-            awayTeam: this.awayTeam,
-            location: this.location,
-            dateTime: this.dateTime
+            homeTeam: new FormControl(null, Validators.required),
+            awayTeam: new FormControl(null, Validators.required),
+            location: new FormControl(null, Validators.required),
+            dateTime: new FormControl(null, Validators.required)
         });
     }
 
     ngOnInit() {
-        this.getRounds();
-        this.getTeams();
-        this.getLocations();
+
+        Observable.forkJoin(
+            this.roundService.getRounds(),
+            this.teamService.getTeams(),
+            this.locationService.getLocations()
+        ).subscribe(
+            (results) => {
+            this.rounds = results[0];
+            this.teams = results[1];
+            this.locations = results[2];
+        }, error => console.log(error),
+        () => this.isLoading = false);
+
         this.addRoundForm = this.formBuilder.group({
             number: this.number,
             dateStart: this.dateStart,
             dateEnd: this.dateEnd,
             games: this.formBuilder.array([ this.createGame() ]),
         });
-    }
-    getRounds() {
-        this.roundService.getRounds().subscribe(
-            data => this.rounds = data,
-            error => console.log(error),
-            () => this.isLoading = false
-        );
-    }
-
-    getTeams() {
-        this.teamService.getTeams().subscribe(
-            data => this.teams = data,
-            error => console.log(error),
-            () => this.isLoading = false
-        );
-    }
-
-    getLocations() {
-        this.locationService.getLocations().subscribe(
-            data => this.locations = data,
-            error => console.log(error),
-            () => this.isLoading = false
-        );
     }
 
     add() {
