@@ -3,6 +3,8 @@ import * as express from 'express';
 import CatCtrl from './controllers/cat';
 import UserCtrl from './controllers/user';
 import RoundCtrl from './controllers/round';
+import TeamCtrl from './controllers/team';
+
 import Cat from './models/cat';
 import User from './models/user';
 import Round from './models/rounds';
@@ -14,6 +16,7 @@ export default function setRoutes(app) {
   const catCtrl = new CatCtrl();
   const userCtrl = new UserCtrl();
   const roundCtrl = new RoundCtrl();
+  const teamCtrl = new TeamCtrl();
 
   // Cats
   router.route('/cats').get(catCtrl.getAll);
@@ -39,6 +42,9 @@ export default function setRoutes(app) {
   router.route('/round/:id').get(roundCtrl.get);
   router.route('/round/:id').put(roundCtrl.update);
   router.route('/round/:id').delete(roundCtrl.delete);
+
+  // Teams
+  router.route('/teams').get(teamCtrl.getAll);
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);
