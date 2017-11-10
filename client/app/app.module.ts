@@ -1,8 +1,11 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
 import { CommonPipesModule } from './commonPipes.module';
+import { MaterialModule } from './angularMaterial.module';
 
 import { CatService } from './services/cat.service';
 import { UserService } from './services/user.service';
@@ -10,7 +13,6 @@ import { AuthService } from './services/auth.service';
 import { RoundService } from './services/round.service';
 import { TeamService } from './services/team.service';
 import { LocationService } from './services/location.service';
-import { SortPipe } from './utils/pipes/sort.pipe';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -42,7 +44,9 @@ import { RoundsComponent } from './round/rounds.component';
   imports: [
     RoutingModule,
     SharedModule,
-    CommonPipesModule
+    CommonPipesModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [
     AuthService,
@@ -59,3 +63,5 @@ import { RoundsComponent } from './round/rounds.component';
 })
 
 export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule);
