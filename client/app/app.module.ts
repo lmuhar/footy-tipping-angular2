@@ -27,6 +27,7 @@ import { AccountComponent } from './account/account.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RoundsComponent } from './round/rounds.component';
+import { CdkTableBasicComponent } from './tables/table.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { RoundsComponent } from './round/rounds.component';
     AccountComponent,
     AdminComponent,
     NotFoundComponent,
-    RoundsComponent
+    RoundsComponent,
+    CdkTableBasicComponent
   ],
   imports: [
     RoutingModule,
