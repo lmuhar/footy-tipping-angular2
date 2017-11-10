@@ -13,24 +13,16 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <table class="table table-bordered table-striped">
-            <thead class="thead-default">
-                <tr>
-                    <th>Home</th>
-                    <th>Away</th>
-                    <th>Location</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let game of rounds.games">
-                    <td>{{game.homeTeam}}</td>
-                    <td>{{game.awayTeam}}</td>
-                    <td>{{game.location}}</td>
-                    <td>{{game.dateTime | date}}</td>
-                </tr>
-            </tbody>
-        </table>
+        <mat-list>
+            <mat-list-item *ngFor="let game of round.games">
+                <h3 matLine> {{game.homeTeam}} v {{game.awayTeam}} </h3>
+                <p matLine>
+                    <span> {{game.location}} </span>
+                    <span class="demo-2"> -- {{game.dateTime | date}} </span>
+                </p>
+            </mat-list-item>
+        </mat-list>
+
         <button class="btn btn-sm btn-danger" (click)="deleteRound(round)">
             <i class="fa fa-trash"></i> Delete</button>
     </mat-expansion-panel>
@@ -88,5 +80,3 @@
 <div>
     <pre>form value: {{addRoundForm.value | json}}</pre>
 </div>
-
-<app-table></app-table>
