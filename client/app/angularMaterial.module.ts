@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { CdkTableModule } from '@angular/cdk/table';
+
 import {
     MatButtonModule,
     MatMenuModule,
@@ -7,6 +9,7 @@ import {
     MatIconModule,
     MatCardModule,
     MatExpansionModule,
+    MatTableModule
 } from '@angular/material';
 
 @NgModule({
@@ -16,7 +19,9 @@ import {
         MatToolbarModule,
         MatIconModule,
         MatCardModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatTableModule,
+        CdkTableModule
     ],
     exports: [
         MatButtonModule,
@@ -24,7 +29,9 @@ import {
         MatToolbarModule,
         MatIconModule,
         MatCardModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatTableModule,
+        CdkTableModule
     ]
 })
 export class MaterialModule { }

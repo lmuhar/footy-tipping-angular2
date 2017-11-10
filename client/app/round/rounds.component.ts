@@ -5,7 +5,7 @@ import { RoundService } from '../services/round.service';
 import { TeamService } from '../services/team.service';
 import { LocationService } from '../services/location.service';
 import { ToastComponent } from '../shared/toast/toast.component';
-
+import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -20,6 +20,8 @@ export class RoundsComponent implements OnInit {
     teams = [];
     locations = [];
     totalRounds = 0;
+    displayedColumns = ['home team', 'away team', 'location', 'date time'];
+    dataSource = DataSource;
     isLoading = true;
     isEditing = false;
     panelOpenState = false;
