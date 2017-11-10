@@ -52,7 +52,6 @@ export class RoundsComponent implements OnInit {
             this.locationService.getLocations()
         ).subscribe(
             (results) => {
-            console.log('TEST', results[0]);
             this.rounds = results[0];
             this.teams = results[1];
             this.locations = results[2];
