@@ -6,6 +6,8 @@ import { TeamService } from '../services/team.service';
 import { LocationService } from '../services/location.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
+import * as moment from 'moment';
+
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -15,19 +17,20 @@ import { Observable } from 'rxjs/Rx';
 })
 export class RoundsComponent implements OnInit {
 
-    round = {};
-    rounds = [];
-    teams = [];
-    locations = [];
-    totalRounds = 0;
-    isLoading = true;
-    isEditing = false;
-    panelOpenState = false;
+    public round = {};
+    public rounds = [];
+    public teams = [];
+    public locations = [];
+    public totalRounds = 0;
+    public isLoading = true;
+    public isEditing = false;
+    public panelOpenState = false;
+    public now = null;
 
-    addRoundForm: FormGroup;
-    number = new FormControl('', Validators.required);
-    dateStart = new FormControl(null, Validators.required);
-    dateEnd = new FormControl(null, Validators.required);
+    public addRoundForm: FormGroup;
+    public number = new FormControl('', Validators.required);
+    public dateStart = new FormControl(null, Validators.required);
+    public dateEnd = new FormControl(null, Validators.required);
 
     constructor(private roundService: RoundService,
                 private teamService: TeamService,
@@ -44,7 +47,9 @@ export class RoundsComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
+    public ngOnInit() {
+        this.now = moment();
+        console.log('test', this.now);
 
         Observable.forkJoin(
             this.roundService.getRounds(),
@@ -66,14 +71,14 @@ export class RoundsComponent implements OnInit {
         });
     }
 
-    add() {
+    public add() {
         const control = <FormArray>this.addRoundForm.controls['games'];
         const addCtrl = this.createGame();
 
         control.push(addCtrl);
     }
 
-    addRound() {
+    public addRound() {
 
         this.roundService.addRound(this.addRoundForm.value).subscribe(
             res => {
@@ -86,7 +91,7 @@ export class RoundsComponent implements OnInit {
         );
     }
 
-    deleteRound(round) {
+    public deleteRound(round) {
         if (window.confirm('Are you sure you want to permanently delete this item?')) {
             this.roundService.deleteRound(round).subscribe(
                 res => {

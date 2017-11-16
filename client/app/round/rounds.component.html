@@ -73,18 +73,21 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="dateTime" placeholder="Date" formControlName="dateTime">
+                            <mat-datepicker-toggle matSuffix [for]="dateTime"></mat-datepicker-toggle>
+                            <mat-datepicker #dateTime></mat-datepicker>
+                        </mat-form-field>
+                        <input type="time"/>
                     </div>
                 </div>
             </div>
         
-            <button class="btn btn-sm btn-primary" (click)="addRound()">
+            <button mat-button (click)="addRound()" [disabled]="!addRoundForm.valid">
                 <i class="fa fa-floppy-o"></i> Save
             </button>
+            <pre>{{addRoundForm .valid}}</pre>
         </form>
-        <button class="btn btn-sm btn-primary" (click)="add()">Add Round</button>
+        <button mat-button (click)="add()">Add Round</button>
     </div>
-</div>
-
-<div>
-    <pre>form value: {{addRoundForm.value | json}}</pre>
 </div>
