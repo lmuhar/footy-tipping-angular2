@@ -78,11 +78,11 @@
                             <mat-datepicker-toggle matSuffix [for]="dateTime"></mat-datepicker-toggle>
                             <mat-datepicker #dateTime></mat-datepicker>
                         </mat-form-field>
-                        <input type="time"/>
+                        <input type="time" atp-time-picker />
                     </div>
                 </div>
             </div>
-        
+
             <button mat-button (click)="addRound()" [disabled]="!addRoundForm.valid">
                 <i class="fa fa-floppy-o"></i> Save
             </button>

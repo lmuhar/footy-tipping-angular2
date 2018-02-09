@@ -29,6 +29,7 @@ import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RoundsComponent } from './round/rounds.component';
 import { CdkTableBasicComponent } from './tables/table.component';
+import { AmazingTimePickerModule } from 'amazing-time-picker';
 import 'hammerjs';
 
 @NgModule({
@@ -52,7 +53,8 @@ import 'hammerjs';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AmazingTimePickerModule
   ],
   providers: [
     AuthService,
