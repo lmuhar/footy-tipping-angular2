@@ -30,6 +30,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { RoundsComponent } from './round/rounds.component';
 import { CdkTableBasicComponent } from './tables/table.component';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import 'hammerjs';
 
 @NgModule({
@@ -54,7 +55,8 @@ import 'hammerjs';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    AmazingTimePickerModule
+    AmazingTimePickerModule,
+    MDBBootstrapModule
   ],
   providers: [
     AuthService,
