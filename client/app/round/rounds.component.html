@@ -42,64 +42,76 @@
 
 <div class="card">
     <div class="card-block">
-        <form class="example-container" [formGroup]="addRoundForm">
-            <mat-form-field>
-                <input matInput type="number" name="number" formControlName="number" placeholder="Number" required>
-            </mat-form-field>
+        <form class="form-inline" [formGroup]="addRoundForm">
+            <div class="form-group">
+                <mat-form-field>
+                    <input matInput name="number" formControlName="number" placeholder="Number" required>
+                </mat-form-field>
+            </div>
 
-            <mat-form-field>
-                <input matInput [matDatepicker]="dateStart" placeholder="Date Start" formControlName="dateStart">
-                <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
-                <mat-datepicker #dateStart></mat-datepicker>
-            </mat-form-field>
+            <div class="form-group">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="dateStart" placeholder="Date Start" formControlName="dateStart">
+                    <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
+                    <mat-datepicker #dateStart></mat-datepicker>
+                </mat-form-field>
+            </div>
 
-            <mat-form-field>
-                <input matInput [matDatepicker]="dateEnd" placeholder="Date End" formControlName="dateEnd">
-                <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
-                <mat-datepicker #dateEnd></mat-datepicker>
-            </mat-form-field>
+            <div class="form-group">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="dateEnd" placeholder="Date End" formControlName="dateEnd">
+                    <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
+                    <mat-datepicker #dateEnd></mat-datepicker>
+                </mat-form-field>
+            </div>
 
             <div formArrayName="games">
                 <div class="form-inline" *ngFor="let game of addRoundForm.get('games').controls; let i=index">
-                    <span>Game {{i + 1}}</span>
-                    <div [formGroupName]="i">
-                        <mat-form-field>
-                            <mat-select placeholder="Home Team" formControlName="homeTeam">
-                                <mat-option *ngFor="let t of teams | sort: 'name'" [value]="t.value">
-                                    {{ t.name }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-select placeholder="Away Team" formControlName="awayTeam">
-                                <mat-option *ngFor="let t of teams | sort: 'name'" [value]="t.value">
-                                    {{ t.name }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                    <hr>
+                    <div>Game {{i + 1}}
+                        <div [formGroupName]="i">
+                            <mat-form-field>
+                                <mat-select placeholder="Home Team" formControlName="homeTeam">
+                                    <mat-option *ngFor="let t of teams | sort: 'name'" [value]="t.value">
+                                        {{ t.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-select placeholder="Away Team" formControlName="awayTeam">
+                                    <mat-option *ngFor="let t of teams | sort: 'name'" [value]="t.value">
+                                        {{ t.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
 
-                        <mat-form-field>
-                            <mat-select placeholder="Location" formControlName="location">
-                                <mat-option *ngFor="let t of locations | sort: 'name'" [value]="t.name">
-                                    {{ t.name }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <input matInput [matDatepicker]="dateTime" placeholder="Date" formControlName="dateTime">
-                            <mat-datepicker-toggle matSuffix [for]="dateTime"></mat-datepicker-toggle>
-                            <mat-datepicker #dateTime></mat-datepicker>
-                        </mat-form-field>
-                        <input type="time" atp-time-picker />
+                            <mat-form-field>
+                                <mat-select placeholder="Location" formControlName="location">
+                                    <mat-option *ngFor="let t of locations | sort: 'name'" [value]="t.name">
+                                        {{ t.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="dateTime" placeholder="Date" formControlName="dateTime">
+                                <mat-datepicker-toggle matSuffix [for]="dateTime"></mat-datepicker-toggle>
+                                <mat-datepicker #dateTime></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input matInput type="time" atp-time-picker />
+                            </mat-form-field>
+
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <button mat-button (click)="addRound()" [disabled]="!addRoundForm.valid">
-                <i class="fa fa-floppy-o"></i> Save
-            </button>
-            <pre>{{addRoundForm .valid}}</pre>
         </form>
         <button mat-button (click)="add()">Add Round</button>
+        <button mat-button (click)="addRound()" [disabled]="!addRoundForm.valid">
+            <i class="fa fa-floppy-o"></i> Finalize
+        </button>
+
     </div>
 </div>
