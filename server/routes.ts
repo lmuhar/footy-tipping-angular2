@@ -46,6 +46,7 @@ export default function setRoutes(app) {
   router.route('/round/:id').get(roundCtrl.get);
   router.route('/round/:id').put(roundCtrl.update);
   router.route('/round/:id').delete(roundCtrl.delete);
+  router.route('/rounds/list').get(roundCtrl.getWithIdAndNumber);
 
   // Teams
   router.route('/teams').get(teamCtrl.getAll);

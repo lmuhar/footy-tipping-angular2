@@ -1,0 +1,55 @@
+import { Observable } from 'rxjs/Observable';
+import { Component, OnInit } from '@angular/core';
+import { ToastComponent } from './../shared/toast/toast.component';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+
+import { RoundService } from '../services/round.service';
+
+@Component({
+    selector: 'app-tips',
+    templateUrl: './tips.component.html',
+    styleUrls: ['./tips.component.scss']
+})
+
+export class TipsComponent implements OnInit {
+
+    public isLoading = true;
+    public rounds = [];
+    public selectedRound = [];
+    public selectForm: FormGroup;
+    public number = new FormControl('', Validators.required);
+
+    constructor(
+        public toast: ToastComponent,
+        private roundService: RoundService,
+        private formBuilder: FormBuilder
+    ) {}
+
+    public ngOnInit() {
+        console.log('LOADED TIPS');
+
+        this.roundService.getRoundWithIdNumber().subscribe((result) => {
+            this.rounds = result;
+            console.log(this.rounds);
+        }, error => console.log(error),
+        () => this.isLoading = false);
+
+        this.selectForm = this.formBuilder.group({
+            number: this.number
+        });
+
+        this.selectForm.valueChanges.subscribe((change) => {
+            console.log('changed value', change);
+            this.getSelectedRoundData(change.number);
+        });
+    }
+
+    private getSelectedRoundData(id) {
+        this.isLoading = true;
+        this.roundService.getRound(id).subscribe((res) => {
+            this.selectedRound = res;
+            console.log(this.selectedRound);
+        }, error => console.log(error),
+        () => this.isLoading = false);
+    }
+}

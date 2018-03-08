@@ -49,8 +49,6 @@ export class RoundsComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.now = moment();
-        console.log('test', this.now);
 
         Observable.forkJoin(
             this.roundService.getRounds(),

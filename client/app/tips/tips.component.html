@@ -1,0 +1,19 @@
+<app-loading [condition]='isLoading'></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<div class="card" *ngIf="!isLoading">
+    <h4 class="card-header">Current Tips</h4>
+    <div [formGroup]="selectForm">
+
+        <div class="form-group">
+            <mat-form-field>
+                <mat-select placeholder="Select a round" formControlName="number">
+                    <mat-option *ngFor="let t of rounds" [value]="t._id">
+                        Round {{ t.number }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

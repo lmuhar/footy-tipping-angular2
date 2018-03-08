@@ -18,6 +18,13 @@ abstract class BaseCtrl {
     });
   }
 
+  getWithIdAndNumber = (req, res) => {
+    this.model.find({}, ['_id', 'number'], (err, docs) => {
+      if (err) { return console.error(err); }
+      res.json(docs);
+    });
+  }
+
   // Insert
   insert = (req, res) => {
     const obj = new this.model(req.body);
