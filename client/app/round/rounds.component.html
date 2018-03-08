@@ -30,7 +30,7 @@
                 <tr *ngFor="let game of round.games">
                     <td>{{game.homeTeam}} v {{game.awayTeam}}</td>
                     <td>{{game.location}}</td>
-                    <td>{{game.dateTime | date}}</td>
+                    <td>{{game.dateTime | date: 'dd MMM hh:mm a'}}</td>
                 </tr>
             </tbody>
         </table>
@@ -99,7 +99,7 @@
                             </mat-form-field>
 
                             <mat-form-field>
-                                <input matInput type="time" atp-time-picker />
+                                <input matInput type="time" formControlName="time" />
                             </mat-form-field>
 
                         </div>

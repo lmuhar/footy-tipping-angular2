@@ -8,7 +8,8 @@ const roundSchema = new mongoose.Schema({
         homeTeam: String,
         awayTeam: String,
         location: String,
-        dateTime: Date
+        dateTime: Date,
+        time: Number
     }]
 });
 

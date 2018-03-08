@@ -43,7 +43,8 @@ export class RoundsComponent implements OnInit {
             homeTeam: new FormControl(null, Validators.required),
             awayTeam: new FormControl(null, Validators.required),
             location: new FormControl(null, Validators.required),
-            dateTime: new FormControl(null, Validators.required)
+            dateTime: new FormControl(null, Validators.required),
+            time: new FormControl(null, Validators.required)
         });
     }
 
@@ -79,7 +80,12 @@ export class RoundsComponent implements OnInit {
     }
 
     public addRound() {
-
+        this.addRoundForm.value.games.map((game) => {
+            const time = game.time.split(':');
+            const dateTime = moment(game.dateTime).set({ hours: time[0], minutes: time[1] });
+            delete this.addRoundForm.value.games[0].time;
+            game.dateTime = dateTime;
+        });
         this.roundService.addRound(this.addRoundForm.value).subscribe(
             res => {
                 const newRound = res.json();
