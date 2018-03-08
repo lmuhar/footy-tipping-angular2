@@ -13,15 +13,27 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <mat-list>
-            <mat-list-item *ngFor="let game of round.games">
-                <h3 matLine> {{game.homeTeam}} v {{game.awayTeam}} </h3>
-                <p matLine>
-                    <span> {{game.location}} </span>
-                    <span class="demo-2"> -- {{game.dateTime | date}} </span>
-                </p>
-            </mat-list-item>
-        </mat-list>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-default">
+                <tr>
+                    <th>Game</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="round.games === 0">
+                <tr>
+                    <td colspan="3">There are no games for this round</td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="!isEditing">
+                <tr *ngFor="let game of round.games">
+                    <td>{{game.homeTeam}} v {{game.awayTeam}}</td>
+                    <td>{{game.location}}</td>
+                    <td>{{game.dateTime | date: 'dd MMM hh:mm a'}}</td>
+                </tr>
+            </tbody>
+        </table>
 
         <button class="btn btn-sm btn-danger" (click)="deleteRound(round)">
             <i class="fa fa-trash"></i> Delete</button>
@@ -32,51 +44,74 @@
     <div class="card-block">
         <form class="form-inline" [formGroup]="addRoundForm">
             <div class="form-group">
-                <label>Round</label>
-                <input class="form-control" type="number" name="number" formControlName="number" placeholder="Number" required>
+                <mat-form-field>
+                    <input matInput name="number" formControlName="number" placeholder="Number" required>
+                </mat-form-field>
             </div>
+
             <div class="form-group">
-                <label>Date Start</label>
-                <input class="form-control" type="date" name="dateStart" formControlName="dateStart" placeholder="Date Started" required>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="dateStart" placeholder="Date Start" formControlName="dateStart">
+                    <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
+                    <mat-datepicker #dateStart></mat-datepicker>
+                </mat-form-field>
             </div>
+
             <div class="form-group">
-                <label>Date End</label>
-                <input class="form-control" type="date" name="dateEnd" formControlName="dateEnd" placeholder="Date End" required>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="dateEnd" placeholder="Date End" formControlName="dateEnd">
+                    <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
+                    <mat-datepicker #dateEnd></mat-datepicker>
+                </mat-form-field>
             </div>
+
             <div formArrayName="games">
                 <div class="form-inline" *ngFor="let game of addRoundForm.get('games').controls; let i=index">
-                    <span>Game {{i + 1}}</span>
-                    <div [formGroupName]="i">
-                        <div class="form-group" >
-                            <label>Home Team</label>
-                            <select class="form-control" name="homeTeam" formControlName="homeTeam" required>
-                                <option *ngFor="let t of teams | sort: 'name'" [ngValue]="t.value">{{t.name}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Away Team</label>
-                            <select class="form-control" name="awayTeam" formControlName="awayTeam" required>
-                                <option *ngFor="let t of teams | sort: 'name'" [ngValue]="t.value">{{t.name}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Location</label>
-                            <select class="form-control" name="location" formControlName="location" required>
-                                <option *ngFor="let l of locations | sort: 'name'" [ngValue]="l.name">{{l.name}}</option>
-                            </select>
+                    <hr>
+                    <div>Game {{i + 1}}
+                        <div [formGroupName]="i">
+                            <mat-form-field>
+                                <mat-select placeholder="Home Team" formControlName="homeTeam">
+                                    <mat-option *ngFor="let t of teams | sort: 'name'" [value]="t.value">
+                                        {{ t.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-select placeholder="Away Team" formControlName="awayTeam">
+                                    <mat-option *ngFor="let t of teams | sort: 'name'" [value]="t.value">
+                                        {{ t.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-select placeholder="Location" formControlName="location">
+                                    <mat-option *ngFor="let t of locations | sort: 'name'" [value]="t.name">
+                                        {{ t.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="dateTime" placeholder="Date" formControlName="dateTime">
+                                <mat-datepicker-toggle matSuffix [for]="dateTime"></mat-datepicker-toggle>
+                                <mat-datepicker #dateTime></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input matInput type="time" formControlName="time" />
+                            </mat-form-field>
+
                         </div>
                     </div>
                 </div>
             </div>
-        
-            <button class="btn btn-sm btn-primary" (click)="addRound()">
-                <i class="fa fa-floppy-o"></i> Save
-            </button>
-        </form>
-        <button class="btn btn-sm btn-primary" (click)="add()">Add Round</button>
-    </div>
-</div>
 
-<div>
-    <pre>form value: {{addRoundForm.value | json}}</pre>
+        </form>
+        <button mat-button (click)="add()">Add Round</button>
+        <button mat-button (click)="addRound()" [disabled]="!addRoundForm.valid">
+            <i class="fa fa-floppy-o"></i> Finalize
+        </button>
+
+    </div>
 </div>
