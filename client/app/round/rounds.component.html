@@ -13,15 +13,27 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <mat-list>
-            <mat-list-item *ngFor="let game of round.games">
-                <h3 matLine> {{game.homeTeam}} v {{game.awayTeam}} </h3>
-                <p matLine>
-                    <span> {{game.location}} </span>
-                    <span class="demo-2"> -- {{game.dateTime | date}} </span>
-                </p>
-            </mat-list-item>
-        </mat-list>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-default">
+                <tr>
+                    <th>Game</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="round.games === 0">
+                <tr>
+                    <td colspan="3">There are no games for this round</td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="!isEditing">
+                <tr *ngFor="let game of round.games">
+                    <td>{{game.homeTeam}} v {{game.awayTeam}}</td>
+                    <td>{{game.location}}</td>
+                    <td>{{game.dateTime | date}}</td>
+                </tr>
+            </tbody>
+        </table>
 
         <button class="btn btn-sm btn-danger" (click)="deleteRound(round)">
             <i class="fa fa-trash"></i> Delete</button>
