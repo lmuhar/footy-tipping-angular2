@@ -16,8 +16,11 @@ export class TipsComponent implements OnInit {
     public isLoading = true;
     public rounds = [];
     public selectedRound = [];
+
     public selectForm: FormGroup;
     public number = new FormControl('', Validators.required);
+
+    public enterTipsForm: FormGroup;
 
     constructor(
         public toast: ToastComponent,
@@ -30,7 +33,6 @@ export class TipsComponent implements OnInit {
 
         this.roundService.getRoundWithIdNumber().subscribe((result) => {
             this.rounds = result;
-            console.log(this.rounds);
         }, error => console.log(error),
         () => this.isLoading = false);
 
@@ -38,10 +40,19 @@ export class TipsComponent implements OnInit {
             number: this.number
         });
 
+        this.enterTipsForm = this.formBuilder.group({
+            tips: this.formBuilder.array([])
+        });
+
         this.selectForm.valueChanges.subscribe((change) => {
-            console.log('changed value', change);
             this.getSelectedRoundData(change.number);
         });
+    }
+
+    public saveTips() {
+        console.log('SAVE', this.enterTipsForm.value);
+        // tslint:disable-next-line:no-debugger
+        debugger;
     }
 
     private getSelectedRoundData(id) {

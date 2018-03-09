@@ -4,16 +4,34 @@
 
 <div class="card" *ngIf="!isLoading">
     <h4 class="card-header">Current Tips</h4>
-    <div [formGroup]="selectForm">
+    <div class="card-block">
+        <form class="form-inline" [formGroup]="selectForm">
 
-        <div class="form-group">
-            <mat-form-field>
-                <mat-select placeholder="Select a round" formControlName="number">
-                    <mat-option *ngFor="let t of rounds" [value]="t._id">
-                        Round {{ t.number }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-select placeholder="Select a round" formControlName="number">
+                        <mat-option *ngFor="let t of rounds" [value]="t._id">
+                            Round {{ t.number }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="form-group"> {{selectedRound.dateStart | date: 'dd MMM'}} {{selectedRound.dateEnd | date: 'dd MMM'}}</div>
+        </form>
+
+        <form class="form-inline" [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
+            <div formArrayName="tips">
+                <div class="form-group" *ngFor="let tip of selectedRound.games; let i=index">
+                    <mat-radio-group>
+                        <mat-radio-button formControlName="{{i}}" [value]="0">{{tip.homeTeam}}</mat-radio-button>
+                        V
+                        <mat-radio-button formControlName="{{i}}" [value]="1">{{tip.awayTeam}}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+            </div>
+        </form>
+        <button (click)="saveTips()">SAVE</button>
     </div>
 </div>
