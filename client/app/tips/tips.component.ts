@@ -62,7 +62,7 @@ export class TipsComponent implements OnInit {
             const control = <FormArray>this.enterTipsForm.controls['tips'];
 
             res.games.forEach((game) => {
-                control.push(new FormControl(''))
+                control.push(new FormControl(null, Validators.required))
             })
         }, error => console.log(error),
         () => this.isLoading = false);

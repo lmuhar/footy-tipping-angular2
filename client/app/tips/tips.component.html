@@ -27,11 +27,13 @@
                         <mat-radio-button [value]="0">{{tip.homeTeam | titlecase}}</mat-radio-button>
                         V
                         <mat-radio-button [value]="1">{{tip.awayTeam | titlecase}}</mat-radio-button>
+                        <div>{{tip.location}}</div>
+                        <div>{{tip.dateTime | date: 'dd MMM hh:mm a'}}</div>
                     </mat-radio-group>
                 </div>
 
             </div>
+            <button mat-raised-button color="primary" (click)="saveTips()" [disabled]="!enterTipsForm.valid">SAVE</button>        
         </form>
-        <button (click)="saveTips()">SAVE</button>
     </div>
 </div>
