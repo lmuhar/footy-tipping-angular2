@@ -52,14 +52,18 @@ export class TipsComponent implements OnInit {
     public saveTips() {
         console.log('SAVE', this.enterTipsForm.value);
         // tslint:disable-next-line:no-debugger
-        debugger;
     }
 
     private getSelectedRoundData(id) {
         this.isLoading = true;
         this.roundService.getRound(id).subscribe((res) => {
             this.selectedRound = res;
-            console.log(this.selectedRound);
+    
+            const control = <FormArray>this.enterTipsForm.controls['tips'];
+
+            res.games.forEach((game) => {
+                control.push(new FormControl(''))
+            })
         }, error => console.log(error),
         () => this.isLoading = false);
     }

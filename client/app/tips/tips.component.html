@@ -23,10 +23,10 @@
         <form class="form-inline" [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
             <div formArrayName="tips">
                 <div class="form-group" *ngFor="let tip of selectedRound.games; let i=index">
-                    <mat-radio-group>
-                        <mat-radio-button formControlName="{{i}}" [value]="0">{{tip.homeTeam}}</mat-radio-button>
+                    <mat-radio-group  formControlName="{{i}}">
+                        <mat-radio-button [value]="0">{{tip.homeTeam | titlecase}}</mat-radio-button>
                         V
-                        <mat-radio-button formControlName="{{i}}" [value]="1">{{tip.awayTeam}}</mat-radio-button>
+                        <mat-radio-button [value]="1">{{tip.awayTeam | titlecase}}</mat-radio-button>
                     </mat-radio-group>
                 </div>
 
