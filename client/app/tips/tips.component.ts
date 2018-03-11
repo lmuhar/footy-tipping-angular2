@@ -4,6 +4,7 @@ import { ToastComponent } from './../shared/toast/toast.component';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 
 import { RoundService } from '../services/round.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'app-tips',
@@ -24,12 +25,13 @@ export class TipsComponent implements OnInit {
 
     constructor(
         public toast: ToastComponent,
+        private auth: AuthService,
         private roundService: RoundService,
         private formBuilder: FormBuilder
     ) {}
 
     public ngOnInit() {
-        console.log('LOADED TIPS');
+        console.log('LOADED TIPS', this.auth.currentUser);
 
         this.roundService.getRoundWithIdNumber().subscribe((result) => {
             this.rounds = result;
