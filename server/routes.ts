@@ -32,6 +32,7 @@ export default function setRoutes(app) {
 
   // Users
   router.route('/login').post(userCtrl.login);
+  router.route('/user/:id/tips').post(userCtrl.newTipsUser);
   router.route('/users').get(userCtrl.getAll);
   router.route('/users/count').get(userCtrl.count);
   router.route('/user').post(userCtrl.insert);

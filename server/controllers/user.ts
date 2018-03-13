@@ -20,20 +20,22 @@ export default class UserCtrl extends BaseCtrl {
   }
 
   newTipsUser = (req, res) => {
-    const { userId } = req.params;
+    debugger;
+    const { id } = req.params;
     // Create a new tip
     const newTip = new Tip(req.body);
     // Get User
-    const user = this.model.findById(userId);
-    // Assign user as a tip's
-    newTip.user = user;
-    // Save the tip
-    newTip.save();
-    // add tip to the users tips aray
-    user.tips.push(newTip);
-    // save the user
-    user.save();
-    res.status(201).json(newTip);
+    console.log('ID', req.body)
+    const user = this.model.findOne({_id: id}, (err, user) => {
+      if (!user) { return res.sendStatus(403); }
+      console.log('=================================');
+      newTip.owner = user;
+      newTip.save(() => {
+        user.tips.push(newTip);
+        user.save();
+        res.status(201).json(newTip);
+      })
+    });
   }
 // https://www.youtube.com/watch?v=FVn_wj1jLN0
 }

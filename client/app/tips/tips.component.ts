@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@ang
 
 import { RoundService } from '../services/round.service';
 import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 
 @Component({
     selector: 'app-tips',
@@ -27,6 +28,7 @@ export class TipsComponent implements OnInit {
         public toast: ToastComponent,
         private auth: AuthService,
         private roundService: RoundService,
+        private userService: UserService,
         private formBuilder: FormBuilder
     ) {}
 
@@ -54,6 +56,9 @@ export class TipsComponent implements OnInit {
     public saveTips() {
         console.log('SAVE', this.enterTipsForm.value);
         // tslint:disable-next-line:no-debugger
+        this.userService.newUserTips(this.auth.currentUser._id, this.enterTipsForm.value).subscribe((res) => {
+            console.log('TEST', res);
+        })
     }
 
     private getSelectedRoundData(id) {
