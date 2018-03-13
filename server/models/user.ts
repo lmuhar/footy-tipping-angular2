@@ -1,11 +1,18 @@
 import * as bcrypt from 'bcryptjs';
 import * as mongoose from 'mongoose';
+import Tip from '../models/tips';
 
-const userSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const userSchema = new Schema({
   username: String,
   email: { type: String, unique: true, lowercase: true, trim: true },
   password: String,
-  role: String
+  role: String,
+  tips: [{
+    type: Schema.Types.ObjectId,
+    ref: 'tip'
+  }]
 });
 
 // Before saving the user, hash the password

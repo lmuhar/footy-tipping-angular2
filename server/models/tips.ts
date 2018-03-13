@@ -1,9 +1,15 @@
 import * as mongoose from 'mongoose';
 
-const tipSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const tipSchema = new Schema({
     tips: Array,
     total: Number,
-    userId: String
+    userId: String,
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    }
 });
 
 const Tip = mongoose.model('Tip', tipSchema);
