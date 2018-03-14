@@ -5,10 +5,13 @@ const Schema = mongoose.Schema;
 const tipSchema = new Schema({
     tips: Array,
     total: Number,
-    userId: String,
-    owner: {
+    ownerId: {
         type: Schema.Types.ObjectId,
         ref: 'user'
+    },
+    roundId: {
+        type: Schema.Types.ObjectId,
+        ref: 'round'
     }
 });
 

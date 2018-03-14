@@ -20,9 +20,9 @@ export class UserService {
     return this.http.post('/api/login', JSON.stringify(credentials), this.options);
   }
 
-  newUserTips(id, tips): Observable<any> {
+  newUserTips(id, roundId, tips): Observable<any> {
     console.log('HEERE');
-    return this.http.post(`/api/user/${id}/tips`, JSON.stringify(tips), this.options);
+    return this.http.post(`/api/user/${id}/tips/${roundId}`, JSON.stringify(tips), this.options);
   }
 
   getUsers(): Observable<any> {

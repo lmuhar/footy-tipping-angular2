@@ -18,6 +18,7 @@ export class TipsComponent implements OnInit {
     public isLoading = true;
     public rounds = [];
     public selectedRound = [];
+    public selectedRoundId = null;
 
     public selectForm: FormGroup;
     public number = new FormControl('', Validators.required);
@@ -33,8 +34,6 @@ export class TipsComponent implements OnInit {
     ) {}
 
     public ngOnInit() {
-        console.log('LOADED TIPS', this.auth.currentUser);
-
         this.roundService.getRoundWithIdNumber().subscribe((result) => {
             this.rounds = result;
         }, error => console.log(error),
@@ -56,7 +55,7 @@ export class TipsComponent implements OnInit {
     public saveTips() {
         console.log('SAVE', this.enterTipsForm.value);
         // tslint:disable-next-line:no-debugger
-        this.userService.newUserTips(this.auth.currentUser._id, this.enterTipsForm.value).subscribe((res) => {
+        this.userService.newUserTips(this.auth.currentUser._id, this.selectedRoundId, this.enterTipsForm.value).subscribe((res) => {
             console.log('TEST', res);
         })
     }
@@ -65,7 +64,8 @@ export class TipsComponent implements OnInit {
         this.isLoading = true;
         this.roundService.getRound(id).subscribe((res) => {
             this.selectedRound = res;
-    
+            this.selectedRoundId = res._id;
+            
             const control = <FormArray>this.enterTipsForm.controls['tips'];
 
             res.games.forEach((game) => {
