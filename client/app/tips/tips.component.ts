@@ -20,10 +20,12 @@ export class TipsComponent implements OnInit {
     public rounds = [];
     public selectedRound = [];
     public selectedRoundId = null;
+    public isNew = true;
 
     public selectForm: FormGroup;
     public number = new FormControl('', Validators.required);
 
+    public userRoundId = null;
     public enterTipsForm: FormGroup;
 
     constructor(
@@ -46,7 +48,7 @@ export class TipsComponent implements OnInit {
         });
 
         this.enterTipsForm = this.formBuilder.group({
-            tips: this.formBuilder.array([])
+            tips: this.formBuilder.array([]),
         });
 
         this.selectForm.valueChanges.subscribe((change) => {
@@ -56,10 +58,23 @@ export class TipsComponent implements OnInit {
 
     public saveTips() {
         console.log('SAVE', this.enterTipsForm.value);
-        // tslint:disable-next-line:no-debugger
-        this.userService.newUserTips(this.auth.currentUser._id, this.selectedRoundId, this.enterTipsForm.value).subscribe((res) => {
-            console.log('TEST', res.tips);
-        })
+        this.isLoading = true;
+        if (this.isNew) {
+            this.userService.newUserTips(this.auth.currentUser._id, this.selectedRoundId, this.enterTipsForm.value).subscribe((res) => {
+                console.log('TEST', res.tips);
+            }, error => console.log(error), 
+            () => this.isLoading = false);
+        } else {
+            let data = this.enterTipsForm.value;
+            data.ownerId = this.auth.currentUser._id;
+            data.roundId = this.selectedRoundId;
+            data._id = this.userRoundId;
+            this.tipService.editTips(data).subscribe(() => {
+                console.log("UPDATED");
+            }, error => console.log(error),
+            () => this.isLoading = false);
+        }
+
     }
 
     private getSelectedRoundData(id) {
@@ -74,9 +89,13 @@ export class TipsComponent implements OnInit {
                 control.push(new FormControl(null, Validators.required))
             })
             this.tipService.getUserTipsForRound(this.auth.currentUser._id, this.selectedRoundId).subscribe((res) => {
-                console.log(res);
-                // this.enterTipsForm.setValue(res);
-            })
+                this.isNew = false;
+                this.userRoundId = res._id;
+                this.enterTipsForm.setValue({
+                    tips: res.tips
+                });
+            }, error => {console.log(error), this.isNew = true},
+            () => this.isLoading = false);
 
         }, error => console.log(error),
         () => this.isLoading = false);

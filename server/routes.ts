@@ -11,6 +11,7 @@ import Cat from './models/cat';
 import User from './models/user';
 import Round from './models/rounds';
 import Team from './models/team';
+import Tip from './models/tips';
 import Location from './models/location';
 
 export default function setRoutes(app) {
@@ -53,6 +54,7 @@ export default function setRoutes(app) {
 
   // Tips
   router.route('/user/:userId/round/:roundId').get(tipCtrl.userTipsByRound);
+  router.route('/tip/:id').put(tipCtrl.update);
 
   // Teams
   router.route('/teams').get(teamCtrl.getAll);
