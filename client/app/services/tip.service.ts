@@ -23,4 +23,7 @@ export class TipService {
     getTotal(id): Observable<any> {
         return this.http.get('/api/tips/total').map(res => res.json());
     }
+    getUserTipsForRound(userId, roundId): Observable<any> {
+        return this.http.get(`/api/user/${userId}/round/${roundId}`).map(res => res.json());
+    }
 }

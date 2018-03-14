@@ -21,7 +21,6 @@ export default class UserCtrl extends BaseCtrl {
   }
 
   newTipsUser = (req, res) => {
-    debugger;
     const { id, roundId } = req.params;
     // Create a new tip
     const newTip = new Tip(req.body);

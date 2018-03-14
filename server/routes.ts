@@ -5,6 +5,7 @@ import UserCtrl from './controllers/user';
 import RoundCtrl from './controllers/round';
 import TeamCtrl from './controllers/team';
 import LocationCtrl from './controllers/location';
+import TipCtrl from './controllers/tip';
 
 import Cat from './models/cat';
 import User from './models/user';
@@ -21,6 +22,7 @@ export default function setRoutes(app) {
   const roundCtrl = new RoundCtrl();
   const teamCtrl = new TeamCtrl();
   const locationCtrl = new LocationCtrl();
+  const tipCtrl = new TipCtrl();
 
   // Cats
   router.route('/cats').get(catCtrl.getAll);
@@ -48,6 +50,9 @@ export default function setRoutes(app) {
   router.route('/round/:id').put(roundCtrl.update);
   router.route('/round/:id').delete(roundCtrl.delete);
   router.route('/rounds/list').get(roundCtrl.getWithIdAndNumber);
+
+  // Tips
+  router.route('/user/:userId/round/:roundId').get(tipCtrl.userTipsByRound);
 
   // Teams
   router.route('/teams').get(teamCtrl.getAll);

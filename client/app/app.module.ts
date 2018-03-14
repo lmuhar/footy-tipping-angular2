@@ -13,6 +13,7 @@ import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { RoundService } from './services/round.service';
 import { TeamService } from './services/team.service';
+import { TipService } from './services/tip.service';
 import { LocationService } from './services/location.service';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
@@ -68,7 +69,8 @@ import 'hammerjs';
     UserService,
     RoundService,
     TeamService,
-    LocationService
+    LocationService,
+    TipService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
