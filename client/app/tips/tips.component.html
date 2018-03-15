@@ -1,0 +1,39 @@
+<app-loading [condition]='isLoading'></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<div class="card" *ngIf="!isLoading">
+    <h4 class="card-header">Current Tips</h4>
+    <div class="card-block">
+        <form class="form-inline" [formGroup]="selectForm">
+
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-select placeholder="Select a round" formControlName="number">
+                        <mat-option *ngFor="let t of rounds" [value]="t._id">
+                            Round {{ t.number }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="form-group"> {{selectedRound.dateStart | date: 'dd MMM'}} {{selectedRound.dateEnd | date: 'dd MMM'}}</div>
+        </form>
+
+        <form class="form-inline" [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
+            <div formArrayName="tips">
+                <div class="form-group" *ngFor="let tip of selectedRound.games; let i=index">
+                    <mat-radio-group  formControlName="{{i}}">
+                        <mat-radio-button [value]="0">{{tip.homeTeam | titlecase}}</mat-radio-button>
+                        V
+                        <mat-radio-button [value]="1">{{tip.awayTeam | titlecase}}</mat-radio-button>
+                        <div>{{tip.location}}</div>
+                        <div>{{tip.dateTime | date: 'dd MMM hh:mm a'}}</div>
+                    </mat-radio-group>
+                </div>
+
+            </div>
+            <button mat-raised-button color="primary" (click)="saveTips()" [disabled]="!enterTipsForm.valid">SAVE</button>        
+        </form>
+    </div>
+</div>

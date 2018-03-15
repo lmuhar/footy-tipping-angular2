@@ -24,8 +24,12 @@ export class RoundService {
         return this.http.post('/api/round', JSON.stringify(round), this.options);
     }
 
-    getRound(round): Observable<any> {
-        return this.http.get(`/api/round/${round._id}`).map(res => res.json());
+    getRound(id): Observable<any> {
+        return this.http.get(`/api/round/${id}`).map(res => res.json());
+    }
+
+    getRoundWithIdNumber(): Observable<any> {
+        return this.http.get(`/api/rounds/list`).map(res => res.json());
     }
 
     editRound(round): Observable<any> {

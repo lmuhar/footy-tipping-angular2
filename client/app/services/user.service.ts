@@ -20,6 +20,11 @@ export class UserService {
     return this.http.post('/api/login', JSON.stringify(credentials), this.options);
   }
 
+  newUserTips(id, roundId, tips): Observable<any> {
+    console.log('HEERE');
+    return this.http.post(`/api/user/${id}/tips/${roundId}`, JSON.stringify(tips), this.options);
+  }
+
   getUsers(): Observable<any> {
     return this.http.get('/api/users').map(res => res.json());
   }

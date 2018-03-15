@@ -13,6 +13,7 @@ import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { RoundService } from './services/round.service';
 import { TeamService } from './services/team.service';
+import { TipService } from './services/tip.service';
 import { LocationService } from './services/location.service';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
@@ -28,6 +29,7 @@ import { AccountComponent } from './account/account.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RoundsComponent } from './round/rounds.component';
+import { TipsComponent} from './tips/tips.component';
 import { CdkTableBasicComponent } from './tables/table.component';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -45,6 +47,7 @@ import 'hammerjs';
     AdminComponent,
     NotFoundComponent,
     RoundsComponent,
+    TipsComponent,
     CdkTableBasicComponent
   ],
   imports: [
@@ -66,7 +69,8 @@ import 'hammerjs';
     UserService,
     RoundService,
     TeamService,
-    LocationService
+    LocationService,
+    TipService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
