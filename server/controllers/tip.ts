@@ -7,7 +7,7 @@ export default class TipCtrl extends BaseCtrl {
     userTipsByRound = (req, res) => {
         const { userId, roundId } = req.params;
         this.model.findOne({ ownerId: userId, roundId: roundId}, (err, tips) => {
-            if (!tips) { return res.sendStatus(403); }
+            if (!tips) { return res.sendStatus(404); }
             res.json(tips);
         });
     }

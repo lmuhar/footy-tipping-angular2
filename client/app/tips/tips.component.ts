@@ -48,7 +48,7 @@ export class TipsComponent implements OnInit {
         });
 
         this.enterTipsForm = this.formBuilder.group({
-            tips: this.formBuilder.array([]),
+            tips: this.formBuilder.array([])
         });
 
         this.selectForm.valueChanges.subscribe((change) => {
@@ -57,21 +57,20 @@ export class TipsComponent implements OnInit {
     }
 
     public saveTips() {
-        console.log('SAVE', this.enterTipsForm.value);
         this.isLoading = true;
         if (this.isNew) {
             this.userService.newUserTips(this.auth.currentUser._id, this.selectedRoundId, this.enterTipsForm.value).subscribe((res) => {
-                console.log('TEST', res.tips);
-            }, error => console.log(error), 
+                console.log('Tipped received');
+            }, error => this.toast.setMessage('Save tips failed, please try again', 'warning'), 
             () => this.isLoading = false);
         } else {
-            let data = this.enterTipsForm.value;
+            const data = this.enterTipsForm.value;
             data.ownerId = this.auth.currentUser._id;
             data.roundId = this.selectedRoundId;
             data._id = this.userRoundId;
             this.tipService.editTips(data).subscribe(() => {
-                console.log("UPDATED");
-            }, error => console.log(error),
+                this.toast.setMessage('Tips successfully updated', 'success');
+            }, error => this.toast.setMessage('Updated tips failed, please try again', 'warning'),
             () => this.isLoading = false);
         }
 
@@ -94,7 +93,12 @@ export class TipsComponent implements OnInit {
                 this.enterTipsForm.setValue({
                     tips: res.tips
                 });
-            }, error => {console.log(error), this.isNew = true},
+            }, error => {
+                console.log(error), 
+                this.isNew = true,
+                this.userRoundId = null;
+                this.enterTipsForm.reset();
+            },
             () => this.isLoading = false);
 
         }, error => console.log(error),
