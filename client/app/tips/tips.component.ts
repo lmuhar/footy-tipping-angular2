@@ -100,6 +100,7 @@ export class TipsComponent implements OnInit {
                 this.enterTipsForm.reset();
             },
             () => this.isLoading = false);
+            
 
         }, error => console.log(error),
         () => this.isLoading = false);
