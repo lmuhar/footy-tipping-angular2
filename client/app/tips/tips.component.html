@@ -24,9 +24,11 @@
             <div formArrayName="tips">
                 <div class="form-group" *ngFor="let tip of selectedRound.games; let i=index">
                     <mat-radio-group  formControlName="{{i}}">
+                        <img src='/assets/team-logos/{{tip.homeTeam}}.png'>
                         <mat-radio-button [value]="0">{{tip.homeTeam | titlecase}}</mat-radio-button>
                         V
                         <mat-radio-button [value]="1">{{tip.awayTeam | titlecase}}</mat-radio-button>
+                        <img src='/assets/team-logos/{{tip.awayTeam}}.png'>
                         <div>{{tip.location}}</div>
                         <div>{{tip.dateTime | date: 'dd MMM hh:mm a'}}</div>
                     </mat-radio-group>
