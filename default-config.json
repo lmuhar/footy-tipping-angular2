@@ -1,5 +1,5 @@
 {
     "dbSettings": {
-        "connectionString": "mongodb://<dbuser>:<dbpassword>@ds119449.mlab.com:19449/heroku_m0bfmt25"
+        "connectionString": "mongodb://heroku_m0bfmt25:Jki3V878!@ds119449.mlab.com:19449/heroku_m0bfmt25"
     }
 }
