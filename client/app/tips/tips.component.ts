@@ -61,7 +61,7 @@ export class TipsComponent implements OnInit {
         if (this.isNew) {
             this.userService.newUserTips(this.auth.currentUser._id, this.selectedRoundId, this.enterTipsForm.value).subscribe((res) => {
                 console.log('Tipped received');
-            }, error => this.toast.setMessage('Save tips failed, please try again', 'warning'), 
+            }, error => this.toast.setMessage('Save tips failed, please try again', 'warning'),
             () => this.isLoading = false);
         } else {
             const data = this.enterTipsForm.value;
@@ -85,16 +85,16 @@ export class TipsComponent implements OnInit {
             const control = <FormArray>this.enterTipsForm.controls['tips'];
 
             res.games.forEach((game) => {
-                control.push(new FormControl(null, Validators.required))
-            })
-            this.tipService.getUserTipsForRound(this.auth.currentUser._id, this.selectedRoundId).subscribe((res) => {
+                control.push(new FormControl(null, Validators.required));
+            });
+            this.tipService.getUserTipsForRound(this.auth.currentUser._id, this.selectedRoundId).subscribe((result) => {
                 this.isNew = false;
-                this.userRoundId = res._id;
+                this.userRoundId = result._id;
                 this.enterTipsForm.setValue({
-                    tips: res.tips
+                    tips: result.tips
                 });
             }, error => {
-                console.log(error), 
+                console.log(error),
                 this.isNew = true,
                 this.userRoundId = null;
                 this.enterTipsForm.reset();

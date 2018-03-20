@@ -21,6 +21,7 @@
         "lint": "ng lint",
         "lintbe": "tslint server/**/**.ts{,x}",
         "e2e": "ng e2e",
+        "postinstall": "tsc -p server && ng build -aot -prod",
         "migrations": "node ./node_modules/mongodb-migrate -runmm -dbn dbSettings up",
         "create-migration": "node ./node_modules/mongodb-migrate -runmm create"
     },
