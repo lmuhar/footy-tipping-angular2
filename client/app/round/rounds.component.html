@@ -66,7 +66,7 @@
             </div>
 
             <div formArrayName="games">
-                <div class="form-inline" *ngFor="let game of addRoundForm.get('games').controls; let i=index">
+                <div class="form-inline" *ngFor="let game of addRoundForm.controls['games']['controls']; let i=index">
                     <hr>
                     <div>Game {{i + 1}}
                         <div [formGroupName]="i">
