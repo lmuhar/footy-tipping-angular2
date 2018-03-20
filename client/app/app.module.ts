@@ -78,4 +78,3 @@ import 'hammerjs';
 
 export class AppModule { }
 
-platformBrowserDynamic().bootstrapModule(AppModule);
