@@ -5,7 +5,8 @@
         <a class="navbar-brand" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Tipping 2018</a>
 
         <!-- Collapse button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"></button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation"></button>
 
         <!-- Collapsible content -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -15,8 +16,8 @@
                 <li class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
                     <i class="fa fa-home"></i> Home
                 </li>
-                <li class="nav-item nav-link" routerLink="/cats" routerLinkActive="active">
-                    <i class="fa fa-list"></i> Cats
+                <li class="nav-item nav-link" routerLink="/tips" routerLinkActive="active" *ngIf="auth.loggedIn">
+                    <i class="fa fa-list"></i> Tips
                 </li>
                 <li class="nav-item nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!auth.loggedIn">
                     <i class="fa fa-sign-in"></i> Login
