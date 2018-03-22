@@ -1,5 +1,5 @@
-import Tip from "../models/tips";
-import BaseCtrl from "./base";
+import Tip from '../models/tips';
+import BaseCtrl from './base';
 
 export default class TipCtrl extends BaseCtrl {
   model = Tip;
@@ -12,15 +12,15 @@ export default class TipCtrl extends BaseCtrl {
       }
       res.json(tips);
     });
-  };
+  }
 
   allTipsForRound = (req, res) => {
     const { roundId } = req.params;
-    this.model.findAll({ roundId: roundId }, (err, tips) => {
+    this.model.find({ roundId: roundId }, (err, tips) => {
       if (!tips) {
         return res.sendStatus(404);
       }
       res.json(tips);
     });
-  };
+  }
 }
