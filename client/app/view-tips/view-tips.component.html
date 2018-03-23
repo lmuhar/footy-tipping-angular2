@@ -17,5 +17,24 @@
                 </mat-form-field>
             </div>
         </form>
+        <div class="col-md-6" *ngFor="let user of userTips">
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image">
+                        <img src='/assets/user-logos/{{user.user_data.username}}.png'>
+                    </div>
+                    <mat-card-title>{{user.user_data.username}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <table class="table">
+                        <tr *ngFor="let tip of user.tips">
+                            <td style="text-align: center">
+                                {{tip}}
+                            </td>
+                        </tr>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </div>
     </div>
 </div>

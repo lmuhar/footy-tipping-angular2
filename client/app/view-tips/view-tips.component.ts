@@ -16,6 +16,7 @@ export class ViewTipsComponent implements OnInit {
 
     public rounds = [];
     public isLoading = true;
+    public userTips = [];
     public number = new FormControl('', Validators.required);
 
     public selectForm: FormGroup;
@@ -45,6 +46,7 @@ export class ViewTipsComponent implements OnInit {
     private getSelectedRoundData(id) {
         this.isLoading = true;
         this.tipService.allTipsForRound(id).subscribe((res) => {
+            this.userTips = res;
             console.log(res);
         }, error => {console.log('ERROR', error); },
     () => this.isLoading = false);
