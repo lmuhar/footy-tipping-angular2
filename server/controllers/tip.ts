@@ -1,5 +1,7 @@
 import Tip from '../models/tips';
 import BaseCtrl from './base';
+import * as mongoose from 'mongoose';
+const ObjectId = mongoose.Types.ObjectId;
 
 export default class TipCtrl extends BaseCtrl {
   model = Tip;
@@ -16,10 +18,11 @@ export default class TipCtrl extends BaseCtrl {
 
   allTipsForRound = (req, res) => {
     const { roundId } = req.params;
-    this.model.find({ roundId: roundId }, (err, tips) => {
-      if (!tips) {
-        return res.sendStatus(404);
-      }
+    this.model.aggregate([
+      { $match: { roundId: ObjectId(roundId)} },
+      { $lookup: { from: 'users', localField: 'ownerId', foreignField: '_id', as: 'user_data' }},
+    ], (err, tips) => {
+      console.log('tips', tips);
       res.json(tips);
     });
   }

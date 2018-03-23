@@ -35,8 +35,8 @@ export default class UserCtrl extends BaseCtrl {
           user.tips.push(newTip);
           user.save();
           res.status(201).json(newTip);
-        })
-      })
+        });
+      });
     });
   }
 }
