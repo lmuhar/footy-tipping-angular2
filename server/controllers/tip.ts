@@ -21,6 +21,7 @@ export default class TipCtrl extends BaseCtrl {
     this.model.aggregate([
       { $match: { roundId: ObjectId(roundId)} },
       { $lookup: { from: 'users', localField: 'ownerId', foreignField: '_id', as: 'user_data' }},
+      { $project: { 'user_data.username': 1, 'tips': 1}}
     ], (err, tips) => {
       console.log('tips', tips);
       res.json(tips);
