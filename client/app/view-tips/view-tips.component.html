@@ -17,6 +17,10 @@
                 </mat-form-field>
             </div>
         </form>
+
+        <div *ngIf="!userTips.length">
+            No tips this round
+        </div>
         <div class="col-md-6" *ngFor="let user of userTips">
             <mat-card>
                 <mat-card-header>
@@ -27,9 +31,14 @@
                 </mat-card-header>
                 <mat-card-content>
                     <table class="table">
-                        <tr *ngFor="let tip of user.tips">
-                            <td style="text-align: center">
-                                {{tip}}
+                        <tr *ngFor="let tip of user.tips; let i=index">
+                            <td style="text-align: center" *ngIf="tip === 0">
+                                <img src="{{returnName(games[i].homeTeam)}}">
+                                <div>{{games[i].homeTeam}}</div>
+                            </td>
+                            <td style="text-align: center" *ngIf="tip === 1">
+                                <img src='{{returnName(games[i].awayTeam)}}'>
+                                <div>{{games[i].awayTeam}}</div>
                             </td>
                         </tr>
                     </table>
@@ -38,3 +47,8 @@
         </div>
     </div>
 </div>
+
+<!--
+    <span style="float: left"><i class="fa fa-check" style="color:green"></i></span>
+    <span style="float: right"><i class="fa fa-times" style="color:red"></i></span>
+ -->

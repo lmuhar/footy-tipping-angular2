@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs/Observable';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Component, OnInit } from '@angular/core';
 import { ToastComponent } from './../shared/toast/toast.component';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
@@ -17,6 +18,7 @@ export class ViewTipsComponent implements OnInit {
     public rounds = [];
     public isLoading = true;
     public userTips = [];
+    public games = [];
     public number = new FormControl('', Validators.required);
 
     public selectForm: FormGroup;
@@ -43,12 +45,17 @@ export class ViewTipsComponent implements OnInit {
         });
     }
 
+    public returnName(value) {
+        return `/assets/team-logos/${value.toLowerCase()}.png`;
+    }
+
     private getSelectedRoundData(id) {
         this.isLoading = true;
-        this.tipService.allTipsForRound(id).subscribe((res) => {
-            this.userTips = res;
-            console.log(res);
-        }, error => {console.log('ERROR', error); },
-    () => this.isLoading = false);
+        forkJoin([this.tipService.allTipsForRound(id), this.roundService.getRound(id)]).subscribe((res) => {
+            this.userTips = res[0];
+            this.games = res[1].games;
+        }, error => {
+            console.log('ERROR', error);
+        }, () => this.isLoading = false);
     }
 }

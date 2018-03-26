@@ -24,7 +24,6 @@ export default class TipCtrl extends BaseCtrl {
       { $project: { 'user_data.username': 1, 'tips': 1}},
       { $unwind: '$user_data'}
     ], (err, tips) => {
-      console.log('tips', tips);
       res.json(tips);
     });
   }
