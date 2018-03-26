@@ -12,6 +12,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { RoundsComponent } from './round/rounds.component';
 import { TipsComponent } from './tips/tips.component';
 import { ViewTipsComponent } from './view-tips/view-tips.component';
+import { EnterResultsComponent } from './enter-results/enter-results.component';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'rounds', component: RoundsComponent },
   { path: 'tips', component: TipsComponent },
   { path: 'view-tips', component: ViewTipsComponent },
+  { path: 'enter-results', component: EnterResultsComponent },
   { path: '**', redirectTo: '/notfound' },
 ];
 

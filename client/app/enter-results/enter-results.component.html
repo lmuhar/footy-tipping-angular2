@@ -1,0 +1,45 @@
+<app-loading [condition]='isLoading'></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<div class="card" *ngIf="!isLoading">
+    <h4 class="card-header">Enter results</h4>
+    <div class="card-block">
+        <form class="form-inline" [formGroup]="selectForm">
+
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-select placeholder="Select a round" formControlName="number">
+                        <mat-option *ngFor="let t of rounds" [value]="t._id">
+                            Round {{ t.number }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="form-group"> {{selectedRound.dateStart | date: 'dd MMM'}} {{selectedRound.dateEnd | date: 'dd MMM'}}</div>
+        </form>
+
+        <form [formGroup]="enterResultsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
+            <div formArrayName="results" class="row">
+                <div class="col-md-6 card" *ngFor="let tip of selectedRound.games; let i=index">
+                    <div class="card-body">
+                        <h6 class="card-title">Game {{i + 1}}</h6>
+                        <div class="card-title">
+                            <mat-radio-group formControlName="{{i}}">
+                                <img src='/assets/team-logos/{{tip.homeTeam}}.png'>
+                                <mat-radio-button [value]="0">{{tip.homeTeam | titlecase}}</mat-radio-button>
+                                <mat-radio-button [value]="3">DRAW</mat-radio-button>
+                                <mat-radio-button [value]="1">{{tip.awayTeam | titlecase}}</mat-radio-button>
+                                <img src='/assets/team-logos/{{tip.awayTeam}}.png'>
+                            </mat-radio-group>
+                        </div>
+                        <div class="card-text">{{tip.location}}</div>
+                        <div class="card-text">{{tip.dateTime | date: 'dd MMM hh:mm a'}}</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <button mat-raised-button color="primary" (click)="saveResults()" [disabled]="!enterResultsForm.valid">SAVE</button>
+</div>
