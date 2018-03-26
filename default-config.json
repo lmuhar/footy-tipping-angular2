@@ -1,5 +1,6 @@
 {
-    "dbSettings": {
-        "connectionString": "mongodb://heroku_m0bfmt25:8eesc4ja57ni8ehmnthpmgiiq8@ds119449.mlab.com:19449/heroku_m0bfmt25"
-    }
+  "dbSettings": {
+    "host": "localhost",
+    "db": "angularfullstack"
+  }
 }

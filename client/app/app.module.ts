@@ -30,6 +30,7 @@ import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RoundsComponent } from './round/rounds.component';
 import { TipsComponent} from './tips/tips.component';
+import { ViewTipsComponent } from './view-tips/view-tips.component';
 import { CdkTableBasicComponent } from './tables/table.component';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -48,6 +49,7 @@ import 'hammerjs';
     NotFoundComponent,
     RoundsComponent,
     TipsComponent,
+    ViewTipsComponent,
     CdkTableBasicComponent
   ],
   imports: [
