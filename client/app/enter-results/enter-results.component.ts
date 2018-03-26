@@ -13,7 +13,7 @@ import { RoundService } from '../services/round.service';
 export class EnterResultsComponent implements OnInit {
 
     public rounds = [];
-    public selectedRound = [];
+    public selectedRound =  { games: []};
     public selectedRoundId = null;
     public isLoading = true;
     public number = new FormControl('', Validators.required);
@@ -62,6 +62,10 @@ export class EnterResultsComponent implements OnInit {
     }
 
     public saveResults() {
-        console.log(this.enterResultsForm.value);
+        let i = 0;
+        this.selectedRound.games.forEach((game) => {
+            game.result = this.enterResultsForm.value.results[i];
+            i++;
+        });
     }
 }
