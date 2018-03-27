@@ -27,4 +27,27 @@ export default class TipCtrl extends BaseCtrl {
       res.json(tips);
     });
   }
+
+  updateTipsWithResults = (req, res) => {
+    const { roundId } = req.params;
+    const games = req.body;
+    this.model.find({roundId: roundId}, (err, tips) => {
+      if (!tips) {
+        return res.sendStatus(404);
+      }
+      tips.forEach((tip) => {
+        let total = 0;
+        let i = 0;
+        tip.tips.forEach((t) => {
+          if (t === games[i].result) {
+            total = total + 1;
+          }
+          i++;
+        });
+        tip.total = total;
+        tip.save();
+      });
+      res.sendStatus(200);
+    });
+  }
 }

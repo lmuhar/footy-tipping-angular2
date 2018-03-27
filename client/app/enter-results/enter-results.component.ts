@@ -1,25 +1,21 @@
-import { ToastComponent } from "./../shared/toast/toast.component";
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormBuilder,
-  FormArray
-} from "@angular/forms";
-import { Component, OnInit } from "@angular/core";
+import { Observable } from 'rxjs/Observable';
+import { ToastComponent } from './../shared/toast/toast.component';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 
-import { RoundService } from "../services/round.service";
+import { RoundService } from '../services/round.service';
+import { TipService } from '../services/tip.service';
 
 @Component({
-  selector: "app-enter-tips",
-  templateUrl: "./enter-results.component.html",
-  styleUrls: ["./enter-results.component.scss"]
+  selector: 'app-enter-tips',
+  templateUrl: './enter-results.component.html',
+  styleUrls: ['./enter-results.component.scss']
 })
 export class EnterResultsComponent implements OnInit {
   public rounds = [];
-  public selectedRound = { games: [] };
+  public selectedRound = { _id: String, games: [] };
   public isLoading = true;
-  public number = new FormControl("", Validators.required);
+  public number = new FormControl('', Validators.required);
   public isNew = true;
 
   public selectForm: FormGroup;
@@ -28,8 +24,9 @@ export class EnterResultsComponent implements OnInit {
   constructor(
     public toast: ToastComponent,
     private roundService: RoundService,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    private tipService: TipService
+  ) { }
 
   public ngOnInit() {
     this.roundService.getRoundWithIdNumber().subscribe(
@@ -61,7 +58,7 @@ export class EnterResultsComponent implements OnInit {
 
         this.enterResultsForm.reset();
 
-        const control = <FormArray>this.enterResultsForm.controls["results"];
+        const control = <FormArray>this.enterResultsForm.controls['results'];
         res.games.forEach(game => {
           control.push(new FormControl(game.result, Validators.required));
         });
@@ -69,27 +66,27 @@ export class EnterResultsComponent implements OnInit {
       error =>
         this.toast.setMessage(
           `Retrieve tips failed due to: ${error}`,
-          "warning"
+          'warning'
         ),
       () => (this.isLoading = false)
     );
   }
 
   public saveResults() {
+    this.isLoading = true;
     let i = 0;
     this.selectedRound.games.forEach(game => {
       game.result = this.enterResultsForm.value.results[i];
       i++;
     });
-
-    this.roundService.editRound(this.selectedRound).subscribe(
-      res => {
-        console.log(res);
-        this.toast.setMessage("Results successefully entered", "success");
-      },
-      error =>
-        this.toast.setMessage(`Save tips failed due to: ${error}`, "warning"),
-      () => (this.isLoading = false)
-    );
+    // add join for this;
+    Observable.forkJoin([
+      this.roundService.editRound(this.selectedRound),
+      this.tipService.updateTipsWithResults(this.selectedRound._id, this.selectedRound.games)
+    ]).subscribe((res) => {
+      this.toast.setMessage('Save results and update user results was successful', 'success');
+      console.log(res);
+    }, error => this.toast.setMessage(`Save tips failed due to: ${error}`, 'warning'),
+    () => this.isLoading = false);
   }
 }
