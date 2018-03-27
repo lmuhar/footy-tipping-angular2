@@ -11,7 +11,8 @@ const roundSchema = new mongoose.Schema({
         dateTime: Date,
         time: String,
         result: Number
-    }]
+    }],
+    completed: Boolean
 });
 
 const Round = mongoose.model('Round', roundSchema);

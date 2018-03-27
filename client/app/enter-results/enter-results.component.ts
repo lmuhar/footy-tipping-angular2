@@ -13,7 +13,11 @@ import { TipService } from '../services/tip.service';
 })
 export class EnterResultsComponent implements OnInit {
   public rounds = [];
-  public selectedRound = { _id: String, games: [] };
+  public selectedRound = {
+    _id: String,
+    games: [],
+    completed: false
+  };
   public isLoading = true;
   public number = new FormControl('', Validators.required);
   public isNew = true;
@@ -79,6 +83,7 @@ export class EnterResultsComponent implements OnInit {
       game.result = this.enterResultsForm.value.results[i];
       i++;
     });
+    this.selectedRound.completed = true;
     // add join for this;
     Observable.forkJoin([
       this.roundService.editRound(this.selectedRound),
