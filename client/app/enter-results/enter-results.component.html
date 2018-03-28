@@ -3,7 +3,7 @@
 <app-toast [message]="toast.message"></app-toast>
 
 <div class="card" *ngIf="!isLoading">
-    <h4 class="card-header">Current Tips</h4>
+    <h4 class="card-header">Enter results</h4>
     <div class="card-block">
         <form class="form-inline" [formGroup]="selectForm">
 
@@ -20,17 +20,17 @@
             <div class="form-group"> {{selectedRound.dateStart | date: 'dd MMM'}} {{selectedRound.dateEnd | date: 'dd MMM'}}</div>
         </form>
 
-        <form [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
-            <div formArrayName="tips" class="row">
+        <form [formGroup]="enterResultsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
+            <div formArrayName="results" class="row">
                 <div class="col-md-6 card" *ngFor="let tip of selectedRound.games; let i=index">
                     <div class="card-body">
                         <h6 class="card-title">Game {{i + 1}}</h6>
                         <div class="card-title">
-                            <mat-radio-group formControlName="{{i}}" [disabled]="disabledButton(tip.dateTime)">
+                            <mat-radio-group formControlName="{{i}}">
                                 <img src='/assets/team-logos/{{tip.homeTeam}}.png'>
-                                <mat-radio-button [value]="0">{{tip.homeTeam | humanize }}</mat-radio-button>
-                                V
-                                <mat-radio-button [value]="1">{{tip.awayTeam | humanize }}</mat-radio-button>
+                                <mat-radio-button [value]="0">{{tip.homeTeam | humanize}}</mat-radio-button>
+                                <mat-radio-button [value]="2">DRAW</mat-radio-button>
+                                <mat-radio-button [value]="1">{{tip.awayTeam | humanize}}</mat-radio-button>
                                 <img src='/assets/team-logos/{{tip.awayTeam}}.png'>
                             </mat-radio-group>
                         </div>
@@ -38,9 +38,8 @@
                         <div class="card-text">{{tip.dateTime | date: 'dd MMM hh:mm a'}}</div>
                     </div>
                 </div>
-
             </div>
         </form>
     </div>
-    <button mat-raised-button color="primary" (click)="saveTips()" [disabled]="!enterTipsForm.valid">SAVE</button>
+    <button mat-raised-button color="primary" (click)="saveResults()" [disabled]="!enterResultsForm.valid">SAVE</button>
 </div>

@@ -19,6 +19,7 @@ export class ViewTipsComponent implements OnInit {
     public isLoading = true;
     public userTips = [];
     public games = [];
+    public roundCompleted = false;
     public number = new FormControl('', Validators.required);
 
     public selectForm: FormGroup;
@@ -54,6 +55,7 @@ export class ViewTipsComponent implements OnInit {
         forkJoin([this.tipService.allTipsForRound(id), this.roundService.getRound(id)]).subscribe((res) => {
             this.userTips = res[0];
             this.games = res[1].games;
+            this.roundCompleted = res[1].completed;
         }, error => {
             console.log('ERROR', error);
         }, () => this.isLoading = false);

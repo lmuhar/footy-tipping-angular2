@@ -2,13 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SortPipe } from './utils/pipes/sort.pipe';
+import { HumanizePipe } from './utils/pipes/humanize.pipe';
 
 @NgModule({
     declarations: [
-        SortPipe
+        SortPipe,
+        HumanizePipe
     ],
     exports: [
-        SortPipe
+        SortPipe,
+        HumanizePipe
     ],
     imports: [
         CommonModule

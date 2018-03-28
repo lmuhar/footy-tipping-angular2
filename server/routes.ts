@@ -55,6 +55,7 @@ export default function setRoutes(app) {
   router.route('/user/:userId/round/:roundId').get(tipCtrl.userTipsByRound);
   router.route('/tip/:id').put(tipCtrl.update);
   router.route('/tips/roundId/:roundId').get(tipCtrl.allTipsForRound);
+  router.route('/tips/roundId/:roundId/results').put(tipCtrl.updateTipsWithResults);
 
   // Teams
   router.route('/teams').get(teamCtrl.getAll);

@@ -45,4 +45,8 @@ export class TipService {
       .get(`/api/tips/roundId/${roundId}`)
       .map(res => res.json());
   }
+
+  updateTipsWithResults(roundId, games): Observable<any> {
+    return this.http.put(`/api/tips/roundId/${roundId}/results`, JSON.stringify(games), this.options);
+  }
 }

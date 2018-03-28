@@ -32,16 +32,24 @@
                 <mat-card-content>
                     <table class="table">
                         <tr *ngFor="let tip of user.tips; let i=index ">
-                            <td class="align-tips" *ngIf="tip===0 ">
-                                <img src="{{returnName(games[i].homeTeam)}} ">
-                                <div>{{games[i].homeTeam}}</div>
-                            </td>
-                            <td class="align-tips" *ngIf="tip===1 ">
-                                <img src='{{returnName(games[i].awayTeam)}}'>
-                                <div>{{games[i].awayTeam}}</div>
+                            <td class="align-tips">
+                                <div *ngIf="tip===0">
+                                    <img src="{{returnName(games[i].homeTeam)}} ">
+                                    <div>{{games[i].homeTeam | humanize }}</div>
+                                </div>
+
+                                <div *ngIf="tip===1">
+                                    <img src='{{returnName(games[i].awayTeam)}}'>
+                                    <div>{{games[i].awayTeam | humanize }}</div>
+                                </div>
+                                <div *ngIf="roundCompleted">
+                                    <i *ngIf="tip === games[i].result" class="fa fa-check" style="color: green"></i>
+                                    <i *ngIf="tip !== games[i].result" class="fa fa-times" style="color: red"></i>
+                                </div>
                             </td>
                         </tr>
                     </table>
+                    <div class="align-tips">{{user.total}}</div>
                 </mat-card-content>
             </mat-card>
         </div>
