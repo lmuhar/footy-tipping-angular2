@@ -28,9 +28,9 @@
                         <div class="card-title">
                             <mat-radio-group formControlName="{{i}}" [disabled]="disabledButton(tip.dateTime)">
                                 <img src='/assets/team-logos/{{tip.homeTeam}}.png'>
-                                <mat-radio-button [value]="0">{{tip.homeTeam | titlecase}}</mat-radio-button>
+                                <mat-radio-button [value]="0">{{tip.homeTeam | humanize }}</mat-radio-button>
                                 V
-                                <mat-radio-button [value]="1">{{tip.awayTeam | titlecase}}</mat-radio-button>
+                                <mat-radio-button [value]="1">{{tip.awayTeam | humanize }}</mat-radio-button>
                                 <img src='/assets/team-logos/{{tip.awayTeam}}.png'>
                             </mat-radio-group>
                         </div>

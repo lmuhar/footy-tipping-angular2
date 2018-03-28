@@ -35,12 +35,12 @@
                             <td class="align-tips">
                                 <div *ngIf="tip===0">
                                     <img src="{{returnName(games[i].homeTeam)}} ">
-                                    <div>{{games[i].homeTeam | titlecase}}</div>
+                                    <div>{{games[i].homeTeam | humanize }}</div>
                                 </div>
 
                                 <div *ngIf="tip===1">
                                     <img src='{{returnName(games[i].awayTeam)}}'>
-                                    <div>{{games[i].awayTeam | titlecase}}</div>
+                                    <div>{{games[i].awayTeam | humanize }}</div>
                                 </div>
                                 <div *ngIf="roundCompleted">
                                     <i *ngIf="tip === games[i].result" class="fa fa-check" style="color: green"></i>

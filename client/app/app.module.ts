@@ -35,6 +35,7 @@ import { EnterResultsComponent } from './enter-results/enter-results.component';
 import { CdkTableBasicComponent } from './tables/table.component';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
 import 'hammerjs';
 
 @NgModule({

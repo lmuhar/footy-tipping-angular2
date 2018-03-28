@@ -28,8 +28,8 @@
             </tbody>
             <tbody *ngIf="!isEditing">
                 <tr *ngFor="let game of round.games">
-                    <td>{{game.homeTeam | titlecase}} v {{game.awayTeam | titlecase}}</td>
-                    <td>{{game.location | titlecase}}</td>
+                    <td>{{game.homeTeam | humanize}} v {{game.awayTeam | humanize}}</td>
+                    <td>{{game.location | humanize}}</td>
                     <td>{{game.dateTime | date: 'dd MMM hh:mm a'}}</td>
                 </tr>
             </tbody>
