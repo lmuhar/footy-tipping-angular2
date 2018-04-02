@@ -41,6 +41,7 @@ export default function setRoutes(app) {
   router.route('/user/:id').get(userCtrl.get);
   router.route('/user/:id').put(userCtrl.update);
   router.route('/user/:id').delete(userCtrl.delete);
+  router.route('/users/ladder').get(userCtrl.userTipTotal);
 
   // Rounds
   router.route('/rounds').get(roundCtrl.getAll);
