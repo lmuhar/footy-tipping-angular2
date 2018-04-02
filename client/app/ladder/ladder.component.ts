@@ -10,12 +10,14 @@ import { UserService } from '../services/user.service';
 })
 export class LadderComponent implements OnInit {
   public users = [];
+  public isLoading = true;
 
   constructor(private userService: UserService) {}
 
   public ngOnInit() {
     this.userService.getUserTotal().subscribe(res => {
       this.users = res;
-    });
+    }, error => console.log(error), 
+    () => this.isLoading = false);
   }
 }
