@@ -21,7 +21,6 @@ export class UserService {
   }
 
   newUserTips(id, roundId, tips): Observable<any> {
-    console.log('HEERE');
     return this.http.post(`/api/user/${id}/tips/${roundId}`, JSON.stringify(tips), this.options);
   }
 
@@ -47,6 +46,10 @@ export class UserService {
 
   deleteUser(user): Observable<any> {
     return this.http.delete(`/api/user/${user._id}`, this.options);
+  }
+
+  getUserTotal(): Observable<any> {
+    return this.http.get('/api/users/ladder').map(res => res.json());
   }
 
 }

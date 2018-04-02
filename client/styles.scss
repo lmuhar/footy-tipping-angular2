@@ -1,11 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 body {
-  margin-top: 15px;
-  margin-bottom: 10px;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 .input-group {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.float-right {
+    float: right;
+}
+
+.align-content {
+    text-align: center;
 }

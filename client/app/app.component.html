@@ -15,8 +15,8 @@
                 <li class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
                     <i class="fa fa-home"></i> Home
                 </li>
-                <li class="nav-item nav-link" routerLink="/cats" routerLinkActive="active">
-                    <i class="fa fa-list"></i> Cats
+                <li class="nav-item nav-link" routerLink="/tips" routerLinkActive="active" *ngIf="auth.loggedIn">
+                    <i class="fa fa-list"></i> Tips
                 </li>
                 <li class="nav-item nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!auth.loggedIn">
                     <i class="fa fa-sign-in"></i> Login
@@ -26,6 +26,9 @@
                 </li>
                 <li class="nav-item nav-link" routerLink="/account" routerLinkActive="active" *ngIf="auth.loggedIn">
                     <i class="fa fa-user"></i> Account ({{auth.currentUser.username}})
+                </li>
+                <li class="nav-item nav-link" routerLink="/view-tips" routerLinkActive="active" *ngIf="auth.loggedIn">
+                    <i class="fa fa-user"></i> View Tips
                 </li>
                 <li class="nav-item nav-link" routerLink="/rounds" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
                     <i class="fa fa-lock"></i> Manage Games

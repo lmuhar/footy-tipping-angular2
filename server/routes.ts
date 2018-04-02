@@ -15,7 +15,6 @@ import Tip from './models/tips';
 import Location from './models/location';
 
 export default function setRoutes(app) {
-
   const router = express.Router();
 
   const catCtrl = new CatCtrl();
@@ -42,6 +41,7 @@ export default function setRoutes(app) {
   router.route('/user/:id').get(userCtrl.get);
   router.route('/user/:id').put(userCtrl.update);
   router.route('/user/:id').delete(userCtrl.delete);
+  router.route('/users/ladder').get(userCtrl.userTipTotal);
 
   // Rounds
   router.route('/rounds').get(roundCtrl.getAll);
@@ -55,6 +55,8 @@ export default function setRoutes(app) {
   // Tips
   router.route('/user/:userId/round/:roundId').get(tipCtrl.userTipsByRound);
   router.route('/tip/:id').put(tipCtrl.update);
+  router.route('/tips/roundId/:roundId').get(tipCtrl.allTipsForRound);
+  router.route('/tips/roundId/:roundId/results').put(tipCtrl.updateTipsWithResults);
 
   // Teams
   router.route('/teams').get(teamCtrl.getAll);
@@ -64,5 +66,4 @@ export default function setRoutes(app) {
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);
-
 }

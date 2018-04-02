@@ -1,0 +1,62 @@
+<app-loading [condition]='isLoading'></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<div class="card" *ngIf="!isLoading">
+    <h4 class="card-header">Current Tips</h4>
+    <div class="card-block">
+        <form class="form-inline" [formGroup]="selectForm">
+
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-select placeholder="Select a round" formControlName="number">
+                        <mat-option *ngFor="let t of rounds" [value]="t._id">
+                            Round {{ t.number }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </form>
+
+        <div *ngIf="!userTips.length">
+            No tips this round
+        </div>
+        <div class="col-md-6 player-card" *ngFor="let user of userTips">
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image ">
+                        <img src='/assets/user-logos/{{user.user_data.username}}.png'>
+                    </div>
+                    <mat-card-title>{{user.user_data.username}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <table class="table">
+                        <tr *ngFor="let tip of user.tips; let i=index ">
+                            <td class="align-tips">
+                                <div *ngIf="tip===0">
+                                    <img src="{{returnName(games[i].homeTeam)}} ">
+                                    <div>{{games[i].homeTeam | humanize }}</div>
+                                </div>
+
+                                <div *ngIf="tip===1">
+                                    <img src='{{returnName(games[i].awayTeam)}}'>
+                                    <div>{{games[i].awayTeam | humanize }}</div>
+                                </div>
+                                <div *ngIf="roundCompleted">
+                                    <i *ngIf="tip === games[i].result" class="fa fa-check" style="color: green"></i>
+                                    <i *ngIf="tip !== games[i].result" class="fa fa-times" style="color: red"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="align-tips">{{user.total}}</div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<!--
+    <span style="float: left "><i class="fa fa-check " style="color:green "></i></span>
+    <span style="float: right "><i class="fa fa-times " style="color:red "></i></span>
+ -->

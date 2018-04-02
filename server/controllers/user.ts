@@ -1,5 +1,7 @@
 import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
+import * as mongoose from 'mongoose';
+const ObjectId = mongoose.Types.ObjectId;
 
 import User from '../models/user';
 import Tip from '../models/tips';
@@ -35,8 +37,26 @@ export default class UserCtrl extends BaseCtrl {
           user.tips.push(newTip);
           user.save();
           res.status(201).json(newTip);
-        })
-      })
+        });
+      });
+    });
+  }
+
+  userTipTotal = (req, res) => {
+    this.model.aggregate([
+      { $lookup: { from: 'tips', localField: '_id', foreignField: 'ownerId', as: 'tip_data'}},
+      { $project: { 'tip_data.total': 1, username: 1 }}
+    ], (err, data) => {
+      data.map((user) => {
+        let total = 0;
+        user.tip_data.map((tip) => {
+          if (tip.total !== undefined) {
+            total = total + tip.total;
+          }
+        });
+        user.total = total;
+      });
+      res.json(data);
     });
   }
 }

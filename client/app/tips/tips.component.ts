@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ToastComponent } from './../shared/toast/toast.component';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 
+import * as moment from 'moment';
+
 import { RoundService } from '../services/round.service';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
@@ -54,6 +56,11 @@ export class TipsComponent implements OnInit {
         this.selectForm.valueChanges.subscribe((change) => {
             this.getSelectedRoundData(change.number);
         });
+    }
+
+    public disabledButton(date) {
+        return moment().isAfter(date);
+
     }
 
     public saveTips() {

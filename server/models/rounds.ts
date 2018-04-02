@@ -9,8 +9,10 @@ const roundSchema = new mongoose.Schema({
         awayTeam: String,
         location: String,
         dateTime: Date,
-        time: String
-    }]
+        time: String,
+        result: Number
+    }],
+    completed: Boolean
 });
 
 const Round = mongoose.model('Round', roundSchema);
