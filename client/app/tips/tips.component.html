@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <h6 class="card-title">Game {{i + 1}}</h6>
                         <div class="card-title">
-                            <mat-radio-group formControlName="{{i}}" [disabled]="disabledButton(tip.dateTime)">
+                            <mat-radio-group formControlName="{{i}}">
                                 <img src='/assets/team-logos/{{tip.homeTeam}}.png'>
                                 <mat-radio-button [value]="0">{{tip.homeTeam | humanize }}</mat-radio-button>
                                 V
