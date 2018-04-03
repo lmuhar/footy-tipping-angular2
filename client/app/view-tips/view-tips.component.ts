@@ -47,7 +47,7 @@ export class ViewTipsComponent implements OnInit {
     }
 
     public returnName(value) {
-        return `/assets/team-logos/${value.toLowerCase()}.png`;
+        return `/assets/team-logos/${value}.png`;
     }
 
     private getSelectedRoundData(id) {
