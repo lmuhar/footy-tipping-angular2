@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <h6 class="card-title">Game {{i + 1}}</h6>
                         <div class="card-title">
-                            <mat-radio-group formControlName="{{i}}">
+                            <mat-radio-group formControlName="{{i}}" [disabled]="disabledButton(tip.dateTime)">
                                 <img src='/assets/team-logos/{{tip.homeTeam}}.png'>
                                 <mat-radio-button [value]="0">{{tip.homeTeam | humanize }}</mat-radio-button>
                                 V
@@ -38,7 +38,6 @@
                         <div class="card-text">{{tip.dateTime | date: 'dd MMM hh:mm a'}}</div>
                     </div>
                 </div>
-
             </div>
         </form>
     </div>

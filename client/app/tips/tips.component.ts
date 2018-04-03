@@ -20,7 +20,7 @@ export class TipsComponent implements OnInit {
 
     public isLoading = true;
     public rounds = [];
-    public selectedRound = [];
+    public selectedRound = {games: []};
     public selectedRoundId = null;
     public isNew = true;
 
@@ -55,12 +55,12 @@ export class TipsComponent implements OnInit {
 
         this.selectForm.valueChanges.subscribe((change) => {
             this.getSelectedRoundData(change.number);
+            this.enterTipsForm.setControl('tips', this.formBuilder.array([]));
         });
     }
 
     public disabledButton(date) {
         return moment().isAfter(date);
-
     }
 
     public saveTips() {
@@ -81,6 +81,20 @@ export class TipsComponent implements OnInit {
             () => this.isLoading = false);
         }
 
+    }
+
+    public setDefaultData() {
+        const data = [];
+        this.selectedRound.games.forEach(game => {
+            if (moment().isAfter(game.dateTime)) {
+                data.push(1);
+            } else {
+                data.push(null);
+            }
+        });
+        this.enterTipsForm.setValue({
+            tips: data
+        });
     }
 
     private getSelectedRoundData(id) {
@@ -105,6 +119,8 @@ export class TipsComponent implements OnInit {
                 this.isNew = true,
                 this.userRoundId = null;
                 this.enterTipsForm.reset();
+
+                this.setDefaultData();
             },
             () => this.isLoading = false);
 
