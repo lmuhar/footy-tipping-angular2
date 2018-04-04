@@ -6,7 +6,6 @@
     <h4 class="card-header">Current Tips</h4>
     <div class="card-block">
         <form class="form-inline" [formGroup]="selectForm">
-
             <div class="form-group">
                 <mat-form-field>
                     <mat-select placeholder="Select a round" formControlName="number">
@@ -16,8 +15,6 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-
-            <div class="form-group"> {{selectedRound.dateStart | date: 'dd MMM'}} {{selectedRound.dateEnd | date: 'dd MMM'}}</div>
         </form>
 
         <form [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
