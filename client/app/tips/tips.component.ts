@@ -68,8 +68,7 @@ export class TipsComponent implements OnInit {
         if (this.isNew) {
             this.userService.newUserTips(this.auth.currentUser._id, this.selectedRoundId, this.enterTipsForm.value).subscribe((res) => {
                 this.isNew = false;
-                // fix this so that api returns the data as an object
-                this.userRoundId = res.json()._id;
+                this.userRoundId = res._id;
                 this.toast.setMessage('Tips successfully saved', 'success');
             }, error => this.toast.setMessage('Save tips failed, please try again', 'warning'),
             () => this.isLoading = false);
