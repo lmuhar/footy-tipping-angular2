@@ -33,11 +33,7 @@ export class TipService {
   }
 
   editTips(data): Observable<any> {
-    return this.http.put(
-      `/api/tip/${data._id}`,
-      JSON.stringify(data),
-      this.options
-    );
+    return this.http.put(`/api/tip/${data._id}`, JSON.stringify(data), this.options);
   }
 
   allTipsForRound(roundId): Observable<any> {
