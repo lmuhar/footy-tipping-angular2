@@ -21,7 +21,7 @@ export class UserService {
   }
 
   newUserTips(id, roundId, tips): Observable<any> {
-    return this.http.post(`/api/user/${id}/tips/${roundId}`, JSON.stringify(tips), this.options);
+    return this.http.post(`/api/user/${id}/tips/${roundId}`, JSON.stringify(tips), this.options).map(res => res.json());
   }
 
   getUsers(): Observable<any> {
