@@ -9,6 +9,7 @@ import { RoundService } from '../services/round.service';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { TipService } from '../services/tip.service';
+import { EmailService } from '../services/email.service';
 
 @Component({
     selector: 'app-tips',
@@ -36,7 +37,8 @@ export class TipsComponent implements OnInit {
         private roundService: RoundService,
         private userService: UserService,
         private tipService: TipService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private emailService: EmailService
     ) {}
 
     public ngOnInit() {
@@ -64,14 +66,22 @@ export class TipsComponent implements OnInit {
     }
 
     public saveTips() {
-        this.isLoading = true;
+        this.isLoading = false;
         if (this.isNew) {
-            this.userService.newUserTips(this.auth.currentUser._id, this.selectedRoundId, this.enterTipsForm.value).subscribe((res) => {
-                this.isNew = false;
-                this.userRoundId = res._id;
-                this.toast.setMessage('Tips successfully saved', 'success');
-            }, error => this.toast.setMessage('Save tips failed, please try again', 'warning'),
-            () => this.isLoading = false);
+            const data = {
+                user: this.auth.currentUser,
+                tips: this.enterTipsForm.value,
+                round: this.selectedRound
+            };
+            this.emailService.enteredTipsEmail(data).subscribe(res => {
+                console.log('sent');
+            });
+            // this.userService.newUserTips(this.auth.currentUser._id, this.selectedRoundId, this.enterTipsForm.value).subscribe((res) => {
+            //     this.isNew = false;
+            //     this.userRoundId = res._id;
+            //     this.toast.setMessage('Tips successfully saved', 'success');
+            // }, error => this.toast.setMessage('Save tips failed, please try again', 'warning'),
+            // () => this.isLoading = false);
         } else {
             const data = this.enterTipsForm.value;
             data.ownerId = this.auth.currentUser._id;

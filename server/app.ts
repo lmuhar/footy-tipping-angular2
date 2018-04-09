@@ -4,7 +4,6 @@ import * as express from 'express';
 import * as morgan from 'morgan';
 import * as mongoose from 'mongoose';
 import * as path from 'path';
-import * as sgMail from '@sendgrid/mail';
 
 import setRoutes from './routes';
 
@@ -24,17 +23,6 @@ if (process.env.NODE_ENV === 'test') {
   console.log('URL', mongodbURI);
   app.use(morgan('dev'));
 }
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-const msg = {
-  to: 'lauren.k.muhar@gmail.com',
-  from: 'lauren.k.muhar@gmail.com',
-  subject: 'Sending with SendGrid is Fun',
-  text: 'and easy to do anywhere, even with Node.js',
-  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-};
-console.log('msg', msg);
-sgMail.send(msg);
 
 mongoose.Promise = global.Promise;
 const mongodb = mongoose.connect(mongodbURI, { useMongoClient: true });

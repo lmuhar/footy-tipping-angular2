@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as sgMail from '@sendgrid/mail';
 
 import CatCtrl from './controllers/cat';
 import UserCtrl from './controllers/user';
@@ -6,6 +7,7 @@ import RoundCtrl from './controllers/round';
 import TeamCtrl from './controllers/team';
 import LocationCtrl from './controllers/location';
 import TipCtrl from './controllers/tip';
+import SendGridCtrl from './controllers/sendgrid';
 
 import Cat from './models/cat';
 import User from './models/user';
@@ -23,6 +25,7 @@ export default function setRoutes(app) {
   const teamCtrl = new TeamCtrl();
   const locationCtrl = new LocationCtrl();
   const tipCtrl = new TipCtrl();
+  const sendGridCtrl = new SendGridCtrl();
 
   // Cats
   router.route('/cats').get(catCtrl.getAll);
@@ -63,6 +66,10 @@ export default function setRoutes(app) {
 
   // Locations
   router.route('/locations').get(locationCtrl.getAll);
+
+  // Email routes
+  router.route('/send-email').post(sendGridCtrl.sendEmail);
+  router.route('/enter-tips-success').post(sendGridCtrl.enteredTipsEmail);
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);
