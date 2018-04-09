@@ -30,11 +30,11 @@
                 <li class="nav-item nav-link" routerLink="/view-tips" routerLinkActive="active" *ngIf="auth.loggedIn">
                     <i class="fa fa-user"></i> View Tips
                 </li>
-                <li class="nav-item nav-link" routerLink="/rounds" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
-                    <i class="fa fa-lock"></i> Manage Games
-                </li>
                 <li class="nav-item nav-link" routerLink="/admin" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
                     <i class="fa fa-lock"></i> Admin
+                </li>
+                <li class="nav-item nav-link" routerLink="/enter-results" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
+                    <i class="fa fa-list"></i> Enter Results
                 </li>
                 <li class="nav-item nav-link" routerLink="/logout" routerLinkActive="active" *ngIf="auth.loggedIn">
                     <i class="fa fa-sign-out"></i> Logout
