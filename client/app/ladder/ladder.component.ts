@@ -17,7 +17,7 @@ export class LadderComponent implements OnInit {
   public ngOnInit() {
     this.userService.getUserTotal().subscribe(res => {
       this.users = res;
-    }, error => console.log(error), 
+    }, error => console.log(error),
     () => this.isLoading = false);
   }
 }

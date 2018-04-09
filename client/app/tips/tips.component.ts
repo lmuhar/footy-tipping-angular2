@@ -9,6 +9,7 @@ import { RoundService } from '../services/round.service';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { TipService } from '../services/tip.service';
+import { EmailService } from '../services/email.service';
 
 @Component({
     selector: 'app-tips',
@@ -36,7 +37,8 @@ export class TipsComponent implements OnInit {
         private roundService: RoundService,
         private userService: UserService,
         private tipService: TipService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private emailService: EmailService
     ) {}
 
     public ngOnInit() {
@@ -63,12 +65,24 @@ export class TipsComponent implements OnInit {
         return moment().isAfter(date);
     }
 
+    private sendSaveEmail(data) {
+        this.emailService.enteredTipsEmail(data).subscribe(res => {
+            console.log('sent', res);
+        });
+    }
+
     public saveTips() {
         this.isLoading = true;
+        const emailData = {
+            user: this.auth.currentUser,
+            tips: this.enterTipsForm.value,
+            round: this.selectedRound
+        };
         if (this.isNew) {
             this.userService.newUserTips(this.auth.currentUser._id, this.selectedRoundId, this.enterTipsForm.value).subscribe((res) => {
                 this.isNew = false;
                 this.userRoundId = res._id;
+                this.sendSaveEmail(emailData);
                 this.toast.setMessage('Tips successfully saved', 'success');
             }, error => this.toast.setMessage('Save tips failed, please try again', 'warning'),
             () => this.isLoading = false);
@@ -78,6 +92,7 @@ export class TipsComponent implements OnInit {
             data.roundId = this.selectedRoundId;
             data._id = this.userRoundId;
             this.tipService.editTips(data).subscribe(() => {
+                this.sendSaveEmail(emailData);
                 this.toast.setMessage('Tips successfully updated', 'success');
             }, error => this.toast.setMessage('Updated tips failed, please try again', 'warning'),
             () => this.isLoading = false);

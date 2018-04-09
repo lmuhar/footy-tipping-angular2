@@ -15,6 +15,7 @@ import { RoundService } from './services/round.service';
 import { TeamService } from './services/team.service';
 import { TipService } from './services/tip.service';
 import { LocationService } from './services/location.service';
+import { EmailService } from './services/email.service';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -77,7 +78,8 @@ import 'hammerjs';
     RoundService,
     TeamService,
     LocationService,
-    TipService
+    TipService,
+    EmailService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
