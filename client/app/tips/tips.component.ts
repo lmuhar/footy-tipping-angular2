@@ -82,7 +82,7 @@ export class TipsComponent implements OnInit {
             this.userService.newUserTips(this.auth.currentUser._id, this.selectedRoundId, this.enterTipsForm.value).subscribe((res) => {
                 this.isNew = false;
                 this.userRoundId = res._id;
-                this.sendSaveEmail(emailData);
+                // this.sendSaveEmail(emailData);
                 this.toast.setMessage('Tips successfully saved', 'success');
             }, error => this.toast.setMessage('Save tips failed, please try again', 'warning'),
             () => this.isLoading = false);
@@ -92,7 +92,7 @@ export class TipsComponent implements OnInit {
             data.roundId = this.selectedRoundId;
             data._id = this.userRoundId;
             this.tipService.editTips(data).subscribe(() => {
-                this.sendSaveEmail(emailData);
+                // this.sendSaveEmail(emailData);
                 this.toast.setMessage('Tips successfully updated', 'success');
             }, error => this.toast.setMessage('Updated tips failed, please try again', 'warning'),
             () => this.isLoading = false);
