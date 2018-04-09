@@ -1,5 +1,4 @@
 import * as sgMail from '@sendgrid/mail';
-import { SendgridModel } from './../models/sendgrid';
 
 export default class SendGridCtrl {
     sendEmail = (req, res) => {
