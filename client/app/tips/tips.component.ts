@@ -65,29 +65,34 @@ export class TipsComponent implements OnInit {
         return moment().isAfter(date);
     }
 
+    private sendSaveEmail(data) {
+        this.emailService.enteredTipsEmail(data).subscribe(res => {
+            console.log('sent', res);
+        });
+    }
+
     public saveTips() {
-        this.isLoading = false;
+        this.isLoading = true;
+        const emailData = {
+            user: this.auth.currentUser,
+            tips: this.enterTipsForm.value,
+            round: this.selectedRound
+        };
         if (this.isNew) {
-            const data = {
-                user: this.auth.currentUser,
-                tips: this.enterTipsForm.value,
-                round: this.selectedRound
-            };
-            this.emailService.enteredTipsEmail(data).subscribe(res => {
-                console.log('sent');
-            });
-            // this.userService.newUserTips(this.auth.currentUser._id, this.selectedRoundId, this.enterTipsForm.value).subscribe((res) => {
-            //     this.isNew = false;
-            //     this.userRoundId = res._id;
-            //     this.toast.setMessage('Tips successfully saved', 'success');
-            // }, error => this.toast.setMessage('Save tips failed, please try again', 'warning'),
-            // () => this.isLoading = false);
+            this.userService.newUserTips(this.auth.currentUser._id, this.selectedRoundId, this.enterTipsForm.value).subscribe((res) => {
+                this.isNew = false;
+                this.userRoundId = res._id;
+                this.sendSaveEmail(emailData);
+                this.toast.setMessage('Tips successfully saved', 'success');
+            }, error => this.toast.setMessage('Save tips failed, please try again', 'warning'),
+            () => this.isLoading = false);
         } else {
             const data = this.enterTipsForm.value;
             data.ownerId = this.auth.currentUser._id;
             data.roundId = this.selectedRoundId;
             data._id = this.userRoundId;
             this.tipService.editTips(data).subscribe(() => {
+                this.sendSaveEmail(emailData);
                 this.toast.setMessage('Tips successfully updated', 'success');
             }, error => this.toast.setMessage('Updated tips failed, please try again', 'warning'),
             () => this.isLoading = false);
