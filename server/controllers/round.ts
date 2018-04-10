@@ -15,7 +15,7 @@ export default class RoundCtrl extends BaseCtrl {
         this.model.aggregate([
             { $match: { 'completed': true } },
             { $group: { _id: { id: '$_id', dateEnd: { $max: '$dateEnd' }, number: '$number' } } },
-            { $sort: { '_id.dateEnd': -1 } }
+            { $sort: { '_id.dateEnd': -1 } },
             { $limit: 1 }
         ], (err, data) => {
             if (err) {return console.log(err); }
