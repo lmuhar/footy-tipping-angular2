@@ -54,6 +54,7 @@ export default function setRoutes(app) {
   router.route('/round/:id').put(roundCtrl.update);
   router.route('/round/:id').delete(roundCtrl.delete);
   router.route('/rounds/list').get(roundCtrl.getWithIdAndNumber);
+  router.route('/rounds/current/total').get(roundCtrl.getRoundTotal);
 
   // Tips
   router.route('/user/:userId/round/:roundId').get(tipCtrl.userTipsByRound);

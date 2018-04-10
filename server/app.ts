@@ -20,7 +20,6 @@ if (process.env.NODE_ENV === 'test') {
   mongodbURI = process.env.MONGODB_TEST_URI;
 } else {
   mongodbURI = process.env.MONGODB_URI;
-  console.log('URL', mongodbURI);
   app.use(morgan('dev'));
 }
 

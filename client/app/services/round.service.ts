@@ -39,4 +39,8 @@ export class RoundService {
     deleteRound(round): Observable<any> {
         return this.http.delete(`/api/round/${round._id}`, this.options);
     }
+
+    getRoundTotal(): Observable<any> {
+        return this.http.get('/api/rounds/current/total').map(res => res.json());
+    }
 }

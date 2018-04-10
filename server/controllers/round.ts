@@ -10,4 +10,16 @@ export default class RoundCtrl extends BaseCtrl {
             res.json(docs);
         });
     }
+
+    getRoundTotal = (req, res) => {
+        this.model.aggregate([
+            { $match: { 'completed': true } },
+            { $group: { _id: { id: '$_id', dateEnd: { $max: '$dateEnd' }, number: '$number' } } },
+            { $sort: { dateEnd: -1 } },
+            { $limit: 1 }
+        ], (err, data) => {
+            if (err) {return console.log(err); }
+            res.json(data);
+        });
+    }
 }
