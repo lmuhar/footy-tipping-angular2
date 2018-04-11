@@ -1,5 +1,5 @@
 
-export default class Test2 {
+export default class SavedTipEmail {
     getHtml(user, round, tips) {
         return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--[if IE]><html xmlns="http://www.w3.org/1999/xhtml" class="ie"><![endif]--><!--[if !IE]><!--><html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]--><head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -464,11 +464,7 @@ body{background-color:#fff}.logo a:hover,.logo a:focus{color:#859bb1 !important}
             <div class="snippet" style="display: table-cell;Float: left;font-size: 12px;line-height: 19px;max-width: 280px;min-width: 140px; width: 140px;width: calc(14000% - 78120px);padding: 10px 0 5px 0;color: #adb3b9;font-family: sans-serif;">
 
             </div>
-          <!--[if (mso)|(IE)]></td><td style="width: 280px" valign="top"><![endif]-->
-            <div class="webversion" style="display: table-cell;Float: left;font-size: 12px;line-height: 19px;max-width: 280px;min-width: 139px; width: 139px;width: calc(14100% - 78680px);padding: 10px 0 5px 0;text-align: right;color: #adb3b9;font-family: sans-serif;">
-              <p style="Margin-top: 0;Margin-bottom: 0;">No Images? <webversion style="text-decoration: underline;">Click here</webversion></p>
-            </div>
-          <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+
           </div>
         </div>
 
@@ -478,19 +474,7 @@ body{background-color:#fff}.logo a:hover,.logo a:focus{color:#859bb1 !important}
         <div class="layout three-col" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
           <div class="layout__inner" style="border-collapse: collapse;display: table;width: 100%;">
           <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-full-width" style="background-color: #3f51b5;"><td class="layout__edges">&nbsp;</td><td style="width: 200px" valign="top" class="w160"><![endif]-->
-            <div class="column" style="Float: left;max-width: 320px;min-width: 200px; width: 320px;width: calc(72200px - 12000%);text-align: left;font-size: 14px;line-height: 21px;font-family: sans-serif;">
 
-              <div style="Margin-left: 20px;Margin-right: 20px;">
-      <div style="mso-line-height-rule: exactly;line-height: 10px;font-size: 1px;">&nbsp;</div>
-    </div>
-
-              <div style="Margin-left: 20px;Margin-right: 20px;">
-      <div style="mso-line-height-rule: exactly;mso-text-raise: 4px;">
-        <h3 class="size-12" style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #281557;font-size: 12px;line-height: 19px;font-family: Avenir,sans-serif;text-align: center;" lang="x-size-12"><strong><span style="color:#fff">OFFERS</span></strong></h3>
-      </div>
-    </div>
-
-            </div>
           <!--[if (mso)|(IE)]></td><td style="width: 200px" valign="top" class="w160"><![endif]-->
             <div class="column" style="Float: left;max-width: 320px;min-width: 200px; width: 320px;width: calc(72200px - 12000%);text-align: left;font-size: 14px;line-height: 21px;font-family: sans-serif;">
 
@@ -500,23 +484,11 @@ body{background-color:#fff}.logo a:hover,.logo a:focus{color:#859bb1 !important}
 
               <div style="Margin-left: 20px;Margin-right: 20px;">
       <div style="mso-line-height-rule: exactly;mso-text-raise: 4px;">
-        <h3 class="size-12" style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #281557;font-size: 12px;line-height: 19px;font-family: Avenir,sans-serif;text-align: center;" lang="x-size-12"><strong>TIPPING</strong></h3>
+        <h3 class="size-12" style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #281557;font-size: 12px;line-height: 19px;font-family: Avenir,sans-serif;text-align: center;" lang="x-size-12"><span style="color:#fff"><strong>2018 AFL FOOTY TIPPING</strong></span></h3>
       </div>
     </div>
 
             </div>
-          <!--[if (mso)|(IE)]></td><td style="width: 200px" valign="top" class="w160"><![endif]-->
-            <div class="column" style="Float: left;max-width: 320px;min-width: 200px; width: 320px;width: calc(72200px - 12000%);text-align: left;font-size: 14px;line-height: 21px;font-family: sans-serif;">
-
-              <div style="Margin-left: 20px;Margin-right: 20px;">
-      <div style="mso-line-height-rule: exactly;line-height: 10px;font-size: 1px;">&nbsp;</div>
-    </div>
-
-              <div style="Margin-left: 20px;Margin-right: 20px;">
-      <div style="mso-line-height-rule: exactly;mso-text-raise: 4px;">
-        <h3 class="size-12" style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #281557;font-size: 12px;line-height: 19px;font-family: Avenir,sans-serif;text-align: center;" lang="x-size-12"><span style="color:#fff"><strong>FOR TWO</strong></span></h3>
-      </div>
-    </div>
 
             </div>
           <!--[if (mso)|(IE)]></td><td class="layout__edges">&nbsp;</td></tr></table><![endif]-->
@@ -551,7 +523,7 @@ body{background-color:#fff}.logo a:hover,.logo a:focus{color:#859bb1 !important}
 
             <div style="Margin-left: 20px;Margin-right: 20px;">
       <div style="mso-line-height-rule: exactly;mso-text-raise: 4px;">
-        <h3 style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #281557;font-size: 18px;line-height: 26px;font-family: Avenir,sans-serif;text-align: center;"><strong>Hi ${user.username}, here are your tips for ${round.number}</strong></h3>
+        <h3 style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #281557;font-size: 18px;line-height: 26px;font-family: Avenir,sans-serif;text-align: center;"><strong>Hi ${user.username}, here are your tips for Round: ${round.number}</strong></h3>
       </div>
     </div>
 
@@ -570,39 +542,39 @@ body{background-color:#fff}.logo a:hover,.logo a:focus{color:#859bb1 !important}
             <div style="Margin-left: 20px;Margin-right: 20px;">
       <div style="mso-line-height-rule: exactly;mso-text-raise: 4px;">
         <p style="Margin-top: 0;Margin-bottom: 0;">
-                    <div>
+                    <div align="center">
                         ${round.games[0] && round.games[0].homeTeam ? tips[0] === 0 ?
                 round.games[0].homeTeam : round.games[0].awayTeam : ''}
                     </div>
-                    <div>
+                    <div align="center">
                         ${round.games[1] && round.games[1].homeTeam ? tips[1] === 0 ?
                 round.games[1].homeTeam : round.games[1].awayTeam : ''}
                     </div>
-                    <div>
+                    <div align="center">
                         ${round.games[2] && round.games[2].homeTeam ? tips[2] === 0 ?
                 round.games[2].homeTeam : round.games[2].awayTeam : ''}
                     </div>
-                    <div>
+                    <div align="center">
                         ${round.games[3] && round.games[3].homeTeam ? tips[3] === 0 ?
                 round.games[3].homeTeam : round.games[3].awayTeam : ''}
                     </div>
-                    <div>
+                    <div align="center">
                         ${round.games[4] && round.games[4].homeTeam ? tips[4] === 0 ?
                 round.games[4].homeTeam : round.games[4].awayTeam : ''}
                     </div>
-                    <div>
+                    <div align="center">
                         ${round.games[5] && round.games[5].homeTeam ? tips[5] === 0 ?
                 round.games[5].homeTeam : round.games[5].awayTeam : ''}
                     </div>
-                    <div>
+                    <div align="center">
                         ${round.games[6] && round.games[6].homeTeam ? tips[6] === 0 ?
                 round.games[6].homeTeam : round.games[6].awayTeam : ''}
                     </div>
-                    <div>
+                    <div align="center">
                         ${round.games[7] && round.games[7].homeTeam ? tips[7] === 0 ?
                 round.games[7].homeTeam : round.games[7].awayTeam : ''}
                     </div>
-                    <div>
+                    <div align="center">
                         ${round.games[8] && round.games[8].homeTeam ? tips[8] === 0 ?
                 round.games[8].homeTeam : round.games[8].awayTeam : '' }
                     </div>
@@ -675,8 +647,6 @@ body{background-color:#fff}.logo a:hover,.logo a:focus{color:#859bb1 !important}
       </div>
       <div style="mso-line-height-rule: exactly;line-height: 40px;font-size: 40px;">&nbsp;</div>
     </div></td></tr></tbody></table>
-
-</body></html>
-`;
+</body></html>`;
     }
 }
