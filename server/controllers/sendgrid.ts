@@ -25,7 +25,7 @@ export default class SendGridCtrl {
         const user = req.body.user;
         const round = req.body.round;
         const msg = {
-            to: `lauren.k.muhar@gmail.com`,
+            to: `${user.email}`,
             from: 'lauren.k.muhar@gmail.com',
             subject: `Your AFL tips for Round ${round.number}`,
             html: body.getHtml(user, round, tips),

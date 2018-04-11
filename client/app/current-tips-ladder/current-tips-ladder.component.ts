@@ -24,7 +24,6 @@ export class CurrentTipsLadderComponent implements OnInit {
             this.roundData = res[0]._id;
             this.tipService.allTipsForRound(this.roundData.id).subscribe((result => {
                 this.users = result;
-                console.log('test', this.users);
             }));
         }, error => console.log(error),
         () => this.isLoading = false);
