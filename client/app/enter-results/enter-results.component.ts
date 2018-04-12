@@ -14,7 +14,7 @@ import { TipService } from '../services/tip.service';
 export class EnterResultsComponent implements OnInit {
   public rounds = [];
   public selectedRound = {
-    _id: String,
+    _id: null,
     games: [],
     completed: false
   };

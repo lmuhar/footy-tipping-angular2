@@ -41,5 +41,5 @@
             </div>
         </form>
     </div>
-    <button mat-raised-button color="primary" (click)="saveResults()" [disabled]="!enterResultsForm.valid">SAVE</button>
+    <button *ngIf="selectedRound._id" mat-raised-button color="primary" (click)="saveResults()" [disabled]="!enterResultsForm.valid">SAVE</button>
 </div>
