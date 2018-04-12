@@ -25,7 +25,7 @@
                     <i class="fa fa-user-plus"></i> Register
                 </li>
                 <li class="nav-item nav-link" routerLink="/account" routerLinkActive="active" *ngIf="auth.loggedIn">
-                    <i class="fa fa-user"></i> Account ({{auth.currentUser.username}})
+                    <i class="fa fa-user"></i> Account ({{auth.currentUser.username | humanize}})
                 </li>
                 <li class="nav-item nav-link" routerLink="/view-tips" routerLinkActive="active" *ngIf="auth.loggedIn">
                     <i class="fa fa-user"></i> View Tips

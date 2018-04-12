@@ -24,7 +24,7 @@
             </tbody>
             <tbody>
                 <tr *ngFor="let user of users">
-                    <td>{{user.username}}</td>
+                    <td>{{user.username | humanize}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.role}}</td>
                     <td>
