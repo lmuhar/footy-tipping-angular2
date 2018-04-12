@@ -1,5 +1,9 @@
+import * as _ from 'lodash';
 
 export default class SavedTipEmail {
+    formatText(game, no, tips) {
+      return game[no] && game[no].homeTeam ? tips[0] === 0 ? _.startCase(game[no].homeTeam) : _.startCase(game[no].awayTeam) : '';
+      }
     getHtml(user, round, tips) {
         return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--[if IE]><html xmlns="http://www.w3.org/1999/xhtml" class="ie"><![endif]--><!--[if !IE]><!--><html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]--><head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -543,40 +547,31 @@ body{background-color:#fff}.logo a:hover,.logo a:focus{color:#859bb1 !important}
       <div style="mso-line-height-rule: exactly;mso-text-raise: 4px;">
         <p style="Margin-top: 0;Margin-bottom: 0;">
                     <div align="center">
-                        ${round.games[0] && round.games[0].homeTeam ? tips[0] === 0 ?
-                round.games[0].homeTeam : round.games[0].awayTeam : ''}
+                      ${this.formatText(round.games, 0, tips)}
                     </div>
                     <div align="center">
-                        ${round.games[1] && round.games[1].homeTeam ? tips[1] === 0 ?
-                round.games[1].homeTeam : round.games[1].awayTeam : ''}
+                        ${this.formatText(round.games, 1, tips)}
                     </div>
                     <div align="center">
-                        ${round.games[2] && round.games[2].homeTeam ? tips[2] === 0 ?
-                round.games[2].homeTeam : round.games[2].awayTeam : ''}
+                        ${this.formatText(round.games, 2, tips)}
                     </div>
                     <div align="center">
-                        ${round.games[3] && round.games[3].homeTeam ? tips[3] === 0 ?
-                round.games[3].homeTeam : round.games[3].awayTeam : ''}
+                        ${this.formatText(round.games, 3, tips)}
                     </div>
                     <div align="center">
-                        ${round.games[4] && round.games[4].homeTeam ? tips[4] === 0 ?
-                round.games[4].homeTeam : round.games[4].awayTeam : ''}
+                        ${this.formatText(round.games, 4, tips)}
                     </div>
                     <div align="center">
-                        ${round.games[5] && round.games[5].homeTeam ? tips[5] === 0 ?
-                round.games[5].homeTeam : round.games[5].awayTeam : ''}
+                        ${this.formatText(round.games, 5, tips)}
                     </div>
                     <div align="center">
-                        ${round.games[6] && round.games[6].homeTeam ? tips[6] === 0 ?
-                round.games[6].homeTeam : round.games[6].awayTeam : ''}
+                        ${this.formatText(round.games, 6, tips)}
                     </div>
                     <div align="center">
-                        ${round.games[7] && round.games[7].homeTeam ? tips[7] === 0 ?
-                round.games[7].homeTeam : round.games[7].awayTeam : ''}
+                        ${this.formatText(round.games, 7, tips)}
                     </div>
                     <div align="center">
-                        ${round.games[8] && round.games[8].homeTeam ? tips[8] === 0 ?
-                round.games[8].homeTeam : round.games[8].awayTeam : '' }
+                        ${this.formatText(round.games, 8, tips)}
                     </div>
         </p>
       </div>
@@ -648,5 +643,6 @@ body{background-color:#fff}.logo a:hover,.logo a:focus{color:#859bb1 !important}
       <div style="mso-line-height-rule: exactly;line-height: 40px;font-size: 40px;">&nbsp;</div>
     </div></td></tr></tbody></table>
 </body></html>`;
-    }
+  }
 }
+
