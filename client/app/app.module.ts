@@ -16,6 +16,7 @@ import { TeamService } from './services/team.service';
 import { TipService } from './services/tip.service';
 import { LocationService } from './services/location.service';
 import { EmailService } from './services/email.service';
+import { AflLadderService } from './services/afl-ladder.service';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -81,7 +82,8 @@ import 'hammerjs';
     TeamService,
     LocationService,
     TipService,
-    EmailService
+    EmailService,
+    AflLadderService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
