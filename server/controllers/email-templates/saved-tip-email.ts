@@ -643,6 +643,6 @@ body{background-color:#fff}.logo a:hover,.logo a:focus{color:#859bb1 !important}
       <div style="mso-line-height-rule: exactly;line-height: 40px;font-size: 40px;">&nbsp;</div>
     </div></td></tr></tbody></table>
 </body></html>`;
-                        }
-    }
+  }
 }
+
