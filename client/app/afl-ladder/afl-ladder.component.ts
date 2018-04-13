@@ -19,8 +19,7 @@ export class AflLadderComponent implements OnInit {
     public ngOnInit() {
         this.aflLadderService.getLatestLadder().subscribe(res => {
             this.data = res;
-            console.log(res);
-        }, error => console.log(error),
+        }, error => this.isLoading = false,
         () => this.isLoading = false);
     }
 }

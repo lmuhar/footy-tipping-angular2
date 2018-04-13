@@ -22,9 +22,10 @@ export class CurrentTipsLadderComponent implements OnInit {
     public ngOnInit() {
         this.roundService.getRoundTotal().subscribe(res => {
             this.roundData = res[0]._id;
-            this.tipService.allTipsForRound(this.roundData.id).subscribe((result => {
+            this.tipService.allTipsForRound(this.roundData.id).subscribe(result => {
                 this.users = result;
-            }));
+            }, error => console.log(error),
+            () => this.isLoading = false);
         }, error => console.log(error),
         () => this.isLoading = false);
     }

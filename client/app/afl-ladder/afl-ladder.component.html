@@ -5,7 +5,7 @@
             <mat-card-title>AFL Ladder</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <table class="table">
+            <table *ngIf="data && data.length > 0" class="table">
                 <thead>
                     <tr>
                         <td>Name</td>
@@ -33,6 +33,9 @@
                     </tr>
                 </tbody>
             </table>
+            <div *ngIf="data.length === 0">
+                No ladder data
+            </div>
         </mat-card-content>
     </mat-card>
 </div>
