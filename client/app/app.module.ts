@@ -36,6 +36,7 @@ import { ViewTipsComponent } from './view-tips/view-tips.component';
 import { EnterResultsComponent } from './enter-results/enter-results.component';
 import { LadderComponent } from './ladder/ladder.component';
 import { CurrentTipsLadderComponent } from './current-tips-ladder/current-tips-ladder.component';
+import { AflLadderComponent } from './afl-ladder/afl-ladder.component';
 import { CdkTableBasicComponent } from './tables/table.component';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -59,6 +60,7 @@ import 'hammerjs';
     EnterResultsComponent,
     LadderComponent,
     CurrentTipsLadderComponent,
+    AflLadderComponent,
     CdkTableBasicComponent
   ],
   imports: [
