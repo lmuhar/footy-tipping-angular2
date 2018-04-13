@@ -1,0 +1,38 @@
+<app-loading [condition]='isLoading'></app-loading>
+<div class="col-md-6" style="margin-top: 20px" *ngIf="!isLoading">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>AFL Ladder</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>P</td>
+                        <td>W</td>
+                        <td>D</td>
+                        <td>L</td>
+                        <td>For</td>
+                        <td>Agt</td>
+                        <td>%</td>
+                        <td>Points</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let team of data">
+                        <td>{{team.name}}</td>
+                        <td>{{team.played}}</td>
+                        <td>{{team.wins}}</td>
+                        <td>{{team.draw}}</td>
+                        <td>{{team.loss}}</td>
+                        <td>{{team.for}}</td>
+                        <td>{{team.agt}}</td>
+                        <td>{{team.percent}}</td>
+                        <td>{{team.points}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </mat-card-content>
+    </mat-card>
+</div>
