@@ -7,6 +7,7 @@ import LocationCtrl from './controllers/location';
 import TipCtrl from './controllers/tip';
 import SendGridCtrl from './controllers/sendgrid';
 import AflLadderCtrl from './controllers/afl-ladder';
+import ScrapedLadderCtrl from './controllers/scraped-ladder';
 
 import Cat from './models/cat';
 import User from './models/user';
@@ -26,6 +27,7 @@ export default function setRoutes(app) {
   const tipCtrl = new TipCtrl();
   const sendGridCtrl = new SendGridCtrl();
   const aflLadderCtrl = new AflLadderCtrl();
+  const scrapedLadderCtrl = new ScrapedLadderCtrl();
 
   // Cats
   router.route('/cats').get(catCtrl.getAll);
@@ -74,6 +76,9 @@ export default function setRoutes(app) {
 
   // Scraping route
   router.route('/afl-ladder').get(aflLadderCtrl.getAflLadderData);
+
+  router.route('/scraped-ladder').post(scrapedLadderCtrl.insert);
+  router.route('/scraped-ladder/:id').put(scrapedLadderCtrl.update);
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);
