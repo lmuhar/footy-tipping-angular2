@@ -79,6 +79,7 @@ export default function setRoutes(app) {
 
   router.route('/scraped-ladder').post(scrapedLadderCtrl.insert);
   router.route('/scraped-ladder/:id').put(scrapedLadderCtrl.update);
+  router.route('/scraped-ladder').get(scrapedLadderCtrl.getLatestLadder);
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);

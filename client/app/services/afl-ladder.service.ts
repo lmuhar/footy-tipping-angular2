@@ -24,4 +24,8 @@ export class AflLadderService {
     editLadder(data, id): Observable<any> {
         return this.http.put(`/api/scraped-ladder/${id}`, JSON.stringify(data), this.options);
     }
+
+    getLatestLadder(): Observable<any> {
+        return this.http.get('/api/scraped-ladder').map(res => res.json());
+    }
 }
