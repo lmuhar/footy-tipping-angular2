@@ -8,6 +8,8 @@
             <table *ngIf="data && data.length > 0" class="table table-striped table-responsive">
                 <thead>
                     <tr>
+                        <td>#</td>
+                        <td></td>
                         <td>Name</td>
                         <td>P</td>
                         <td>W</td>
@@ -20,7 +22,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let team of data">
+                    <tr *ngFor="let team of data; let i=index">
+                        <td>{{i + 1}}</td>
+                        <td><img src="{{returnImg(team.name)}}"></td>
                         <td>{{team.name}}</td>
                         <td>{{team.played}}</td>
                         <td>{{team.wins}}</td>
