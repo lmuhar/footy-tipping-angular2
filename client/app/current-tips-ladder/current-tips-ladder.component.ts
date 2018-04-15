@@ -14,17 +14,20 @@ export class CurrentTipsLadderComponent implements OnInit {
 
     public users = [];
     public isLoading = true;
-    public roundData = null;
+    public roundData = { number: null, id: null};
 
     constructor(private roundService: RoundService,
                 private tipService: TipService) {}
 
     public ngOnInit() {
         this.roundService.getRoundTotal().subscribe(res => {
-            this.roundData = res[0]._id;
-            this.tipService.allTipsForRound(this.roundData.id).subscribe((result => {
-                this.users = result;
-            }));
+            if (res[0] && res[0].id) {
+                this.roundData = res[0]._id;
+                this.tipService.allTipsForRound(this.roundData.id).subscribe(result => {
+                    this.users = result;
+                }, error => console.log(error),
+                () => this.isLoading = false);
+            }
         }, error => console.log(error),
         () => this.isLoading = false);
     }

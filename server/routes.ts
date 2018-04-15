@@ -1,6 +1,4 @@
 import * as express from 'express';
-import * as sgMail from '@sendgrid/mail';
-
 import CatCtrl from './controllers/cat';
 import UserCtrl from './controllers/user';
 import RoundCtrl from './controllers/round';
@@ -8,6 +6,8 @@ import TeamCtrl from './controllers/team';
 import LocationCtrl from './controllers/location';
 import TipCtrl from './controllers/tip';
 import SendGridCtrl from './controllers/sendgrid';
+import AflLadderCtrl from './controllers/afl-ladder';
+import ScrapedLadderCtrl from './controllers/scraped-ladder';
 
 import Cat from './models/cat';
 import User from './models/user';
@@ -26,6 +26,8 @@ export default function setRoutes(app) {
   const locationCtrl = new LocationCtrl();
   const tipCtrl = new TipCtrl();
   const sendGridCtrl = new SendGridCtrl();
+  const aflLadderCtrl = new AflLadderCtrl();
+  const scrapedLadderCtrl = new ScrapedLadderCtrl();
 
   // Cats
   router.route('/cats').get(catCtrl.getAll);
@@ -71,6 +73,13 @@ export default function setRoutes(app) {
   // Email routes
   router.route('/send-email').post(sendGridCtrl.sendEmail);
   router.route('/enter-tips-success').post(sendGridCtrl.enteredTipsEmail);
+
+  // Scraping route
+  router.route('/afl-ladder').get(aflLadderCtrl.getAflLadderData);
+
+  router.route('/scraped-ladder').post(scrapedLadderCtrl.insert);
+  router.route('/scraped-ladder/:id').put(scrapedLadderCtrl.update);
+  router.route('/scraped-ladder').get(scrapedLadderCtrl.getLatestLadder);
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);

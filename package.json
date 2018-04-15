@@ -45,6 +45,7 @@
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.18.2",
         "bootstrap": "4.0.0-alpha.5",
+        "cheerio": "^1.0.0-rc.2",
         "core-js": "^2.5.1",
         "dotenv": "^4.0.0",
         "express": "^4.16.2",
@@ -58,6 +59,7 @@
         "mongoose": "^4.12.1",
         "morgan": "^1.9.0",
         "redis": "^2.8.0",
+        "request": "^2.85.0",
         "rxjs": "^5.4.2",
         "tether": "1.4.0",
         "zone.js": "^0.8.14"
