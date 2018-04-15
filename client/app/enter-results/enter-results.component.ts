@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { RoundService } from '../services/round.service';
 import { TipService } from '../services/tip.service';
+import { AflLadderService } from '../services/afl-ladder.service';
 
 @Component({
   selector: 'app-enter-tips',
@@ -29,7 +30,8 @@ export class EnterResultsComponent implements OnInit {
     public toast: ToastComponent,
     private roundService: RoundService,
     private formBuilder: FormBuilder,
-    private tipService: TipService
+    private tipService: TipService,
+    private aflLadderService: AflLadderService
   ) { }
 
   public ngOnInit() {
@@ -93,5 +95,15 @@ export class EnterResultsComponent implements OnInit {
       console.log(res);
     }, error => this.toast.setMessage(`Save tips failed due to: ${error}`, 'warning'),
     () => this.isLoading = false);
+  }
+
+  public scrapeLadderData() {
+    this.isLoading = true;
+    this.aflLadderService.getAflLadder().subscribe(res => {
+      this.aflLadderService.newLadder(res).subscribe(result => {
+        this.toast.setMessage('Ladder data retrieved', 'success');
+      }, error => this.toast.setMessage(`Get ladder information failed due to: ${error}`, 'warning'),
+      () => this.isLoading = false);
+    });
   }
 }

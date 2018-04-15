@@ -16,6 +16,7 @@ import { TeamService } from './services/team.service';
 import { TipService } from './services/tip.service';
 import { LocationService } from './services/location.service';
 import { EmailService } from './services/email.service';
+import { AflLadderService } from './services/afl-ladder.service';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -35,6 +36,7 @@ import { ViewTipsComponent } from './view-tips/view-tips.component';
 import { EnterResultsComponent } from './enter-results/enter-results.component';
 import { LadderComponent } from './ladder/ladder.component';
 import { CurrentTipsLadderComponent } from './current-tips-ladder/current-tips-ladder.component';
+import { AflLadderComponent } from './afl-ladder/afl-ladder.component';
 import { CdkTableBasicComponent } from './tables/table.component';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -58,6 +60,7 @@ import 'hammerjs';
     EnterResultsComponent,
     LadderComponent,
     CurrentTipsLadderComponent,
+    AflLadderComponent,
     CdkTableBasicComponent
   ],
   imports: [
@@ -81,7 +84,8 @@ import 'hammerjs';
     TeamService,
     LocationService,
     TipService,
-    EmailService
+    EmailService,
+    AflLadderService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

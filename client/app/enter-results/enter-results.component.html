@@ -40,6 +40,7 @@
                 </div>
             </div>
         </form>
+        <button mat-raised-button color="primary" (click)="scrapeLadderData()">Get Ladder</button>
     </div>
     <button *ngIf="selectedRound._id" mat-raised-button color="primary" (click)="saveResults()" [disabled]="!enterResultsForm.valid">SAVE</button>
 </div>

@@ -11,6 +11,7 @@ import { UserService } from '../services/user.service';
 export class LadderComponent implements OnInit {
   public users = [];
   public isLoading = true;
+  public html = null;
 
   constructor(private userService: UserService) {}
 
