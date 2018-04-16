@@ -21,7 +21,7 @@ export class CurrentTipsLadderComponent implements OnInit {
 
     public ngOnInit() {
         this.roundService.getRoundTotal().subscribe(res => {
-            if (res[0] && res[0].id) {
+            if (res[0] && res[0]._id) {
                 this.roundData = res[0]._id;
                 this.tipService.allTipsForRound(this.roundData.id).subscribe(result => {
                     this.users = result;
