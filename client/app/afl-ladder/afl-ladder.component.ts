@@ -26,7 +26,6 @@ export class AflLadderComponent implements OnInit {
 
     public returnImg(name) {
         // const value = TeamNames[_.toUpper(name)];
-        debugger;
         return `/assets/team-logos/${name}.png`;
     }
 }
