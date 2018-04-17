@@ -4,12 +4,14 @@ import * as express from 'express';
 import * as morgan from 'morgan';
 import * as mongoose from 'mongoose';
 import * as path from 'path';
+import CronJobCtrl from './controllers/cron';
 
 import setRoutes from './routes';
 
 const app = express();
+const cronJobCtrl = new CronJobCtrl();
 dotenv.load({ path: '.env' });
-app.set('port', (process.env.PORT || 3000));
+app.set('port', process.env.PORT || 3000);
 
 app.use('/', express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.json());
@@ -27,7 +29,7 @@ mongoose.Promise = global.Promise;
 const mongodb = mongoose.connect(mongodbURI, { useMongoClient: true });
 
 mongodb
-  .then((db) => {
+  .then(db => {
     console.log('Connected to MongoDB on', db.host + ':' + db.port);
 
     setRoutes(app);
@@ -41,10 +43,13 @@ mongodb
         console.log('Angular Full Stack listening on port ' + app.get('port'));
       });
     }
-
   })
-  .catch((err) => {
+  .catch(err => {
     console.error(err);
-});
+  });
+
+
+cronJobCtrl.reminderEmail();
+
 
 export { app };

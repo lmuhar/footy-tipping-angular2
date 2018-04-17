@@ -59,4 +59,11 @@ export default class UserCtrl extends BaseCtrl {
       res.json(data);
     });
   }
+
+  getUserEmails = (req, res) => {
+    this.model.find({}, ['email'], (err, docs) => {
+      if (err) { return console.error(err); }
+      res.json(docs);
+    });
+  }
 }

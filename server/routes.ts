@@ -73,6 +73,7 @@ export default function setRoutes(app) {
   // Email routes
   router.route('/send-email').post(sendGridCtrl.sendEmail);
   router.route('/enter-tips-success').post(sendGridCtrl.enteredTipsEmail);
+  router.route('/cron/tip-reminder').post(sendGridCtrl.sendReminderEmail);
 
   // Scraping route
   router.route('/afl-ladder').get(aflLadderCtrl.getAflLadderData);
