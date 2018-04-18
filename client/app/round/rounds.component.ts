@@ -7,6 +7,8 @@ import { LocationService } from '../services/location.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
 import { Round } from '../shared/models/round.model';
+import { Location } from '../shared/models/location.model';
+import { Team } from '../shared/models/team.model';
 
 import * as moment from 'moment';
 
@@ -21,8 +23,8 @@ export class RoundsComponent implements OnInit {
 
     public round = new Round();
     public rounds: Round[] = [];
-    public teams = [];
-    public locations = [];
+    public teams: Team[] = [];
+    public locations: Location[] = [];
     public totalRounds = 0;
     public isLoading = true;
     public isEditing = false;

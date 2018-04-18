@@ -1,48 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Tip } from '../shared/models/tip.model';
 
 @Injectable()
 export class TipService {
-  private headers = new Headers({
-    'Content-Type': 'application/json',
-    charset: 'UTF-8 '
-  });
-  private options = new RequestOptions({ headers: this.headers });
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
-  getTipByRound(id): Observable<any> {
-    return this.http.get(`/api/tip/${id}`).map(res => res.json());
+  getTipByRound(id): Observable<Tip> {
+    return this.http.get<Tip>(`/api/tip/${id}`);
   }
 
-  addTip(tips): Observable<any> {
-    return this.http.post('/api/tip', JSON.stringify(tips), this.options);
+  addTip(tips: Tip): Observable<Tip[]> {
+    return this.http.post<Tip[]>('/api/tip', tips);
   }
 
   getTotal(id): Observable<any> {
-    return this.http.get('/api/tips/total').map(res => res.json());
+    return this.http.get<any>('/api/tips/total');
   }
 
   getUserTipsForRound(userId, roundId): Observable<any> {
-    return this.http
-      .get(`/api/user/${userId}/round/${roundId}`)
-      .map(res => res.json());
+    return this.http.get<any>(`/api/user/${userId}/round/${roundId}`);
   }
 
-  editTips(data): Observable<any> {
-    return this.http.put(`/api/tip/${data._id}`, JSON.stringify(data), this.options);
+  editTips(data: Tip): Observable<string> {
+    return this.http.put(`/api/tip/${data._id}`, data, { responseType: 'text'});
   }
 
-  allTipsForRound(roundId): Observable<any> {
-    return this.http
-      .get(`/api/tips/roundId/${roundId}`)
-      .map(res => res.json());
+  allTipsForRound(roundId): Observable<Tip[]> {
+    return this.http.get<Tip[]>(`/api/tips/roundId/${roundId}`);
   }
 
-  updateTipsWithResults(roundId, games): Observable<any> {
-    return this.http.put(`/api/tips/roundId/${roundId}/results`, JSON.stringify(games), this.options);
+  updateTipsWithResults(roundId, games): Observable<string> {
+    return this.http.put(`/api/tips/roundId/${roundId}/results`, games, { responseType: 'text'});
   }
 }
