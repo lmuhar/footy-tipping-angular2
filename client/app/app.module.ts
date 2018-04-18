@@ -38,7 +38,6 @@ import { EnterResultsComponent } from './enter-results/enter-results.component';
 import { LadderComponent } from './ladder/ladder.component';
 import { CurrentTipsLadderComponent } from './current-tips-ladder/current-tips-ladder.component';
 import { AflLadderComponent } from './afl-ladder/afl-ladder.component';
-import { CdkTableBasicComponent } from './tables/table.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import 'hammerjs';
@@ -60,8 +59,7 @@ import 'hammerjs';
     EnterResultsComponent,
     LadderComponent,
     CurrentTipsLadderComponent,
-    AflLadderComponent,
-    CdkTableBasicComponent
+    AflLadderComponent
   ],
   imports: [
     HttpClientModule,
