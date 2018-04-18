@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
-import * as _ from 'lodash';
 
 import { AflLadderService} from './../services/afl-ladder.service';
+import { ImageHelper } from './../utils/helpers/imageHelper';
 
 @Component({
     selector: 'app-afl-ladder',
@@ -25,7 +25,6 @@ export class AflLadderComponent implements OnInit {
     }
 
     public returnImg(name) {
-        // const value = TeamNames[_.toUpper(name)];
-        return `/assets/team-logos/${name}.png`;
+        return ImageHelper.returnAssetUrl(name);
     }
 }

@@ -7,6 +7,8 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@ang
 import { RoundService } from '../services/round.service';
 import { TipService } from '../services/tip.service';
 
+import { Round } from '../shared/models/round.model';
+
 @Component({
     selector: 'app-view-tips',
     templateUrl: './view-tips.component.html',
@@ -15,7 +17,7 @@ import { TipService } from '../services/tip.service';
 
 export class ViewTipsComponent implements OnInit {
 
-    public rounds = [];
+    public rounds: Round[] = [];
     public isLoading = true;
     public userTips = [];
     public games = [];

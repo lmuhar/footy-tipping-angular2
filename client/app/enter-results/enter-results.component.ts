@@ -15,7 +15,7 @@ import { Round } from '../shared/models/round.model';
   styleUrls: ['./enter-results.component.scss']
 })
 export class EnterResultsComponent implements OnInit {
-  public rounds = [];
+  public rounds: Round[] = [];
   public selectedRound = new Round();
   public isLoading = true;
   public number = new FormControl('', Validators.required);
