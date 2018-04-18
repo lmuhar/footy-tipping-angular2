@@ -6,6 +6,8 @@ import { TeamService } from '../services/team.service';
 import { LocationService } from '../services/location.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
+import { Round } from '../shared/models/round.model';
+
 import * as moment from 'moment';
 
 import { Observable } from 'rxjs/Rx';
@@ -17,8 +19,8 @@ import { Observable } from 'rxjs/Rx';
 })
 export class RoundsComponent implements OnInit {
 
-    public round = {};
-    public rounds = [];
+    public round = new Round();
+    public rounds: Round[] = [];
     public teams = [];
     public locations = [];
     public totalRounds = 0;
@@ -86,8 +88,7 @@ export class RoundsComponent implements OnInit {
         });
         this.roundService.addRound(this.addRoundForm.value).subscribe(
             res => {
-                const newRound = res.json();
-                this.rounds.push(newRound);
+                this.rounds.push(res);
                 this.addRoundForm.reset();
                 this.toast.setMessage('round successfully added.', 'success');
             },

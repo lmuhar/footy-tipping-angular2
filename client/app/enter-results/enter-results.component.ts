@@ -7,6 +7,8 @@ import { RoundService } from '../services/round.service';
 import { TipService } from '../services/tip.service';
 import { AflLadderService } from '../services/afl-ladder.service';
 
+import { Round } from '../shared/models/round.model';
+
 @Component({
   selector: 'app-enter-tips',
   templateUrl: './enter-results.component.html',
@@ -14,11 +16,7 @@ import { AflLadderService } from '../services/afl-ladder.service';
 })
 export class EnterResultsComponent implements OnInit {
   public rounds = [];
-  public selectedRound = {
-    _id: null,
-    games: [],
-    completed: false
-  };
+  public selectedRound = new Round();
   public isLoading = true;
   public number = new FormControl('', Validators.required);
   public isNew = true;

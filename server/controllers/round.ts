@@ -7,7 +7,7 @@ export default class RoundCtrl extends BaseCtrl {
     getWithIdAndNumber = (req, res) => {
         this.model.find({}, ['_id', 'number', 'dateStart'], (err, docs) => {
             if (err) { return console.error(err); }
-            res.json(docs);
+            res.status(200).json(docs);
         });
     }
 
@@ -19,7 +19,7 @@ export default class RoundCtrl extends BaseCtrl {
             { $limit: 1 }
         ], (err, data) => {
             if (err) {return console.log(err); }
-            res.json(data);
+            res.status(200).json(data);
         });
     }
 }

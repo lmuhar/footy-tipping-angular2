@@ -11,6 +11,8 @@ import { UserService } from '../services/user.service';
 import { TipService } from '../services/tip.service';
 import { EmailService } from '../services/email.service';
 
+import { Round } from '../shared/models/round.model';
+
 @Component({
     selector: 'app-tips',
     templateUrl: './tips.component.html',
@@ -20,8 +22,8 @@ import { EmailService } from '../services/email.service';
 export class TipsComponent implements OnInit {
 
     public isLoading = true;
-    public rounds = [];
-    public selectedRound = {games: []};
+    public rounds: Round[] = [];
+    public selectedRound = new Round();
     public selectedRoundId = null;
     public isNew = true;
 
