@@ -7,6 +7,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@ang
 import { RoundService } from '../services/round.service';
 import { TipService } from '../services/tip.service';
 
+import { ImageHelper } from './../utils/helpers/imageHelper';
 import { Round } from '../shared/models/round.model';
 
 @Component({
@@ -48,8 +49,8 @@ export class ViewTipsComponent implements OnInit {
         });
     }
 
-    public returnName(value) {
-        return `/assets/team-logos/${value}.png`;
+    public returnName(name) {
+        return ImageHelper.returnAssetUrl(name);
     }
 
     private getSelectedRoundData(id) {

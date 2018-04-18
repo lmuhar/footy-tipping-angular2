@@ -8,6 +8,7 @@ import { TipService } from '../services/tip.service';
 import { AflLadderService } from '../services/afl-ladder.service';
 
 import { Round } from '../shared/models/round.model';
+import { ImageHelper } from './../utils/helpers/imageHelper';
 
 @Component({
   selector: 'app-enter-tips',
@@ -74,6 +75,9 @@ export class EnterResultsComponent implements OnInit {
         ),
       () => (this.isLoading = false)
     );
+  }
+  public returnName(name) {
+    return ImageHelper.returnAssetUrl(name);
   }
 
   public saveResults() {

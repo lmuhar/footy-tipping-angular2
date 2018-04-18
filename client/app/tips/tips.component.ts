@@ -12,6 +12,7 @@ import { TipService } from '../services/tip.service';
 import { EmailService } from '../services/email.service';
 
 import { Round } from '../shared/models/round.model';
+import { ImageHelper } from './../utils/helpers/imageHelper';
 
 @Component({
     selector: 'app-tips',
@@ -114,6 +115,10 @@ export class TipsComponent implements OnInit {
         this.enterTipsForm.setValue({
             tips: data
         });
+    }
+
+    public returnName(name) {
+        return ImageHelper.returnAssetUrl(name);
     }
 
     private getSelectedRoundData(id) {
