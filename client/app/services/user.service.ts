@@ -1,55 +1,52 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
+import { User } from '../shared/models/user.model';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 
 @Injectable()
 export class UserService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
-  private options = new RequestOptions({ headers: this.headers });
+  constructor(private http: HttpClient) { }
 
-  constructor(private http: Http) { }
-
-  register(user): Observable<any> {
-    return this.http.post('/api/user', JSON.stringify(user), this.options);
+  register(user: User): Observable<User> {
+    return this.http.post<User>('/api/user', user);
   }
 
   login(credentials): Observable<any> {
-    return this.http.post('/api/login', JSON.stringify(credentials), this.options);
+    return this.http.post<any>('/api/login', credentials);
   }
 
   newUserTips(id, roundId, tips): Observable<any> {
-    return this.http.post(`/api/user/${id}/tips/${roundId}`, JSON.stringify(tips), this.options).map(res => res.json());
+    return this.http.post<any>(`/api/user/${id}/tips/${roundId}`, tips);
   }
 
-  getUsers(): Observable<any> {
-    return this.http.get('/api/users').map(res => res.json());
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>('/api/users');
   }
 
-  countUsers(): Observable<any> {
-    return this.http.get('/api/users/count').map(res => res.json());
+  countUsers(): Observable<number> {
+    return this.http.get<number>('/api/users/count');
   }
 
-  addUser(user): Observable<any> {
-    return this.http.post('/api/user', JSON.stringify(user), this.options);
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>('/api/user', user);
   }
 
-  getUser(user): Observable<any> {
-    return this.http.get(`/api/user/${user._id}`).map(res => res.json());
+  getUser(user: User): Observable<User> {
+    return this.http.get<User>(`/api/user/${user._id}`);
   }
 
-  editUser(user): Observable<any> {
-    return this.http.put(`/api/user/${user._id}`, JSON.stringify(user), this.options);
+  editUser(user: User): Observable<User> {
+    return this.http.put<User>(`/api/user/${user._id}`, user);
   }
 
-  deleteUser(user): Observable<any> {
-    return this.http.delete(`/api/user/${user._id}`, this.options);
+  deleteUser(user: User): Observable<string> {
+    return this.http.delete(`/api/user/${user._id}`, { responseType: 'text'});
   }
 
   getUserTotal(): Observable<any> {
-    return this.http.get('/api/users/ladder').map(res => res.json());
+    return this.http.get<any>('/api/users/ladder');
   }
 
 }
