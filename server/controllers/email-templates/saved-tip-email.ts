@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 
 export default class SavedTipEmail {
     formatText(game, no, tips) {
-      return game[no] && game[no].homeTeam ? tips[0] === 0 ? _.startCase(game[no].homeTeam) : _.startCase(game[no].awayTeam) : '';
+      return game[no] && game[no].homeTeam ? tips[no] === 0 ? _.startCase(game[no].homeTeam) : _.startCase(game[no].awayTeam) : '';
       }
     getHtml(user, round, tips) {
         return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--[if IE]><html xmlns="http://www.w3.org/1999/xhtml" class="ie"><![endif]--><!--[if !IE]><!--><html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]--><head>
