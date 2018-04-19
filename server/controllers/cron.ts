@@ -7,7 +7,7 @@ export default class CronJobCtrl {
 
     reminderEmail() {
 
-        new CronJob('00 00 10 * * 4', () => {
+        new CronJob('00 00 1 * * 4', () => {
             const sendGridCtrl = new SendGridCtrl();
             const emails = [];
             User.find({}, ['email'], (err, docs) => {
