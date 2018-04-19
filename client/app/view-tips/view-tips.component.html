@@ -25,7 +25,7 @@
             <mat-card>
                 <mat-card-header>
                     <div mat-card-avatar class="example-header-image ">
-                        <img src='/assets/user-logos/{{user.user_data.username}}.png'>
+                        <img src='{{returnUserImage(user.user_data.username)}}'>
                     </div>
                     <mat-card-title>{{user.user_data.username | humanize}}</mat-card-title>
                 </mat-card-header>

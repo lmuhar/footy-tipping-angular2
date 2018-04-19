@@ -53,6 +53,10 @@ export class ViewTipsComponent implements OnInit {
         return ImageHelper.returnAssetUrl(name);
     }
 
+    public returnUserImage(name) {
+        return ImageHelper.returnUserImage(name);
+    }
+
     private getSelectedRoundData(id) {
         this.isLoading = true;
         forkJoin([this.tipService.allTipsForRound(id), this.roundService.getRound(id)]).subscribe((res) => {

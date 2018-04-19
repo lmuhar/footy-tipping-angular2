@@ -2,6 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 
 import { UserService } from '../services/user.service';
+import { ImageHelper } from './../utils/helpers/imageHelper';
 
 @Component({
   selector: 'app-ladder',
@@ -20,5 +21,9 @@ export class LadderComponent implements OnInit {
       this.users = res;
     }, error => console.log(error),
     () => this.isLoading = false);
+  }
+
+  public returnUserImage(name) {
+    return ImageHelper.returnUserImage(name);
   }
 }

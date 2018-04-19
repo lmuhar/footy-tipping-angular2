@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { RoundService } from './../services/round.service';
 import { TipService } from './../services/tip.service';
+import { ImageHelper } from './../utils/helpers/imageHelper';
 
 @Component({
     selector: 'app-current-tips-ladder',
@@ -30,6 +31,10 @@ export class CurrentTipsLadderComponent implements OnInit {
             }
         }, error => console.log(error),
         () => this.isLoading = false);
+    }
+
+    public returnImage(name) {
+        return ImageHelper.returnUserImage(name);
     }
 
 }
