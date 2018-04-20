@@ -2,6 +2,7 @@
     "name": "muhar-footy-tipping-app2",
     "version": "4.2.4",
     "license": "MIT",
+    "main": "app.js",
     "author": "Lauren Muhar",
     "description": "Angular Full Stack project built using Angular 2+, Express, Mongoose and Node.",
     "angular-cli": {},
