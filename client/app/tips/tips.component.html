@@ -16,7 +16,7 @@
                 </mat-form-field>
             </div>
         </form>
-
+        <app-afl-ladder></app-afl-ladder>
         <form [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
             <div formArrayName="tips" class="row">
                 <div class="col-md-6 card" *ngFor="let tip of selectedRound.games; let i=index">
