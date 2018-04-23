@@ -9,7 +9,6 @@ import { LogoutComponent } from './logout/logout.component';
 import { AccountComponent } from './account/account.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { RoundsComponent } from './round/rounds.component';
 import { TipsComponent } from './tips/tips.component';
 import { ViewTipsComponent } from './view-tips/view-tips.component';
 import { EnterResultsComponent } from './enter-results/enter-results.component';
@@ -26,7 +25,7 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuardAdmin] },
   { path: 'notfound', component: NotFoundComponent },
-  { path: 'rounds', component: RoundsComponent, canActivate: [AuthGuardLogin] },
+  { path: 'rounds', loadChildren: 'app/round/rounds.module#RoundsModule', canActivate: [AuthGuardLogin] },
   { path: 'tips', component: TipsComponent, canActivate: [AuthGuardLogin] },
   { path: 'view-tips', component: ViewTipsComponent, canActivate: [AuthGuardLogin] },
   { path: 'enter-results', component: EnterResultsComponent, canActivate: [AuthGuardAdmin] },

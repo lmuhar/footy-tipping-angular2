@@ -47,7 +47,9 @@ export class LadderComponent implements OnInit {
                 const found = _.find(this.roundTotal, r => {
                   return r.user_data.username === item.username;
                 });
-                item.roundTotal = found.total;
+                if (found && found.total) {
+                  item.roundTotal = found.total;
+                }
                 return item;
               });
             },
