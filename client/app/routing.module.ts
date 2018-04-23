@@ -20,7 +20,7 @@ import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 const routes: Routes = [
   { path: '', component: AboutComponent },
   { path: 'cats', loadChildren: 'app/cats/cats.module#CatsModule' },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', loadChildren: 'app/register/register.module#RegisterModule' },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },

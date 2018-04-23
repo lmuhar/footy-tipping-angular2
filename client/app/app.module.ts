@@ -24,7 +24,6 @@ import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 
 import { AppComponent } from './app.component';
 import { AboutComponent } from './about/about.component';
-import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AccountComponent } from './account/account.component';
@@ -44,7 +43,6 @@ import 'hammerjs';
   declarations: [
     AppComponent,
     AboutComponent,
-    RegisterComponent,
     LoginComponent,
     LogoutComponent,
     AccountComponent,
