@@ -11,7 +11,7 @@
                         <div>
                             <img src="{{returnUserImage(user.username)}}"> {{user.username | humanize}}
                             <h4 class="float-right">
-                                <small class="subtext">({{user.roundTotal}})</small> {{user.total}}
+                                <small class="subtext" *ngIf="user.roundTotal">({{user.roundTotal}})</small> {{user.total}}
                             </h4>
                         </div>
                     </td>
