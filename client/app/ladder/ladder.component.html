@@ -1,19 +1,26 @@
 <app-loading [condition]='isLoading'></app-loading>
 <div class="col-md-6" *ngIf="!isLoading">
     <mat-card>
-        <mat-card-header>
-            <mat-card-title>Ladder</mat-card-title>
-        </mat-card-header>
         <mat-card-content>
             <table class="table">
+                <thead>
+                    <tr>
+                        <td><strong>Ladder</strong></td>
+                        <td>R {{roundNumber}}</td>
+                        <td>T</td>
+                    </tr>
+                </thead>
                 <tr *ngFor="let user of users | reverseSort:'total'">
                     <td>
                         <div>
                             <img src="{{returnUserImage(user.username)}}"> {{user.username | humanize}}
-                            <h4 class="float-right">
-                                <small class="subtext" *ngIf="user.roundTotal">({{user.roundTotal}})</small> {{user.total}}
-                            </h4>
                         </div>
+                    </td>
+                    <td>
+                        <h4><small class="subtext" *ngIf="user.roundTotal">({{user.roundTotal}})</small></h4>
+                    </td>
+                    <td>
+                        <h4>{{user.total}}</h4>
                     </td>
                 </tr>
             </table>

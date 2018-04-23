@@ -1,23 +1,24 @@
-import { Observable } from "rxjs/Observable";
-import { Component, OnInit } from "@angular/core";
+import { Observable } from 'rxjs/Observable';
+import { Component, OnInit } from '@angular/core';
 
-import { RoundService } from "./../services/round.service";
-import { TipService } from "./../services/tip.service";
-import { UserService } from "../services/user.service";
-import { ImageHelper } from "./../utils/helpers/imageHelper";
+import { RoundService } from './../services/round.service';
+import { TipService } from './../services/tip.service';
+import { UserService } from '../services/user.service';
+import { ImageHelper } from './../utils/helpers/imageHelper';
 
-import * as _ from "lodash";
+import * as _ from 'lodash';
 
 @Component({
-  selector: "app-ladder",
-  templateUrl: "./ladder.component.html",
-  styleUrls: ["./ladder.component.scss"]
+  selector: 'app-ladder',
+  templateUrl: './ladder.component.html',
+  styleUrls: ['./ladder.component.scss']
 })
 export class LadderComponent implements OnInit {
   public users = [];
   public roundData = { number: null, id: null };
   public isLoading = true;
   public roundTotal = null;
+  public roundNumber = null;
 
   constructor(
     private userService: UserService,
@@ -38,11 +39,12 @@ export class LadderComponent implements OnInit {
       res => {
         if (res[0] && res[0]._id) {
           this.roundData = res[0]._id;
+          this.roundNumber = this.roundData.number;
           this.tipService.allTipsForRound(this.roundData.id).subscribe(
             result => {
               this.roundTotal = result;
               this.users.map(item => {
-                let found = _.find(this.roundTotal, r => {
+                const found = _.find(this.roundTotal, r => {
                   return r.user_data.username === item.username;
                 });
                 item.roundTotal = found.total;
