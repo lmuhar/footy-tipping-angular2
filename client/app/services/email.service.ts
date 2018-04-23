@@ -1,22 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 
 @Injectable()
 export class EmailService {
 
-    private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
-    private options = new RequestOptions({ headers: this.headers });
-
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
     testEmail(data): Observable<any> {
-        return this.http.post('/api/send-email', JSON.stringify(data), this.options);
+        return this.http.post('/api/send-email', data);
     }
 
     enteredTipsEmail(data): Observable<any> {
-        return this.http.post('/api/enter-tips-success', JSON.stringify(data), this.options);
+        return this.http.post('/api/enter-tips-success', data);
     }
 }
