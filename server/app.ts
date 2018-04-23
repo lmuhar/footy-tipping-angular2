@@ -11,7 +11,7 @@ import setRoutes from './routes';
 const app = express();
 const cronJobCtrl = new CronJobCtrl();
 dotenv.load({ path: '.env' });
-app.set('port', process.env.PORT || 3000);
+app.set('port', (process.env.PORT || 3000));
 
 app.use('/', express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.json());
@@ -26,11 +26,11 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 mongoose.Promise = global.Promise;
-const mongodb = mongoose.connect(mongodbURI, { useMongoClient: true });
+const mongodb = mongoose.connect(mongodbURI);
 
 mongodb
   .then(db => {
-    console.log('Connected to MongoDB on', db.host + ':' + db.port);
+    console.log('Connected to MongoDB');
 
     setRoutes(app);
 

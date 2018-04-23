@@ -12,7 +12,7 @@ export default class TipCtrl extends BaseCtrl {
       if (!tips) {
         return res.sendStatus(404);
       }
-      res.json(tips);
+      res.status(200).json(tips);
     });
   }
 
@@ -24,7 +24,8 @@ export default class TipCtrl extends BaseCtrl {
       { $project: { 'user_data.username': 1, 'tips': 1, 'total': 1}},
       { $unwind: '$user_data'}
     ], (err, tips) => {
-      res.json(tips);
+      if (err) { return res.sendStatus(404); }
+      res.status(200).json(tips);
     });
   }
 

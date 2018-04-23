@@ -7,18 +7,17 @@ import { RoundService } from '../services/round.service';
 import { TipService } from '../services/tip.service';
 import { AflLadderService } from '../services/afl-ladder.service';
 
+import { Round } from '../shared/models/round.model';
+import { ImageHelper } from './../utils/helpers/imageHelper';
+
 @Component({
   selector: 'app-enter-tips',
   templateUrl: './enter-results.component.html',
   styleUrls: ['./enter-results.component.scss']
 })
 export class EnterResultsComponent implements OnInit {
-  public rounds = [];
-  public selectedRound = {
-    _id: null,
-    games: [],
-    completed: false
-  };
+  public rounds: Round[] = [];
+  public selectedRound = new Round();
   public isLoading = true;
   public number = new FormControl('', Validators.required);
   public isNew = true;
@@ -76,6 +75,9 @@ export class EnterResultsComponent implements OnInit {
         ),
       () => (this.isLoading = false)
     );
+  }
+  public returnName(name) {
+    return ImageHelper.returnAssetUrl(name);
   }
 
   public saveResults() {

@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
@@ -35,9 +36,7 @@ import { TipsComponent} from './tips/tips.component';
 import { ViewTipsComponent } from './view-tips/view-tips.component';
 import { EnterResultsComponent } from './enter-results/enter-results.component';
 import { LadderComponent } from './ladder/ladder.component';
-import { CurrentTipsLadderComponent } from './current-tips-ladder/current-tips-ladder.component';
 import { AflLadderComponent } from './afl-ladder/afl-ladder.component';
-import { CdkTableBasicComponent } from './tables/table.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import 'hammerjs';
@@ -58,11 +57,10 @@ import 'hammerjs';
     ViewTipsComponent,
     EnterResultsComponent,
     LadderComponent,
-    CurrentTipsLadderComponent,
-    AflLadderComponent,
-    CdkTableBasicComponent
+    AflLadderComponent
   ],
   imports: [
+    HttpClientModule,
     RoutingModule,
     SharedModule,
     CommonPipesModule,

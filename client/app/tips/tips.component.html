@@ -16,7 +16,7 @@
                 </mat-form-field>
             </div>
         </form>
-
+        <app-afl-ladder></app-afl-ladder>
         <form [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
             <div formArrayName="tips" class="row">
                 <div class="col-md-6 card" *ngFor="let tip of selectedRound.games; let i=index">
@@ -24,11 +24,11 @@
                         <h6 class="card-title">Game {{i + 1}}</h6>
                         <div class="card-title">
                             <mat-radio-group formControlName="{{i}}" [disabled]="disabledButton(tip.dateTime)">
-                                <img src='/assets/team-logos/{{tip.homeTeam}}.png'>
+                                <img src='{{returnName(tip.homeTeam)}}'>
                                 <mat-radio-button [value]="0">{{tip.homeTeam | humanize }}</mat-radio-button>
                                 V
                                 <mat-radio-button [value]="1">{{tip.awayTeam | humanize }}</mat-radio-button>
-                                <img src='/assets/team-logos/{{tip.awayTeam}}.png'>
+                                <img src='{{returnName(tip.awayTeam)}}'>
                             </mat-radio-group>
                         </div>
                         <div class="card-text">{{tip.location}}</div>
