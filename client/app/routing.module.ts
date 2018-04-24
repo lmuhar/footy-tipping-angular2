@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LogoutComponent } from './logout/logout.component';
-import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
@@ -15,7 +14,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: 'app/login/login.module#LoginModule' },
   { path: 'logout', component: LogoutComponent },
   { path: 'account', loadChildren: 'app/account/account.module#AccountModule', canActivate: [AuthGuardLogin] },
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuardAdmin] },
+  { path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule', canActivate: [AuthGuardAdmin] },
   { path: 'notfound', component: NotFoundComponent },
   { path: 'rounds', loadChildren: 'app/round/rounds.module#RoundsModule', canActivate: [AuthGuardLogin] },
   { path: 'tips', loadChildren: 'app/tips/tips.module#TipsModule', canActivate: [AuthGuardLogin] },
