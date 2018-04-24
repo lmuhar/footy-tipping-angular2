@@ -7,16 +7,18 @@ import { AflLadderComponent } from './../afl-ladder/afl-ladder.component';
 import { SharedModule } from '../shared/shared.module';
 import { CommonPipesModule } from '../commonPipes.module';
 import { MaterialModule } from '../angularMaterial.module';
+import { AFLLadderModule } from './../afl-ladder/afl-ladder.module';
 
 @NgModule({
-    declarations: [AboutComponent, LadderComponent, AflLadderComponent],
-    exports: [LadderComponent, AflLadderComponent],
+    declarations: [AboutComponent, LadderComponent],
+    exports: [LadderComponent],
     imports: [
         CommonModule,
         SharedModule,
         aboutRouter,
         CommonPipesModule,
-        MaterialModule
+        MaterialModule,
+        AFLLadderModule
     ]
 })
 
