@@ -6,6 +6,8 @@ import { CommonPipesModule } from './../commonPipes.module';
 import { ToastComponent } from './toast/toast.component';
 import { LoadingComponent } from './loading/loading.component';
 
+import { AflLadderComponent } from './../afl-ladder/afl-ladder.component';
+
 @NgModule({
   imports: [
     FormsModule,

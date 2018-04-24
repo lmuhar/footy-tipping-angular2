@@ -23,15 +23,11 @@ import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 
 import { AppComponent } from './app.component';
-import { AboutComponent } from './about/about.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AccountComponent } from './account/account.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { TipsComponent} from './tips/tips.component';
 import { ViewTipsComponent } from './view-tips/view-tips.component';
-import { LadderComponent } from './ladder/ladder.component';
-import { AflLadderComponent } from './afl-ladder/afl-ladder.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import 'hammerjs';
@@ -39,15 +35,11 @@ import 'hammerjs';
 @NgModule({
   declarations: [
     AppComponent,
-    AboutComponent,
     LogoutComponent,
     AccountComponent,
     AdminComponent,
     NotFoundComponent,
-    TipsComponent,
-    ViewTipsComponent,
-    LadderComponent,
-    AflLadderComponent
+    ViewTipsComponent
   ],
   imports: [
     HttpClientModule,
