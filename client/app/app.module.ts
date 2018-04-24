@@ -30,7 +30,6 @@ import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { TipsComponent} from './tips/tips.component';
 import { ViewTipsComponent } from './view-tips/view-tips.component';
-import { EnterResultsComponent } from './enter-results/enter-results.component';
 import { LadderComponent } from './ladder/ladder.component';
 import { AflLadderComponent } from './afl-ladder/afl-ladder.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -47,7 +46,6 @@ import 'hammerjs';
     NotFoundComponent,
     TipsComponent,
     ViewTipsComponent,
-    EnterResultsComponent,
     LadderComponent,
     AflLadderComponent
   ],

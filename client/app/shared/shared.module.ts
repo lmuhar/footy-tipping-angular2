@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonPipesModule } from './../commonPipes.module';
 
 import { ToastComponent } from './toast/toast.component';
 import { LoadingComponent } from './loading/loading.component';
@@ -10,6 +11,7 @@ import { LoadingComponent } from './loading/loading.component';
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
+    CommonPipesModule
   ],
   exports: [
     // Shared Modules
