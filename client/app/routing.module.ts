@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'notfound', component: NotFoundComponent },
   { path: 'rounds', loadChildren: 'app/round/rounds.module#RoundsModule', canActivate: [AuthGuardLogin] },
   { path: 'tips', loadChildren: 'app/tips/tips.module#TipsModule', canActivate: [AuthGuardLogin] },
-  { path: 'view-tips', component: ViewTipsComponent, canActivate: [AuthGuardLogin] },
+  { path: 'view-tips', loadChildren: 'app/view-tips/view-tips.module#ViewTipsModule', canActivate: [AuthGuardLogin] },
   { path: 'enter-results', loadChildren: 'app/enter-results/enter-results.module#EnterResultsModule', canActivate: [AuthGuardAdmin] },
   { path: '**', redirectTo: '/notfound' },
 ];

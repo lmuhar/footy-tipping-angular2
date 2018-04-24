@@ -5,6 +5,7 @@ import { CommonPipesModule } from './../commonPipes.module';
 
 import { ToastComponent } from './toast/toast.component';
 import { LoadingComponent } from './loading/loading.component';
+import { MaterialModule } from './../angularMaterial.module';
 
 import { AflLadderComponent } from './../afl-ladder/afl-ladder.component';
 
@@ -13,12 +14,15 @@ import { AflLadderComponent } from './../afl-ladder/afl-ladder.component';
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
-    CommonPipesModule
+    CommonPipesModule,
+    MaterialModule
   ],
   exports: [
     // Shared Modules
     FormsModule,
     ReactiveFormsModule,
+    CommonPipesModule,
+    MaterialModule,
     // Shared Components
     ToastComponent,
     LoadingComponent

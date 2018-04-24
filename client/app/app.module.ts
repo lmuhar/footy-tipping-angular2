@@ -27,7 +27,6 @@ import { LogoutComponent } from './logout/logout.component';
 import { AccountComponent } from './account/account.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { ViewTipsComponent } from './view-tips/view-tips.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import 'hammerjs';
@@ -38,8 +37,7 @@ import 'hammerjs';
     LogoutComponent,
     AccountComponent,
     AdminComponent,
-    NotFoundComponent,
-    ViewTipsComponent
+    NotFoundComponent
   ],
   imports: [
     HttpClientModule,

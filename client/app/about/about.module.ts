@@ -5,8 +5,6 @@ import { aboutRouter } from './about.routing';
 import { LadderComponent } from './../ladder/ladder.component';
 import { AflLadderComponent } from './../afl-ladder/afl-ladder.component';
 import { SharedModule } from '../shared/shared.module';
-import { CommonPipesModule } from '../commonPipes.module';
-import { MaterialModule } from '../angularMaterial.module';
 import { AFLLadderModule } from './../afl-ladder/afl-ladder.module';
 
 @NgModule({
@@ -16,8 +14,6 @@ import { AFLLadderModule } from './../afl-ladder/afl-ladder.module';
         CommonModule,
         SharedModule,
         aboutRouter,
-        CommonPipesModule,
-        MaterialModule,
         AFLLadderModule
     ]
 })
