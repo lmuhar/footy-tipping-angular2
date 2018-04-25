@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs/Observable';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 import { ToastComponent } from './../shared/toast/toast.component';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -89,7 +90,7 @@ export class EnterResultsComponent implements OnInit {
     });
     this.selectedRound.completed = true;
     // add join for this;
-    Observable.forkJoin([
+    forkJoin([
       this.roundService.editRound(this.selectedRound),
       this.tipService.updateTipsWithResults(this.selectedRound._id, this.selectedRound.games)
     ]).subscribe((res) => {

@@ -1,5 +1,5 @@
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-dark indigo">
+    <nav class="navbar navbar-expand-lg navbar-dark indigo" role="navigation">
 
         <!-- Navbar brand -->
         <a class="navbar-brand" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Tipping 2018</a>
@@ -12,31 +12,31 @@
 
             <!-- Links -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                <li class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
                     <i class="fa fa-home"></i> Home
                 </li>
-                <li class="nav-item nav-link" routerLink="/tips" routerLinkActive="active" *ngIf="auth.loggedIn">
+                <li class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse" routerLink="/tips" routerLinkActive="active" *ngIf="auth.loggedIn">
                     <i class="fa fa-list"></i> Tips
                 </li>
-                <li class="nav-item nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!auth.loggedIn">
+                <li class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse" routerLink="/login" routerLinkActive="active" *ngIf="!auth.loggedIn">
                     <i class="fa fa-sign-in"></i> Login
                 </li>
-                <li class="nav-item nav-link" routerLink="/register" routerLinkActive="active" *ngIf="!auth.loggedIn">
+                <li class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse" routerLink="/register" routerLinkActive="active" *ngIf="!auth.loggedIn">
                     <i class="fa fa-user-plus"></i> Register
                 </li>
-                <li class="nav-item nav-link" routerLink="/account" routerLinkActive="active" *ngIf="auth.loggedIn">
+                <li class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse" routerLink="/account" routerLinkActive="active" *ngIf="auth.loggedIn">
                     <i class="fa fa-user"></i> Account ({{auth.currentUser.username | humanize}})
                 </li>
-                <li class="nav-item nav-link" routerLink="/view-tips" routerLinkActive="active" *ngIf="auth.loggedIn">
+                <li class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse" routerLink="/view-tips" routerLinkActive="active" *ngIf="auth.loggedIn">
                     <i class="fa fa-user"></i> View Tips
                 </li>
-                <li class="nav-item nav-link" routerLink="/admin" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
+                <li class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse" routerLink="/admin" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
                     <i class="fa fa-lock"></i> Admin
                 </li>
-                <li class="nav-item nav-link" routerLink="/enter-results" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
+                <li class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse" routerLink="/enter-results" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
                     <i class="fa fa-list"></i> Enter Results
                 </li>
-                <li class="nav-item nav-link" routerLink="/logout" routerLinkActive="active" *ngIf="auth.loggedIn">
+                <li class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse" routerLink="/logout" routerLinkActive="active" *ngIf="auth.loggedIn">
                     <i class="fa fa-sign-out"></i> Logout
                 </li>
 

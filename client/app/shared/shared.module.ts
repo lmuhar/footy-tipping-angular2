@@ -1,24 +1,28 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { CommonPipesModule } from './../commonPipes.module';
 
 import { ToastComponent } from './toast/toast.component';
 import { LoadingComponent } from './loading/loading.component';
+import { MaterialModule } from './../angularMaterial.module';
+
+import { AflLadderComponent } from './../afl-ladder/afl-ladder.component';
 
 @NgModule({
   imports: [
-    BrowserModule,
     FormsModule,
+    CommonModule,
     ReactiveFormsModule,
-    HttpModule
+    CommonPipesModule,
+    MaterialModule
   ],
   exports: [
     // Shared Modules
-    BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    CommonPipesModule,
+    MaterialModule,
     // Shared Components
     ToastComponent,
     LoadingComponent
