@@ -7,8 +7,8 @@ export default class SendGridCtrl {
     sendEmail = (req, res) => {
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         const msg = {
-            to: 'lauren.k.muhar@gmail.com',
-            from: 'lauren.k.muhar@gmail.com',
+            to: process.env.ADMIN_EMAIL_ADDRESS,
+            from: process.env.ADMIN_EMAIL_ADDRESS,
             subject: 'Sending with SendGrid is Fun',
             text: 'and easy to do anywhere, even with Node.js',
             html: '<strong>HELLLLLLLLLLLLOOOOO</strong>',
@@ -25,29 +25,33 @@ export default class SendGridCtrl {
         const user = req.body.user;
         const round = req.body.round;
         const msg = {
-            to: [`${user.email}`, 'lauren.k.muhar@gmail.com'],
-            from: 'lauren.k.muhar@gmail.com',
+            to: [`${user.email}`, process.env.ADMIN_EMAIL_ADDRESS],
+            from: process.env.ADMIN_EMAIL_ADDRESS,
             subject: `Your AFL tips for Round ${round.number}`,
             html: body.getHtml(user, round, tips),
         };
         sgMail.sendMultiple(msg).then((tes) => {
-            res.json({ success: true, message: 'Email send' });
+            console.log(`Entered tips email send to: ${user.email}`);
+            res.json({ success: true, message: 'Email sent' });
         }, error => console.log(error));
     }
 
     sendReminderEmail = (emails) => {
         const body = new TipReminderEmail();
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        emails.push('lauren.k.muhar@gmail.com');
+        emails.push(process.env.ADMIN_EMAIL_ADDRESS);
         const msg = {
             to: emails,
-            from: 'lauren.k.muhar@gmail.com',
+            from: process.env.ADMIN_EMAIL_ADDRESS,
             subject: `Reminder: Don't forget to do your tips for this week`,
             html: body.getHtml()
         };
 
         sgMail.sendMultiple(msg).then((tes) => {
-            console.log('EMAIL SENT');
+            console.log('Reminder email to tip send to: ');
+            emails.forEach((address) => {
+                console.log(address);
+            });
         }, error => console.log(error));
     }
 
