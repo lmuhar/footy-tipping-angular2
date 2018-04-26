@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelper } from 'angular2-jwt';
 import { User } from '../shared/models/user.model';
+import 'rxjs/add/operator/map';
 
 import { UserService } from '../services/user.service';
 
