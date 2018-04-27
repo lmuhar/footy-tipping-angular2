@@ -6,6 +6,7 @@ import { CommonPipesModule } from './../commonPipes.module';
 import { ToastComponent } from './toast/toast.component';
 import { LoadingComponent } from './loading/loading.component';
 import { MaterialModule } from './../angularMaterial.module';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AflLadderComponent } from './../afl-ladder/afl-ladder.component';
 
@@ -15,7 +16,8 @@ import { AflLadderComponent } from './../afl-ladder/afl-ladder.component';
     CommonModule,
     ReactiveFormsModule,
     CommonPipesModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
   exports: [
     // Shared Modules
@@ -23,6 +25,7 @@ import { AflLadderComponent } from './../afl-ladder/afl-ladder.component';
     ReactiveFormsModule,
     CommonPipesModule,
     MaterialModule,
+    HttpClientModule,
     // Shared Components
     ToastComponent,
     LoadingComponent

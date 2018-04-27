@@ -9,13 +9,13 @@ import { AFLLadderModule } from './../afl-ladder/afl-ladder.module';
 
 @NgModule({
     declarations: [AboutComponent, LadderComponent],
-    exports: [LadderComponent],
+    exports: [LadderComponent, AFLLadderModule, SharedModule, CommonModule],
     imports: [
         CommonModule,
         SharedModule,
         aboutRouter,
         AFLLadderModule
-    ]
+    ],
 })
 
 export class AboutModule {}
