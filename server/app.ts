@@ -4,6 +4,7 @@ import * as express from 'express';
 import * as morgan from 'morgan';
 import * as mongoose from 'mongoose';
 import * as path from 'path';
+import * as compression from 'compression';
 import CronJobCtrl from './controllers/cron';
 
 import setRoutes from './routes';
@@ -12,6 +13,7 @@ const app = express();
 const cronJobCtrl = new CronJobCtrl();
 dotenv.load({ path: '.env' });
 app.set('port', (process.env.PORT || 3000));
+app.use(compression());
 
 app.use('/', express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.json());
