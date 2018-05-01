@@ -42,9 +42,9 @@
                                     <img src='{{returnName(games[i].awayTeam)}}'>
                                     <div>{{games[i].awayTeam | humanize }}</div>
                                 </div>
-                                <div *ngIf="roundCompleted">
-                                    <i *ngIf="tip === games[i].result" class="fa fa-check" style="color: green"></i>
-                                    <i *ngIf="tip !== games[i].result" class="fa fa-times" style="color: red"></i>
+                                <div class="tip-result" *ngIf="roundCompleted">
+                                    <i *ngIf="tip === games[i].result" class="fa fa-check green"></i>
+                                    <i *ngIf="tip !== games[i].result" class="fa fa-times red"></i>
                                 </div>
                             </td>
                         </tr>
@@ -55,8 +55,3 @@
         </div>
     </div>
 </div>
-
-<!--
-    <span style="float: left "><i class="fa fa-check " style="color:green "></i></span>
-    <span style="float: right "><i class="fa fa-times " style="color:red "></i></span>
- -->
