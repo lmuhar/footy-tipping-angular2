@@ -1,46 +1,43 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+
+import { Round } from '../shared/models/round.model';
 
 @Injectable()
 export class RoundService {
 
-    private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
-    private options = new RequestOptions({ headers: this.headers });
+    constructor(private http: HttpClient) { }
 
-    constructor(private http: Http) { }
-
-    getRounds(): Observable<any> {
-        return this.http.get('/api/rounds').map(res => res.json());
+    getRounds(): Observable<Round[]> {
+        return this.http.get<Round[]>('/api/rounds');
     }
 
-    countRounds(): Observable<any> {
-        return this.http.get('/api/rounds/count').map(res => res.json());
+    countRounds(): Observable<number> {
+        return this.http.get<number>('/api/rounds/count');
     }
 
-    addRound(round): Observable<any> {
-        return this.http.post('/api/round', JSON.stringify(round), this.options);
+    addRound(round: Round): Observable<Round> {
+        return this.http.post<Round>('/api/round', round);
     }
 
-    getRound(id): Observable<any> {
-        return this.http.get(`/api/round/${id}`).map(res => res.json());
+    getRound(id): Observable<Round> {
+        return this.http.get<Round>(`/api/round/${id}`);
     }
 
-    getRoundWithIdNumber(): Observable<any> {
-        return this.http.get(`/api/rounds/list`).map(res => res.json());
+    getRoundWithIdNumber(): Observable<Round[]> {
+        return this.http.get<Round[]>(`/api/rounds/list`);
     }
 
-    editRound(round): Observable<any> {
-        return this.http.put(`/api/round/${round._id}`, JSON.stringify(round), this.options);
+    editRound(round: Round): Observable<string> {
+        return this.http.put(`/api/round/${round._id}`, round, { responseType: 'text'});
     }
 
-    deleteRound(round): Observable<any> {
-        return this.http.delete(`/api/round/${round._id}`, this.options);
+    deleteRound(round: Round): Observable<string> {
+        return this.http.delete(`/api/round/${round._id}`, { responseType: 'text'});
     }
 
     getRoundTotal(): Observable<any> {
-        return this.http.get('/api/rounds/current/total').map(res => res.json());
+        return this.http.get<any>('/api/rounds/current/total');
     }
 }

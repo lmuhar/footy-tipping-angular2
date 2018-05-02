@@ -1,35 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { CatsComponent } from './cats/cats.component';
-import { AboutComponent } from './about/about.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
-import { AccountComponent } from './account/account.component';
-import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { RoundsComponent } from './round/rounds.component';
-import { TipsComponent } from './tips/tips.component';
-import { ViewTipsComponent } from './view-tips/view-tips.component';
-import { EnterResultsComponent } from './enter-results/enter-results.component';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 
 const routes: Routes = [
-  { path: '', component: AboutComponent },
-  { path: 'cats', component: CatsComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
+  { path: '', loadChildren: 'app/about/about.module#AboutModule' },
+  { path: 'cats', loadChildren: 'app/cats/cats.module#CatsModule' },
+  { path: 'register', loadChildren: 'app/register/register.module#RegisterModule' },
+  { path: 'login', loadChildren: 'app/login/login.module#LoginModule' },
   { path: 'logout', component: LogoutComponent },
-  { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuardAdmin] },
+  { path: 'account', loadChildren: 'app/account/account.module#AccountModule', canActivate: [AuthGuardLogin] },
+  { path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule', canActivate: [AuthGuardAdmin] },
   { path: 'notfound', component: NotFoundComponent },
-  { path: 'rounds', component: RoundsComponent },
-  { path: 'tips', component: TipsComponent },
-  { path: 'view-tips', component: ViewTipsComponent },
-  { path: 'enter-results', component: EnterResultsComponent },
+  { path: 'rounds', loadChildren: 'app/round/rounds.module#RoundsModule', canActivate: [AuthGuardLogin] },
+  { path: 'tips', loadChildren: 'app/tips/tips.module#TipsModule', canActivate: [AuthGuardLogin] },
+  { path: 'view-tips', loadChildren: 'app/view-tips/view-tips.module#ViewTipsModule', canActivate: [AuthGuardLogin] },
+  { path: 'enter-results', loadChildren: 'app/enter-results/enter-results.module#EnterResultsModule', canActivate: [AuthGuardAdmin] },
   { path: '**', redirectTo: '/notfound' },
 ];
 

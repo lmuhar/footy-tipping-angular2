@@ -7,6 +7,9 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@ang
 import { RoundService } from '../services/round.service';
 import { TipService } from '../services/tip.service';
 
+import { ImageHelper } from './../utils/helpers/imageHelper';
+import { Round } from '../shared/models/round.model';
+
 @Component({
     selector: 'app-view-tips',
     templateUrl: './view-tips.component.html',
@@ -15,7 +18,7 @@ import { TipService } from '../services/tip.service';
 
 export class ViewTipsComponent implements OnInit {
 
-    public rounds = [];
+    public rounds: Round[] = [];
     public isLoading = true;
     public userTips = [];
     public games = [];
@@ -46,8 +49,12 @@ export class ViewTipsComponent implements OnInit {
         });
     }
 
-    public returnName(value) {
-        return `/assets/team-logos/${value}.png`;
+    public returnName(name) {
+        return ImageHelper.returnAssetUrl(name);
+    }
+
+    public returnUserImage(name) {
+        return ImageHelper.returnUserImage(name);
     }
 
     private getSelectedRoundData(id) {
