@@ -9,7 +9,7 @@
             <div class="form-group">
                 <mat-form-field>
                     <mat-select placeholder="Select a round" formControlName="number">
-                        <mat-option *ngFor="let t of rounds" [value]="t._id">
+                        <mat-option *ngFor="let t of rounds | reverseSort: 'number'" [value]="t._id">
                             Round {{ t.number }} - ({{ t.dateStart | date: 'dd MMM' }})
                         </mat-option>
                     </mat-select>

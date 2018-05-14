@@ -10,7 +10,7 @@
             <div class="form-group">
                 <mat-form-field>
                     <mat-select placeholder="Select a round" formControlName="number">
-                        <mat-option *ngFor="let t of rounds" [value]="t._id">
+                        <mat-option *ngFor="let t of rounds | reverseSort: 'number'" [value]="t._id">
                             Round {{ t.number }} - ({{ t.dateStart | date: 'dd MMM' }})
                         </mat-option>
                     </mat-select>
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </form>
-        <button mat-raised-button color="primary" (click)="scrapeLadderData()">Get Ladder</button>
+        <!--<button mat-raised-button color="primary" (click)="scrapeLadderData()">Get Ladder</button>-->
     </div>
     <button *ngIf="selectedRound._id" mat-raised-button color="primary" (click)="saveResults()" [disabled]="!enterResultsForm.valid">SAVE</button>
 </div>

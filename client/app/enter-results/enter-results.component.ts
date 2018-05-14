@@ -95,7 +95,7 @@ export class EnterResultsComponent implements OnInit {
       this.tipService.updateTipsWithResults(this.selectedRound._id, this.selectedRound.games)
     ]).subscribe((res) => {
       this.toast.setMessage('Save results and update user results was successful', 'success');
-      console.log(res);
+      this.scrapeLadderData();
     }, error => this.toast.setMessage(`Save tips failed due to: ${error}`, 'warning'),
     () => this.isLoading = false);
   }
