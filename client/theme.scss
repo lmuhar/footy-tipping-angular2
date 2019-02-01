@@ -2,9 +2,9 @@
 
 @include mat-core();
 
-$dark-primary: mat-palette($mat-blue-grey);
-$dark-accent: mat-palette($mat-amber, A200, A100, A400);
-$dark-warn: mat-palette($mat-deep-orange);
+$dark-primary: mat-palette($mat-teal, 500);
+$dark-accent: mat-palette($mat-blue, 800);
+$dark-warn: mat-palette($mat-red, 400);
 $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
 
 @include angular-material-theme($dark-theme);
