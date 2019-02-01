@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(public auth: AuthService, private router: Router, private breakpointObserver: BreakpointObserver) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -19,7 +19,16 @@ export class AppComponent {
       }
     });
   }
+  @HostBinding('class.loaded')
+  get valid() {
+    return this.isLoaded === true;
+  }
+  public isLoaded: Boolean = false;
 
   public isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(map(result => result.matches));
   public isTablet: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Tablet).pipe(map(result => result.matches));
+
+  public ngOnInit(): void {
+    this.isLoaded = true;
+  }
 }
