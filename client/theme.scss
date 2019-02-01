@@ -2,10 +2,9 @@
 
 @include mat-core();
 
-$msf-primary: mat-palette($mat-grey, 700, 300, 900);
-$msf-accent: mat-palette($mat-blue-grey, 400);
-$msf-warn: mat-palette($mat-red, 500);
+$dark-primary: mat-palette($mat-blue-grey);
+$dark-accent: mat-palette($mat-amber, A200, A100, A400);
+$dark-warn: mat-palette($mat-deep-orange);
+$dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
 
-$msf-black-theme: mat-dark-theme($msf-primary, $msf-accent, $msf-warn);
-
-@include angular-material-theme($msf-black-theme);
+@include angular-material-theme($dark-theme);

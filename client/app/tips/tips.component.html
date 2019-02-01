@@ -1,42 +1,42 @@
-<app-loading [condition]='isLoading'></app-loading>
+<app-loading [condition]="isLoading"></app-loading>
 
 <app-toast [message]="toast.message"></app-toast>
 
 <div class="card" *ngIf="!isLoading">
-    <h4 class="card-header">Current Tips</h4>
-    <div class="card-block">
-        <form class="form-inline" [formGroup]="selectForm">
-            <div class="form-group">
-                <mat-form-field>
-                    <mat-select placeholder="Select a round" formControlName="number">
-                        <mat-option *ngFor="let t of rounds | reverseSort: 'number'" [value]="t._id">
-                            Round {{ t.number }} - ({{ t.dateStart | date: 'dd MMM' }})
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+  <h4 class="card-header">Current Tips</h4>
+  <div class="card-block">
+    <form class="form-inline" [formGroup]="selectForm">
+      <div class="form-group">
+        <mat-form-field>
+          <mat-select placeholder="Select a round" formControlName="number">
+            <mat-option *ngFor="let t of (rounds | reverseSort: 'number')" [value]="t._id">
+              Round {{ t.number }} - ({{ t.dateStart | date: 'dd MMM' }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+    <app-afl-ladder></app-afl-ladder>
+    <form [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
+      <div formArrayName="tips" class="row">
+        <div class="card" *ngFor="let tip of selectedRound.games; let i = index">
+          <div class="card-body">
+            <h6 class="card-title">Game {{ i + 1 }}</h6>
+            <div class="card-title">
+              <mat-radio-group formControlName="{{ i }}" [disabled]="disabledButton(tip.dateTime)">
+                <img src="{{ returnName(tip.homeTeam) }}" />
+                <mat-radio-button [value]="0">{{ tip.homeTeam | humanize }}</mat-radio-button>
+                V
+                <mat-radio-button [value]="1">{{ tip.awayTeam | humanize }}</mat-radio-button>
+                <img src="{{ returnName(tip.awayTeam) }}" />
+              </mat-radio-group>
             </div>
-        </form>
-        <app-afl-ladder></app-afl-ladder>
-        <form [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
-            <div formArrayName="tips" class="row">
-                <div class="col-md-6 card" *ngFor="let tip of selectedRound.games; let i=index">
-                    <div class="card-body">
-                        <h6 class="card-title">Game {{i + 1}}</h6>
-                        <div class="card-title">
-                            <mat-radio-group formControlName="{{i}}" [disabled]="disabledButton(tip.dateTime)">
-                                <img src='{{returnName(tip.homeTeam)}}'>
-                                <mat-radio-button [value]="0">{{tip.homeTeam | humanize }}</mat-radio-button>
-                                V
-                                <mat-radio-button [value]="1">{{tip.awayTeam | humanize }}</mat-radio-button>
-                                <img src='{{returnName(tip.awayTeam)}}'>
-                            </mat-radio-group>
-                        </div>
-                        <div class="card-text">{{tip.location}}</div>
-                        <div class="card-text">{{tip.dateTime | date: 'dd MMM hh:mm a'}}</div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <button *ngIf="selectedRoundId" mat-raised-button color="primary" (click)="saveTips()" [disabled]="!enterTipsForm.valid">SAVE</button>
+            <div class="card-text">{{ tip.location }}</div>
+            <div class="card-text">{{ tip.dateTime | date: 'dd MMM hh:mm a' }}</div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <button *ngIf="selectedRoundId" mat-raised-button color="primary" (click)="saveTips()" [disabled]="!enterTipsForm.valid">SAVE</button>
 </div>
