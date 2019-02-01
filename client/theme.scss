@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$msf-primary: mat-palette($mat-grey, 700, 300, 900);
+$msf-accent: mat-palette($mat-blue-grey, 400);
+$msf-warn: mat-palette($mat-red, 500);
+
+$msf-black-theme: mat-dark-theme($msf-primary, $msf-accent, $msf-warn);
+
+@include angular-material-theme($msf-black-theme);
