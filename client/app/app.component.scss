@@ -4,7 +4,14 @@
 
 .sidenav {
   width: 200px;
+  background-color: #262f3d;
   box-shadow: 3px 0 6px rgba(0, 0, 0, 0.24);
+
+  mat-nav-list {
+    a {
+      color: white;
+    }
+  }
 }
 
 mat-sidenav-container {
@@ -30,6 +37,7 @@ mat-sidenav-container {
       flex: 1 0 auto;
       margin-top: 64px;
       overflow: hidden;
+      background-color: #e2e8ef;
     }
 
     .footer {
