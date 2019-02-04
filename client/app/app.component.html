@@ -17,6 +17,7 @@
       <a routerLink="/view-tips" routerLinkActive="active" *ngIf="auth.loggedIn" mat-list-item>View Tips</a>
       <a routerLink="/admin" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin" mat-list-item>Admin</a>
       <a routerLink="/enter-results" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin" mat-list-item>Enter Results</a>
+      <a routerLink="/rounds" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin" mat-list-item>Manage Games</a>
       <a routerLink="/logout" routerLinkActive="active" *ngIf="auth.loggedIn" mat-list-item>Logout</a>
     </mat-nav-list>
   </mat-sidenav>
