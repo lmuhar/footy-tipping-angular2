@@ -20,11 +20,7 @@ export class LadderComponent implements OnInit {
   public roundTotal = null;
   public roundNumber = null;
 
-  constructor(
-    private userService: UserService,
-    private roundService: RoundService,
-    private tipService: TipService
-  ) {}
+  constructor(private userService: UserService, private roundService: RoundService, private tipService: TipService) {}
 
   public ngOnInit() {
     this.userService.getUserTotal().subscribe(
