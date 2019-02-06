@@ -32,7 +32,7 @@
             </div>
             <mat-card-content>
               <div class="row">
-                <div class="col s12">
+                <div class="col s12 m6">
                   <mat-radio-group formControlName="{{ i }}" [disabled]="disabledButton(tip.dateTime)">
                     <img src="{{ returnName(tip.homeTeam) }}" />
                     <mat-radio-button [value]="0">{{ tip.homeTeam | humanize }}</mat-radio-button>
