@@ -63,7 +63,6 @@ export class RoundsComponent implements OnInit {
         this.teams = results[1];
         this.locations = results[2];
         this.test = _.groupBy(this.rounds, 'year');
-        console.log('test', this.test);
       },
       error => console.log(error),
       () => (this.isLoading = false)
