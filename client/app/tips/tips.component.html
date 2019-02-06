@@ -2,11 +2,13 @@
 
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="card" *ngIf="!isLoading">
-  <h4 class="card-header">Current Tips</h4>
-  <div class="card-block">
-    <form class="form-inline" [formGroup]="selectForm">
-      <div class="form-group">
+<div class="container" *ngIf="!isLoading">
+  <div class="row">
+    <div class="col s12"><h4>Current Tips</h4></div>
+  </div>
+  <div class="row">
+    <div class="col s12 m6">
+      <form [formGroup]="selectForm">
         <mat-form-field>
           <mat-select placeholder="Select a round" formControlName="number">
             <mat-option *ngFor="let t of (rounds | reverseSort: 'number')" [value]="t._id">
@@ -14,29 +16,47 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
-    </form>
-    <app-afl-ladder></app-afl-ladder>
-    <form [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
-      <div formArrayName="tips" class="row">
-        <div class="card" *ngFor="let tip of selectedRound.games; let i = index">
-          <div class="card-body">
-            <h6 class="card-title">Game {{ i + 1 }}</h6>
-            <div class="card-title">
-              <mat-radio-group formControlName="{{ i }}" [disabled]="disabledButton(tip.dateTime)">
-                <img src="{{ returnName(tip.homeTeam) }}" />
-                <mat-radio-button [value]="0">{{ tip.homeTeam | humanize }}</mat-radio-button>
-                V
-                <mat-radio-button [value]="1">{{ tip.awayTeam | humanize }}</mat-radio-button>
-                <img src="{{ returnName(tip.awayTeam) }}" />
-              </mat-radio-group>
-            </div>
-            <div class="card-text">{{ tip.location }}</div>
-            <div class="card-text">{{ tip.dateTime | date: 'dd MMM hh:mm a' }}</div>
-          </div>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-  <button *ngIf="selectedRoundId" mat-raised-button color="primary" (click)="saveTips()" [disabled]="!enterTipsForm.valid">SAVE</button>
+  <div class="row">
+    <div class="col s12 m6 margin-bottom-20"><app-afl-ladder></app-afl-ladder></div>
+    <div class="col s12 m6">
+      <form [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
+        <div formArrayName="tips">
+          <mat-card class="margin-bottom-20" *ngFor="let tip of selectedRound.games; let i = index">
+            <div class="row">
+              <div class="col s12">
+                <h6>Game {{ i + 1 }}</h6>
+              </div>
+            </div>
+            <mat-card-content>
+              <div class="row">
+                <div class="col s12">
+                  <mat-radio-group formControlName="{{ i }}" [disabled]="disabledButton(tip.dateTime)">
+                    <img src="{{ returnName(tip.homeTeam) }}" />
+                    <mat-radio-button [value]="0">{{ tip.homeTeam | humanize }}</mat-radio-button>
+                    V
+                    <mat-radio-button [value]="1">{{ tip.awayTeam | humanize }}</mat-radio-button>
+                    <img src="{{ returnName(tip.awayTeam) }}" />
+                  </mat-radio-group>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                  <div class="card-text">{{ tip.location }}</div>
+                  <div class="card-text">{{ tip.dateTime | date: 'dd MMM hh:mm a' }}</div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </form>
+      <div class="text--center">
+        <button *ngIf="selectedRoundId" mat-raised-button color="primary" (click)="saveTips()" [disabled]="!enterTipsForm.valid">
+          SAVE
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
