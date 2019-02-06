@@ -21,6 +21,12 @@
   margin-bottom: 20px;
 }
 
+.radio-button-padding-10 {
+  .mat-radio-button {
+    padding-right: 10px;
+  }
+}
+
 .mat-drawer-content {
   overflow: hidden !important;
 }
@@ -93,4 +99,11 @@ html {
   border-radius: 50%;
   flex-shrink: 0;
   object-fit: cover;
+}
+
+.truncate {
+  width: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
