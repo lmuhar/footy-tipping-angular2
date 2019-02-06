@@ -21,8 +21,8 @@
   </div>
   <div class="row" *ngIf="!userTips.length"><div class="col s12 m6">No tips this round</div></div>
   <div class="row">
-    <div class="col s12 m6">
-      <div class="player-card" *ngFor="let user of userTips">
+    <div class="col s12 m6" *ngFor="let user of userTips">
+      <div class="player-card">
         <mat-card>
           <mat-card-header>
             <div mat-card-avatar><img class="user-portrait" src="{{ returnUserImage(user.user_data.username) }}" /></div>
