@@ -98,35 +98,40 @@
   </div>
 
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let round of (rounds | sort: 'dateStart')">
-      <mat-expansion-panel-header>
-        <mat-panel-title> Round {{ round.number }} </mat-panel-title>
-        <mat-panel-description> {{ round.dateStart | date }} - {{ round.dateEnd | date }} </mat-panel-description>
-      </mat-expansion-panel-header>
+    <mat-expansion-panel *ngFor="let item of (test | keyvalue | reverseSort)">
+      <mat-expansion-panel-header> {{ item.key }} </mat-expansion-panel-header>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let round of (item.value | sort: 'dateStart')">
+          <mat-expansion-panel-header>
+            <mat-panel-title> Round {{ round.number }} </mat-panel-title>
+            <mat-panel-description> {{ round.dateStart | date }} - {{ round.dateEnd | date }} </mat-panel-description>
+          </mat-expansion-panel-header>
 
-      <table class="table table-bordered table-striped">
-        <thead class="thead-default">
-          <tr>
-            <th>Game</th>
-            <th>Location</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody *ngIf="round.games === 0">
-          <tr>
-            <td colspan="3">There are no games for this round</td>
-          </tr>
-        </tbody>
-        <tbody *ngIf="!isEditing">
-          <tr *ngFor="let game of round.games">
-            <td>{{ game.homeTeam | humanize }} v {{ game.awayTeam | humanize }}</td>
-            <td>{{ game.location | humanize }}</td>
-            <td>{{ game.dateTime | date: 'dd MMM hh:mm a' }}</td>
-          </tr>
-        </tbody>
-      </table>
+          <table class="table table-bordered table-striped">
+            <thead class="thead-default">
+              <tr>
+                <th>Game</th>
+                <th>Location</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="round.games === 0">
+              <tr>
+                <td colspan="3">There are no games for this round</td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="!isEditing">
+              <tr *ngFor="let game of round.games">
+                <td>{{ game.homeTeam | humanize }} v {{ game.awayTeam | humanize }}</td>
+                <td>{{ game.location | humanize }}</td>
+                <td>{{ game.dateTime | date: 'dd MMM hh:mm a' }}</td>
+              </tr>
+            </tbody>
+          </table>
 
-      <button mat-raised-button color="warn" (click)="deleteRound(round)"><i class="fa fa-trash"></i> Delete</button>
+          <button mat-raised-button color="warn" (click)="deleteRound(round)"><i class="fa fa-trash"></i> Delete</button>
+        </mat-expansion-panel>
+      </mat-accordion>
     </mat-expansion-panel>
   </mat-accordion>
 </div>
