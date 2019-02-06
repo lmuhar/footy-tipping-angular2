@@ -12,7 +12,7 @@
         </thead>
         <tr *ngFor="let user of (users | reverseSort: 'total')">
           <td>
-            <div><img src="{{ returnUserImage(user.username) }}" /> {{ user.username | humanize }}</div>
+            <div><img class="user-portrait" src="{{ returnUserImage(user.username) }}" /> {{ user.username | humanize }}</div>
           </td>
           <td>
             <h4>

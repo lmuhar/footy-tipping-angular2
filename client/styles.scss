@@ -86,3 +86,11 @@ html {
 .no--box-shadow {
   box-shadow: none !important;
 }
+
+.user-portrait {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
