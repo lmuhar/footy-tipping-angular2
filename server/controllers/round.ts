@@ -15,9 +15,10 @@ export default class RoundCtrl extends BaseCtrl {
   };
 
   getRoundTotal = (req, res) => {
+    const year = new Date().getFullYear();
     this.model.aggregate(
       [
-        { $match: { completed: true } },
+        { $match: { completed: true, year: year } },
         { $group: { _id: { id: '$_id', dateEnd: { $max: '$dateEnd' }, number: '$number' } } },
         { $sort: { '_id.dateEnd': -1 } },
         { $limit: 1 }
