@@ -32,19 +32,21 @@
             </div>
             <mat-card-content>
               <div class="row">
-                <div class="col s12 m6">
-                  <mat-radio-group class="radio-button-padding-10" formControlName="{{ i }}" [disabled]="disabledButton(tip.dateTime)">
+                <mat-radio-group class="radio-button-padding-10" formControlName="{{ i }}" [disabled]="disabledButton(tip.dateTime)">
+                  <div class="col s4">
                     <mat-radio-button [value]="0">
-                      <div class="truncate">{{ tip.homeTeam | humanize }}</div>
+                      <div>{{ tip.homeTeam | humanize }}</div>
                       <div><img src="{{ returnName(tip.homeTeam) }}" /></div
                     ></mat-radio-button>
-                    <label style="padding-right: 20px">V</label>
+                  </div>
+                  <div class="col s1 offset-s1" style="line-height: 40px">V</div>
+                  <div class="col s4">
                     <mat-radio-button [value]="1">
-                      <div class="truncate">{{ tip.awayTeam | humanize }}</div>
+                      <div>{{ tip.awayTeam | humanize }}</div>
                       <div><img src="{{ returnName(tip.awayTeam) }}" /></div>
                     </mat-radio-button>
-                  </mat-radio-group>
-                </div>
+                  </div>
+                </mat-radio-group>
               </div>
               <div class="row">
                 <div class="col s12">
