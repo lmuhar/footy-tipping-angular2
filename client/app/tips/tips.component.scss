@@ -7,3 +7,15 @@ img:before {
   position: relative;
   z-index: 0;
 }
+
+.mat-radio-checked {
+  div {
+    background-color: #0097a7;
+  }
+}
+
+.mat-radio-container {
+  display: none !important;
+  background-color: red;
+  color: green;
+}
