@@ -54,16 +54,17 @@ export default class UserCtrl extends BaseCtrl {
     const year = new Date().getFullYear();
     this.model.aggregate(
       [
-        { $match: { year: year } },
         { $lookup: { from: 'tips', localField: '_id', foreignField: 'ownerId', as: 'tip_data' } },
-        { $project: { 'tip_data.total': 1, username: 1 } }
+        { $project: { 'tip_data.total': 1, 'tip_data.year': 1, username: 1 } }
       ],
       (err, data) => {
         data.map(user => {
           let total = 0;
           user.tip_data.map(tip => {
             if (tip.total !== undefined) {
-              total = total + tip.total;
+              if (tip.year === year) {
+                total = total + tip.total;
+              }
             }
           });
           user.total = total;
