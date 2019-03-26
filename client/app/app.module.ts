@@ -9,59 +9,31 @@ import { SharedModule } from './shared/shared.module';
 import { CommonPipesModule } from './commonPipes.module';
 import { MaterialModule } from './angularMaterial.module';
 
-import { CatService } from './services/cat.service';
-import { UserService } from './services/user.service';
-import { AuthService } from './services/auth.service';
-import { RoundService } from './services/round.service';
-import { TeamService } from './services/team.service';
-import { TipService } from './services/tip.service';
-import { LocationService } from './services/location.service';
-import { EmailService } from './services/email.service';
-import { AflLadderService } from './services/afl-ladder.service';
-
-import { AuthGuardLogin } from './services/auth-guard-login.service';
-import { AuthGuardAdmin } from './services/auth-guard-admin.service';
-
 import { AppComponent } from './app.component';
 import { LogoutComponent } from './logout/logout.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import 'hammerjs';
+import { BrowserModule } from '@angular/platform-browser';
+import { CoreModule } from './core.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LogoutComponent,
-    NotFoundComponent
-  ],
+  declarations: [AppComponent, LogoutComponent, NotFoundComponent],
   imports: [
-    HttpClientModule,
-    RoutingModule,
-    SharedModule,
-    CommonPipesModule,
+    // angular
     BrowserAnimationsModule,
-    MaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MDBBootstrapModule
-  ],
-  providers: [
-    AuthService,
-    AuthGuardLogin,
-    AuthGuardAdmin,
-    CatService,
-    UserService,
-    RoundService,
-    TeamService,
-    LocationService,
-    TipService,
-    EmailService,
-    AflLadderService
+    BrowserModule,
+
+    // core & shared
+    CoreModule.forRoot(),
+    SharedModule.forRoot(),
+    MaterialModule.forRoot(),
+
+    // app
+    RoutingModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
-
-export class AppModule { }
-
+export class AppModule {}

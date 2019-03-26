@@ -8,16 +8,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ]
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom", "esnext"],
+    "module": "es2015",
+    "baseUrl": "./"
   },
-  "include": [
-    "**/*.ts",
-    "node_modules/angular-bootstrap-md/**/*.ts"
-  ],
+  "include": ["**/*.ts", "node_modules/angular-bootstrap-md/**/*.ts"]
 }
