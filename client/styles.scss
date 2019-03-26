@@ -1,27 +1,109 @@
 /* You can add global styles to this file, and also import other style files */
-
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-body {
-    margin-top: 15px;
-    margin-bottom: 10px;
-}
+@import 'grid';
 
 .input-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .float-right {
-    float: right;
+  float: right;
 }
 
 .align-content {
-    text-align: center;
+  text-align: center;
 }
 
 .margin-top-20 {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .margin-bottom-20 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.radio-button-padding-10 {
+  .mat-radio-button {
+    padding-right: 10px;
+  }
+}
+
+.mat-drawer-content {
+  overflow: hidden !important;
+}
+
+html {
+  background-color: #fafafa;
+}
+
+.v-center {
+  position: relative;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.float--right {
+  float: right !important;
+}
+
+.float--left {
+  float: left !important;
+}
+
+.float--none {
+  float: none !important;
+}
+
+.text--left {
+  text-align: left !important;
+}
+
+.text--center {
+  text-align: center !important;
+}
+
+.text--right {
+  text-align: right !important;
+}
+
+.weight--light {
+  font-weight: 300 !important;
+}
+
+.weight--normal {
+  font-weight: 400 !important;
+}
+
+.weight--semibold {
+  font-weight: 600 !important;
+}
+
+.weight--bold {
+  font-weight: 700 !important;
+}
+
+.no--padding {
+  padding: 0 !important;
+}
+
+.no--margin {
+  margin: 0 !important;
+}
+
+.no--box-shadow {
+  box-shadow: none !important;
+}
+
+.user-portrait {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.truncate {
+  width: 60px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

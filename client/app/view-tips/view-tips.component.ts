@@ -11,60 +11,65 @@ import { ImageHelper } from './../utils/helpers/imageHelper';
 import { Round } from '../shared/models/round.model';
 
 @Component({
-    selector: 'app-view-tips',
-    templateUrl: './view-tips.component.html',
-    styleUrls: ['./view-tips.component.scss']
+  selector: 'app-view-tips',
+  templateUrl: './view-tips.component.html',
+  styleUrls: ['./view-tips.component.scss']
 })
-
 export class ViewTipsComponent implements OnInit {
+  public rounds: Round[] = [];
+  public isLoading = true;
+  public userTips = [];
+  public games = [];
+  public roundCompleted: Boolean = false;
+  public number = new FormControl('', Validators.required);
 
-    public rounds: Round[] = [];
-    public isLoading = true;
-    public userTips = [];
-    public games = [];
-    public roundCompleted = false;
-    public number = new FormControl('', Validators.required);
+  public selectForm: FormGroup;
 
-    public selectForm: FormGroup;
+  constructor(
+    public toast: ToastComponent,
+    private roundService: RoundService,
+    private tipService: TipService,
+    private formBuilder: FormBuilder
+  ) {}
 
-    constructor(
-        public toast: ToastComponent,
-        private roundService: RoundService,
-        private tipService: TipService,
-        private formBuilder: FormBuilder
-    ) {}
+  public ngOnInit() {
+    this.roundService.getRoundWithIdNumber().subscribe(
+      result => {
+        this.rounds = result;
+      },
+      error => console.log(error),
+      () => (this.isLoading = false)
+    );
 
-    public ngOnInit() {
-        this.roundService.getRoundWithIdNumber().subscribe((result) => {
-            this.rounds = result;
-        }, error => console.log(error),
-            () => this.isLoading = false);
+    this.selectForm = this.formBuilder.group({
+      number: this.number
+    });
 
-        this.selectForm = this.formBuilder.group({
-            number: this.number
-        });
+    this.selectForm.valueChanges.subscribe(change => {
+      this.getSelectedRoundData(change.number);
+    });
+  }
 
-        this.selectForm.valueChanges.subscribe((change) => {
-            this.getSelectedRoundData(change.number);
-        });
-    }
+  public returnName(name) {
+    return ImageHelper.returnAssetUrl(name);
+  }
 
-    public returnName(name) {
-        return ImageHelper.returnAssetUrl(name);
-    }
+  public returnUserImage(name) {
+    return ImageHelper.returnUserImage(name);
+  }
 
-    public returnUserImage(name) {
-        return ImageHelper.returnUserImage(name);
-    }
-
-    private getSelectedRoundData(id) {
-        this.isLoading = true;
-        forkJoin([this.tipService.allTipsForRound(id), this.roundService.getRound(id)]).subscribe((res) => {
-            this.userTips = res[0];
-            this.games = res[1].games;
-            this.roundCompleted = res[1].completed;
-        }, error => {
-            console.log('ERROR', error);
-        }, () => this.isLoading = false);
-    }
+  private getSelectedRoundData(id) {
+    this.isLoading = true;
+    forkJoin([this.tipService.allTipsForRound(id), this.roundService.getRound(id)]).subscribe(
+      res => {
+        this.userTips = res[0];
+        this.games = res[1].games;
+        this.roundCompleted = res[1].completed;
+      },
+      error => {
+        console.log('ERROR', error);
+      },
+      () => (this.isLoading = false)
+    );
+  }
 }

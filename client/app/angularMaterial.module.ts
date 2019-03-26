@@ -1,58 +1,63 @@
-import { NgModule } from '@angular/core';
-
-import { CdkTableModule } from '@angular/cdk/table';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import {
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatExpansionModule,
-    MatTableModule,
-    MatListModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatCheckboxModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatSelectModule,
+  MatButtonModule,
+  MatIconModule,
+  MatCardModule,
+  MatExpansionModule,
+  MatDividerModule,
+  MatListModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatDatepickerModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatToolbarModule,
+  MatCheckboxModule,
+  MatGridListModule,
+  MatProgressSpinnerModule,
+  MatProgressBarModule,
+  MatRadioModule,
+  MatTableModule,
+  MatSortModule,
+  MatSidenavModule,
+  MatBadgeModule,
+  MatSelectModule
 } from '@angular/material';
 
+const modules = [
+  MatButtonModule,
+  MatIconModule,
+  MatCardModule,
+  MatExpansionModule,
+  MatDividerModule,
+  MatListModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatDatepickerModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatToolbarModule,
+  MatCheckboxModule,
+  MatGridListModule,
+  MatProgressSpinnerModule,
+  MatProgressBarModule,
+  MatRadioModule,
+  MatTableModule,
+  MatSortModule,
+  MatSidenavModule,
+  MatBadgeModule,
+  MatSelectModule
+];
+
 @NgModule({
-    imports: [
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatExpansionModule,
-        MatTableModule,
-        CdkTableModule,
-        MatListModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatCheckboxModule,
-        MatProgressSpinnerModule,
-        MatRadioModule,
-        MatSelectModule
-    ],
-    exports: [
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatExpansionModule,
-        MatTableModule,
-        CdkTableModule,
-        MatListModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatCheckboxModule,
-        MatProgressSpinnerModule,
-        MatRadioModule,
-        MatSelectModule
-    ]
+  imports: [modules],
+  exports: [modules]
 })
-export class MaterialModule { }
+export class MaterialModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: MaterialModule
+    };
+  }
+}

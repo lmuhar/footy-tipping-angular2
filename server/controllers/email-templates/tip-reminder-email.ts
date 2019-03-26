@@ -1,7 +1,6 @@
-
 export default class TipReminderEmail {
-    getHtml() {
-        return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--[if IE]><html xmlns="http://www.w3.org/1999/xhtml" class="ie"><![endif]--><!--[if !IE]><!--><html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]--><head>
+  getHtml() {
+    return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--[if IE]><html xmlns="http://www.w3.org/1999/xhtml" class="ie"><![endif]--><!--[if !IE]><!--><html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]--><head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <!--[if !mso]><!--><meta http-equiv="X-UA-Compatible" content="IE=edge" /><!--<![endif]-->
@@ -484,7 +483,7 @@ body{background-color:#fff}.logo a:hover,.logo a:focus{color:#859bb1 !important}
 
               <div style="Margin-left: 20px;Margin-right: 20px;">
       <div style="mso-line-height-rule: exactly;mso-text-raise: 4px;">
-        <h3 class="size-12" style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #281557;font-size: 12px;line-height: 19px;font-family: Avenir,sans-serif;text-align: center;" lang="x-size-12"><span style="color:#fff"><strong>2018 AFL FOOTY TIPPING</strong></span></h3>
+        <h3 class="size-12" style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #281557;font-size: 12px;line-height: 19px;font-family: Avenir,sans-serif;text-align: center;" lang="x-size-12"><span style="color:#fff"><strong>2019 AFL FOOTY TIPPING</strong></span></h3>
       </div>
     </div>
 
@@ -613,5 +612,5 @@ body{background-color:#fff}.logo a:hover,.logo a:focus{color:#859bb1 !important}
       <div style="mso-line-height-rule: exactly;line-height: 40px;font-size: 40px;">&nbsp;</div>
     </div></td></tr></tbody></table>
 </body></html>`;
-    }
+  }
 }

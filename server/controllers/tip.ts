@@ -14,32 +14,38 @@ export default class TipCtrl extends BaseCtrl {
       }
       res.status(200).json(tips);
     });
-  }
+  };
 
   allTipsForRound = (req, res) => {
     const { roundId } = req.params;
-    this.model.aggregate([
-      { $match: { roundId: ObjectId(roundId)} },
-      { $lookup: { from: 'users', localField: 'ownerId', foreignField: '_id', as: 'user_data' }},
-      { $project: { 'user_data.username': 1, 'tips': 1, 'total': 1}},
-      { $unwind: '$user_data'}
-    ], (err, tips) => {
-      if (err) { return res.sendStatus(404); }
-      res.status(200).json(tips);
-    });
-  }
+    const year = new Date().getFullYear();
+    this.model.aggregate(
+      [
+        { $match: { roundId: ObjectId(roundId), year: year } },
+        { $lookup: { from: 'users', localField: 'ownerId', foreignField: '_id', as: 'user_data' } },
+        { $project: { 'user_data.username': 1, tips: 1, total: 1 } },
+        { $unwind: '$user_data' }
+      ],
+      (err, tips) => {
+        if (err) {
+          return res.sendStatus(404);
+        }
+        res.status(200).json(tips);
+      }
+    );
+  };
 
   updateTipsWithResults = (req, res) => {
     const { roundId } = req.params;
     const games = req.body;
-    this.model.find({roundId: roundId}, (err, tips) => {
+    this.model.find({ roundId: roundId }, (err, tips) => {
       if (!tips) {
         return res.sendStatus(404);
       }
-      tips.forEach((tip) => {
+      tips.forEach(tip => {
         let total = 0;
         let i = 0;
-        tip.tips.forEach((t) => {
+        tip.tips.forEach(t => {
           if (t === games[i].result) {
             total = total + 1;
           }
@@ -50,5 +56,5 @@ export default class TipCtrl extends BaseCtrl {
       });
       res.sendStatus(200);
     });
-  }
+  };
 }
