@@ -6,38 +6,37 @@ import { Round } from '../shared/models/round.model';
 
 @Injectable()
 export class RoundService {
+  constructor(private http: HttpClient) {}
 
-    constructor(private http: HttpClient) { }
+  getRounds(): Observable<Round[]> {
+    return this.http.get<Round[]>('/api/rounds');
+  }
 
-    getRounds(): Observable<Round[]> {
-        return this.http.get<Round[]>('/api/rounds');
-    }
+  countRounds(): Observable<number> {
+    return this.http.get<number>('/api/rounds/count');
+  }
 
-    countRounds(): Observable<number> {
-        return this.http.get<number>('/api/rounds/count');
-    }
+  addRound(round: Round): Observable<Round> {
+    return this.http.post<Round>('/api/round', round);
+  }
 
-    addRound(round: Round): Observable<Round> {
-        return this.http.post<Round>('/api/round', round);
-    }
+  getRound(id): Observable<Round> {
+    return this.http.get<Round>(`/api/round/${id}`);
+  }
 
-    getRound(id): Observable<Round> {
-        return this.http.get<Round>(`/api/round/${id}`);
-    }
+  getRoundWithIdNumber(): Observable<Round[]> {
+    return this.http.get<Round[]>(`/api/rounds/list`);
+  }
 
-    getRoundWithIdNumber(): Observable<Round[]> {
-        return this.http.get<Round[]>(`/api/rounds/list`);
-    }
+  editRound(round: Round): Observable<string> {
+    return this.http.put(`/api/round/${round._id}`, round, { responseType: 'text' });
+  }
 
-    editRound(round: Round): Observable<string> {
-        return this.http.put(`/api/round/${round._id}`, round, { responseType: 'text'});
-    }
+  deleteRound(round: Round): Observable<string> {
+    return this.http.delete(`/api/round/${round._id}`, { responseType: 'text' });
+  }
 
-    deleteRound(round: Round): Observable<string> {
-        return this.http.delete(`/api/round/${round._id}`, { responseType: 'text'});
-    }
-
-    getRoundTotal(): Observable<any> {
-        return this.http.get<any>('/api/rounds/current/total');
-    }
+  getRoundTotal(): Observable<any> {
+    return this.http.get<any>('/api/rounds/current/total');
+  }
 }

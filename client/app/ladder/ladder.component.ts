@@ -7,6 +7,7 @@ import { UserService } from '../services/user.service';
 import { ImageHelper } from './../utils/helpers/imageHelper';
 
 import * as _ from 'lodash';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-ladder',
@@ -20,26 +21,15 @@ export class LadderComponent implements OnInit {
   public roundTotal = null;
   public roundNumber = null;
 
-  constructor(
-    private userService: UserService,
-    private roundService: RoundService,
-    private tipService: TipService
-  ) {}
+  constructor(private userService: UserService, private roundService: RoundService, private tipService: TipService) {}
 
   public ngOnInit() {
-    this.userService.getUserTotal().subscribe(
+    forkJoin([this.roundService.getRoundTotal(), this.userService.getUserTotal()]).subscribe(
       res => {
-        this.users = res;
-      },
-      error => console.log(error),
-      () => (this.isLoading = false)
-    );
-
-    this.roundService.getRoundTotal().subscribe(
-      res => {
-        if (res[0] && res[0]._id) {
-          this.roundData = res[0]._id;
+        if (res[0][0] && res[0][0]._id && res[1]) {
+          this.roundData = res[0][0]._id;
           this.roundNumber = this.roundData.number;
+          this.users = res[1];
           this.tipService.allTipsForRound(this.roundData.id).subscribe(
             result => {
               this.roundTotal = result;

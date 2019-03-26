@@ -23,6 +23,7 @@
               "node_modules/font-awesome/scss/font-awesome.scss",
               "node_modules/angular-bootstrap-md/scss/bootstrap/bootstrap.scss",
               "node_modules/angular-bootstrap-md/scss/mdb-free.scss",
+              "client/theme.scss",
               "client/styles.scss"
             ],
             "scripts": [
@@ -88,6 +89,7 @@
               "node_modules/font-awesome/scss/font-awesome.scss",
               "node_modules/angular-bootstrap-md/scss/bootstrap/bootstrap.scss",
               "node_modules/angular-bootstrap-md/scss/mdb-free.scss",
+              "client/theme.scss",
               "client/styles.scss"
             ],
             "assets": ["client/assets", "client/assets/favicon.ico"]

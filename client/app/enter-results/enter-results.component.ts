@@ -32,7 +32,7 @@ export class EnterResultsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private tipService: TipService,
     private aflLadderService: AflLadderService
-  ) { }
+  ) {}
 
   public ngOnInit() {
     this.roundService.getRoundWithIdNumber().subscribe(
@@ -69,11 +69,7 @@ export class EnterResultsComponent implements OnInit {
           control.push(new FormControl(game.result, Validators.required));
         });
       },
-      error =>
-        this.toast.setMessage(
-          `Retrieve tips failed due to: ${error}`,
-          'warning'
-        ),
+      error => this.toast.setMessage(`Retrieve tips failed due to: ${error}`, 'warning'),
       () => (this.isLoading = false)
     );
   }
@@ -93,20 +89,26 @@ export class EnterResultsComponent implements OnInit {
     forkJoin([
       this.roundService.editRound(this.selectedRound),
       this.tipService.updateTipsWithResults(this.selectedRound._id, this.selectedRound.games)
-    ]).subscribe((res) => {
-      this.toast.setMessage('Save results and update user results was successful', 'success');
-      this.scrapeLadderData();
-    }, error => this.toast.setMessage(`Save tips failed due to: ${error}`, 'warning'),
-    () => this.isLoading = false);
+    ]).subscribe(
+      res => {
+        this.toast.setMessage('Save results and update user results was successful', 'success');
+        this.scrapeLadderData();
+      },
+      error => this.toast.setMessage(`Save tips failed due to: ${error}`, 'warning'),
+      () => (this.isLoading = false)
+    );
   }
 
   public scrapeLadderData() {
     this.isLoading = true;
     this.aflLadderService.getAflLadder().subscribe(res => {
-      this.aflLadderService.newLadder(res).subscribe(result => {
-        this.toast.setMessage('Ladder data retrieved', 'success');
-      }, error => this.toast.setMessage(`Get ladder information failed due to: ${error}`, 'warning'),
-      () => this.isLoading = false);
+      this.aflLadderService.newLadder(res).subscribe(
+        result => {
+          this.toast.setMessage('Ladder data retrieved', 'success');
+        },
+        error => this.toast.setMessage(`Get ladder information failed due to: ${error}`, 'warning'),
+        () => (this.isLoading = false)
+      );
     });
   }
 }
