@@ -12,7 +12,6 @@ import { MaterialModule } from './angularMaterial.module';
 import { AppComponent } from './app.component';
 import { LogoutComponent } from './logout/logout.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import 'hammerjs';
 import { BrowserModule } from '@angular/platform-browser';

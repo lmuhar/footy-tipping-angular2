@@ -16,7 +16,7 @@ import { MatTableDataSource, MatSort } from '@angular/material';
 export class AdminComponent implements OnInit {
   public dataSource: MatTableDataSource<User> = new MatTableDataSource([]);
   public displayedColumns: string[] = ['username', 'email', 'role', 'actions'];
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
   public users: User[] = [];
   public isLoading = true;
   public user = new User();
@@ -67,20 +67,20 @@ export class AdminComponent implements OnInit {
   }
 
   public getUsers() {
-    this.userService
-      .getUsers()
-      .subscribe(data => ((this.users = data), (this.dataSource.data = data)), error => console.log(error), () => (this.isLoading = false));
+    this.userService.getUsers().subscribe(
+      data => ((this.users = data), (this.dataSource.data = data)),
+      error => console.log(error),
+      () => (this.isLoading = false)
+    );
   }
 
   public deleteUser(user: User) {
     if (window.confirm(`Are you sure you want to delete ${user.username}?`)) {
-      this.userService
-        .deleteUser(user)
-        .subscribe(
-          data => this.toast.setMessage('user deleted successfully.', 'success'),
-          error => console.log(error),
-          () => this.getUsers()
-        );
+      this.userService.deleteUser(user).subscribe(
+        data => this.toast.setMessage('user deleted successfully.', 'success'),
+        error => console.log(error),
+        () => this.getUsers()
+      );
     }
   }
 }

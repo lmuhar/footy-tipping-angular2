@@ -18,19 +18,12 @@
             "polyfills": "client/polyfills.ts",
             "assets": ["client/assets", "client/assets/favicon.ico"],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/font-awesome/scss/font-awesome.scss",
-              "node_modules/angular-bootstrap-md/scss/bootstrap/bootstrap.scss",
-              "node_modules/angular-bootstrap-md/scss/mdb-free.scss",
               "client/theme.scss",
               "client/styles.scss"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/tether/dist/js/tether.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
-            ]
+            "scripts": ["node_modules/jquery/dist/jquery.min.js", "node_modules/tether/dist/js/tether.min.js"]
           },
           "configurations": {
             "production": {
@@ -78,17 +71,10 @@
             "karmaConfig": "./karma.conf.js",
             "polyfills": "client/polyfills.ts",
             "tsConfig": "client/tsconfig.spec.json",
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/tether/dist/js/tether.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
-            ],
+            "scripts": ["node_modules/jquery/dist/jquery.min.js", "node_modules/tether/dist/js/tether.min.js"],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/font-awesome/scss/font-awesome.scss",
-              "node_modules/angular-bootstrap-md/scss/bootstrap/bootstrap.scss",
-              "node_modules/angular-bootstrap-md/scss/mdb-free.scss",
               "client/theme.scss",
               "client/styles.scss"
             ],

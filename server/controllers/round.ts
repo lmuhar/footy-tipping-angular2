@@ -5,7 +5,7 @@ export default class RoundCtrl extends BaseCtrl {
   model = Round;
 
   getWithIdAndNumber = (req, res) => {
-    const year = new Date().getFullYear();
+    const year = '2019';
     this.model.find({ year: year }, ['_id', 'number', 'dateStart'], (err, docs) => {
       if (err) {
         return console.error(err);
@@ -15,7 +15,7 @@ export default class RoundCtrl extends BaseCtrl {
   };
 
   getRoundTotal = (req, res) => {
-    const year = new Date().getFullYear();
+    const year = '2019';
     this.model.aggregate(
       [
         { $match: { completed: true, year: year } },
