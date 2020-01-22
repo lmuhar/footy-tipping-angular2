@@ -22,15 +22,15 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
-      - run:
-          name: lint check
-          command: ng lint
+      #- run:
+      #   name: lint check
+      #  command: ng lint
       - run:
           name: rebuild node-sass
           command: npm rebuild node-sass
-      - run:
-          name: code-coverage
-          command: ng test --code-coverage
+      #- run:
+      #    name: code-coverage
+      #    command: ng test --code-coverage
       - run:
           name: Run prod build
           command: ng build --aot --prod
