@@ -28,9 +28,9 @@ jobs:
       - run:
           name: rebuild node-sass
           command: npm rebuild node-sass
-      - run:
-          name: code-coverage
-          command: ng test --code-coverage
+      #- run:
+      #    name: code-coverage
+      #    command: ng test --code-coverage
       - run:
           name: Run prod build
           command: ng build --aot --prod
