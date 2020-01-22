@@ -6,8 +6,8 @@
   "description": "Angular Full Stack project built using Angular 2+, Express, Mongoose and Node.",
   "angular-cli": {},
   "engines": {
-    "node": "8.11.1",
-    "npm": "6.1.0"
+    "node": "12.14.1",
+    "npm": "6.13.6"
   },
   "scripts": {
     "ng": "ng",
