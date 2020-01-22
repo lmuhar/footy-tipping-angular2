@@ -1,0 +1,41 @@
+version: 2.1
+jobs:
+  build:
+    working_directory: ~/footy-tipping-angular2
+    docker:
+      - image: circleci/node:8-browsers
+      - image: mongo:3.4.4
+    steps:
+      - checkout
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@5'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-npm-wee
+          command: npm install
+      - run:
+          name: install angular cli
+          command: sudo npm install -g @angular/cli@7.1.1
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: lint check
+          command: ng lint
+      - run:
+          name: rebuild node-sass
+          command: npm rebuild node-sass
+      - run:
+          name: code-coverage
+          command: ng test --code-coverage
+      - run:
+          name: Run prod build
+          command: ng build --aot --prod
+      - store_artifacts:
+          path: '**/results.xml'
+          prefix: coverage
+      - store_test_results:
+          path: '**/results.xml'
