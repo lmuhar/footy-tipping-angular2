@@ -6,7 +6,8 @@ import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 
 import { User } from '../shared/models/user.model';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-admin',
