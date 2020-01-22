@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'grid';
 
+@import 'grid';
 .input-group {
   margin-bottom: 15px;
 }
@@ -106,4 +106,8 @@ html {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
 }
