@@ -31,6 +31,8 @@ $element-bottom-margin: ($gutter-width * 2)/3 !default;
   background-color: #fafafa;
   border-radius: 10px;
   padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
 }
 
 @media #{$medium-and-up} {
