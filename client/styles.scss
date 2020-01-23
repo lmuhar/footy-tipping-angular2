@@ -31,10 +31,6 @@
   overflow: hidden !important;
 }
 
-html {
-  background-color: #fafafa;
-}
-
 .v-center {
   position: relative;
   top: 50%;
@@ -110,4 +106,9 @@ html {
 
 * {
   font-family: 'Roboto', sans-serif;
+}
+
+.mat-drawer-container {
+  background: transparent;
+  color: black;
 }
