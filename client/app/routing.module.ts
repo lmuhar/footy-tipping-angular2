@@ -20,12 +20,11 @@ const routes: Routes = [
   { path: 'tips', loadChildren: 'app/tips/tips.module#TipsModule', canActivate: [AuthGuardLogin] },
   { path: 'view-tips', loadChildren: 'app/view-tips/view-tips.module#ViewTipsModule', canActivate: [AuthGuardLogin] },
   { path: 'enter-results', loadChildren: 'app/enter-results/enter-results.module#EnterResultsModule', canActivate: [AuthGuardAdmin] },
-  { path: '**', redirectTo: '/notfound' },
+  { path: '**', redirectTo: '/notfound' }
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-
 export class RoutingModule {}

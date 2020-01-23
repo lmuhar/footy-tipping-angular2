@@ -13,5 +13,5 @@
     "module": "es2015",
     "baseUrl": "./"
   },
-  "include": ["**/*.ts", "node_modules/angular-bootstrap-md/**/*.ts"]
+  "include": ["**/*.ts"]
 }

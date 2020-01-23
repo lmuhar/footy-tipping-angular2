@@ -7,18 +7,24 @@
     <meta name="author" content="Lauren Muhar" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <style>
       html,
       body {
         height: 100%;
-        background-color: #e2e8ef !important;
+        background-image: url('assets/grass-background.jpeg');
       }
 
       body {
         overflow-y: scroll;
         margin: 0;
-        background-color: #e2e8ef !important;
       }
 
       app-root {
@@ -53,14 +59,11 @@
         justify-content: center;
         visibility: visible;
         opacity: 1;
-        background-color: #e2e8ef;
       }
 
       .spinner .text {
         font-family: 'Arial', sans-serif;
         /* switched away from open sans to avoid seeing the font switch */
-        color: black;
-        background-color: #e2e8ef;
         margin-top: 0;
         margin-left: 21px;
         font-size: 18px;
@@ -80,7 +83,7 @@
       }
 
       .spinner .logo line {
-        stroke: black;
+        stroke: #ffffff;
         stroke-linecap: round;
         stroke-width: 3;
         stroke-dasharray: 15;
@@ -94,13 +97,16 @@
     <app-root></app-root>
     <div class="spinner-container">
       <div class="spinner">
-        <div class="logo"><p class="text">Loading...</p></div>
+        <div class="logo">
+          <p class="text">Loading...</p>
+        </div>
       </div>
     </div>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118571607-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
+
       function gtag() {
         dataLayer.push(arguments);
       }

@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'grid';
 
+@import 'grid';
 .input-group {
   margin-bottom: 15px;
 }
@@ -29,10 +29,6 @@
 
 .mat-drawer-content {
   overflow: hidden !important;
-}
-
-html {
-  background-color: #fafafa;
 }
 
 .v-center {
@@ -106,4 +102,13 @@ html {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+.mat-drawer-container {
+  background: transparent;
+  color: black;
 }
