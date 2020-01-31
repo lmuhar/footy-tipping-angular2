@@ -10,6 +10,7 @@ import { Round } from '../shared/models/round.model';
 import { ImageHelper } from './../utils/helpers/imageHelper';
 
 import * as ladderActions from './../../app/state/model/ladder/ladder.actions';
+import * as roundActions from './../../app/state/model/round/round.actions';
 import { AppState } from '../state/model/app-state.model';
 import { Store, select } from '@ngrx/store';
 
@@ -37,13 +38,14 @@ export class EnterResultsComponent implements OnInit {
   ) {}
 
   public ngOnInit() {
-    this.roundService.getRoundWithIdNumber().subscribe(
-      res => {
+    this.store.dispatch(new roundActions.GetRoundWithIdNumber());
+
+    this.store.pipe(select(state => state.round.roundWithId)).subscribe(res => {
+      if (res) {
         this.rounds = res;
-      },
-      error => console.log(error),
-      () => (this.isLoading = false)
-    );
+        this.isLoading = false;
+      }
+    });
 
     this.selectForm = this.formBuilder.group({
       number: this.number

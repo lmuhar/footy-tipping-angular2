@@ -10,6 +10,10 @@ import { TipService } from '../services/tip.service';
 import { ImageHelper } from './../utils/helpers/imageHelper';
 import { Round } from '../shared/models/round.model';
 
+import * as roundActions from './../../app/state/model/round/round.actions';
+import { Store, select } from '@ngrx/store';
+import { AppState } from '../state/model/app-state.model';
+
 @Component({
   selector: 'app-view-tips',
   templateUrl: './view-tips.component.html',
@@ -29,17 +33,19 @@ export class ViewTipsComponent implements OnInit {
     public toast: ToastComponent,
     private roundService: RoundService,
     private tipService: TipService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private store: Store<AppState>
   ) {}
 
   public ngOnInit() {
-    this.roundService.getRoundWithIdNumber().subscribe(
-      result => {
-        this.rounds = result;
-      },
-      error => console.log(error),
-      () => (this.isLoading = false)
-    );
+    this.store.dispatch(new roundActions.GetRoundWithIdNumber());
+
+    this.store.pipe(select(state => state.round.roundWithId)).subscribe(res => {
+      if (res) {
+        this.rounds = res;
+        this.isLoading = false;
+      }
+    });
 
     this.selectForm = this.formBuilder.group({
       number: this.number

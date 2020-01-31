@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 import { ToastComponent } from './../shared/toast/toast.component';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
@@ -13,6 +12,10 @@ import { EmailService } from '../services/email.service';
 
 import { Round } from '../shared/models/round.model';
 import { ImageHelper } from './../utils/helpers/imageHelper';
+import { Store, select } from '@ngrx/store';
+import { AppState } from '../state/model/app-state.model';
+
+import * as roundActions from './../../app/state/model/round/round.actions';
 
 @Component({
   selector: 'app-tips',
@@ -39,17 +42,19 @@ export class TipsComponent implements OnInit {
     private userService: UserService,
     private tipService: TipService,
     private formBuilder: FormBuilder,
-    private emailService: EmailService
+    private emailService: EmailService,
+    private store: Store<AppState>
   ) {}
 
   public ngOnInit() {
-    this.roundService.getRoundWithIdNumber().subscribe(
-      result => {
-        this.rounds = result;
-      },
-      error => console.log(error),
-      () => (this.isLoading = false)
-    );
+    this.store.dispatch(new roundActions.GetRoundWithIdNumber());
+
+    this.store.pipe(select(state => state.round.roundWithId)).subscribe(res => {
+      if (res) {
+        this.rounds = res;
+        this.isLoading = false;
+      }
+    });
 
     this.selectForm = this.formBuilder.group({
       number: this.number

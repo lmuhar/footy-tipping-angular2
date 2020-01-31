@@ -7,14 +7,17 @@ import { StoreModule } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import { ladderReducer } from './model/ladder/ladder.reducer';
 import { LadderEffects } from './model/ladder/ladder.effect';
+import { roundReducer } from './model/round/round.reducer';
+import { RoundEffects } from './model/round/round.effect';
 
 @NgModule({
   imports: [
     CommonModule,
     StoreModule.forRoot({
-      ladderData: ladderReducer
+      ladderData: ladderReducer,
+      round: roundReducer
     }),
-    EffectsModule.forRoot([LadderEffects]),
+    EffectsModule.forRoot([LadderEffects, RoundEffects]),
     environment.production ? [] : StoreDevtoolsModule.instrument()
   ]
 })
