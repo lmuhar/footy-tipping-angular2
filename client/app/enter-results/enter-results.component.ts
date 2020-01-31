@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { ToastComponent } from './../shared/toast/toast.component';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
@@ -6,10 +5,13 @@ import { Component, OnInit } from '@angular/core';
 
 import { RoundService } from '../services/round.service';
 import { TipService } from '../services/tip.service';
-import { AflLadderService } from '../services/afl-ladder.service';
 
 import { Round } from '../shared/models/round.model';
 import { ImageHelper } from './../utils/helpers/imageHelper';
+
+import * as ladderActions from './../../app/state/model/ladder/ladder.actions';
+import { AppState } from '../state/model/app-state.model';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-enter-tips',
@@ -31,7 +33,7 @@ export class EnterResultsComponent implements OnInit {
     private roundService: RoundService,
     private formBuilder: FormBuilder,
     private tipService: TipService,
-    private aflLadderService: AflLadderService
+    private store: Store<AppState>
   ) {}
 
   public ngOnInit() {
@@ -101,14 +103,12 @@ export class EnterResultsComponent implements OnInit {
 
   public scrapeLadderData() {
     this.isLoading = true;
-    this.aflLadderService.getAflLadder().subscribe(res => {
-      this.aflLadderService.newLadder(res).subscribe(
-        result => {
-          this.toast.setMessage('Ladder data retrieved', 'success');
-        },
-        error => this.toast.setMessage(`Get ladder information failed due to: ${error}`, 'warning'),
-        () => (this.isLoading = false)
-      );
+    this.store.dispatch(new ladderActions.GetScrappedLadder());
+
+    this.store.pipe(select(state => state.ladderData.addNewRecord)).subscribe(res => {
+      if (res) {
+        this.isLoading = false;
+      }
     });
   }
 }

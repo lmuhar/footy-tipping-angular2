@@ -3,10 +3,12 @@ import * as ladderActions from './ladder.actions';
 
 export interface LadderState {
   currentLadder: LadderModel[];
+  addNewRecord: boolean;
 }
 
 const ladderInitState: LadderState = {
-  currentLadder: []
+  currentLadder: [],
+  addNewRecord: null
 };
 
 export function ladderReducer(state = ladderInitState, action: ladderActions.LadderAction) {
@@ -21,6 +23,18 @@ export function ladderReducer(state = ladderInitState, action: ladderActions.Lad
       return {
         ...state,
         currentLadder: action.payload
+      };
+    }
+    case ladderActions.GET_SCRAPPED_LADDER: {
+      return {
+        ...state,
+        addNewRecord: null
+      };
+    }
+    case ladderActions.ADD_NEW_LADDER_SUCCESS: {
+      return {
+        ...state,
+        addNewRecord: true
       };
     }
     default: {

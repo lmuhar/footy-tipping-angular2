@@ -17,5 +17,17 @@ export class LadderEffects {
     })
   );
 
+  @Effect()
+  public getScrappedData$: Observable<Action> = this.actions$.pipe(
+    ofType(ladderActions.GET_SCRAPPED_LADDER),
+    switchMap((action: ladderActions.GetScrappedLadder) => {
+      return this.ladderService.getAflLadder().pipe(
+        switchMap(response => {
+          return this.ladderService.newLadder(response).pipe(map(res => new ladderActions.AddNewRecordSuccess(true)));
+        })
+      );
+    })
+  );
+
   constructor(private actions$: Actions, private ladderService: AflLadderService) {}
 }
