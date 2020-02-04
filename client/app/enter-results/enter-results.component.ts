@@ -62,20 +62,20 @@ export class EnterResultsComponent implements OnInit {
 
   private getSelectedRoundData(id) {
     this.isLoading = true;
-    this.roundService.getRound(id).subscribe(
-      res => {
-        this.selectedRound = res;
+    this.store.dispatch(new roundActions.GetRound(id));
 
+    this.store.pipe(select(state => state.round.selectedRound)).subscribe(res => {
+      if (res) {
+        this.selectedRound = res;
         this.enterResultsForm.reset();
 
         const control = <FormArray>this.enterResultsForm.controls['results'];
         res.games.forEach(game => {
           control.push(new FormControl(game.result, Validators.required));
         });
-      },
-      error => this.toast.setMessage(`Retrieve tips failed due to: ${error}`, 'warning'),
-      () => (this.isLoading = false)
-    );
+        this.isLoading = false;
+      }
+    });
   }
   public returnName(name) {
     return ImageHelper.returnAssetUrl(name);
