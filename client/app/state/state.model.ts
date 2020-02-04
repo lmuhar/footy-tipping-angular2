@@ -9,15 +9,18 @@ import { ladderReducer } from './model/ladder/ladder.reducer';
 import { LadderEffects } from './model/ladder/ladder.effect';
 import { roundReducer } from './model/round/round.reducer';
 import { RoundEffects } from './model/round/round.effect';
+import { tipReducer } from './model/tips/tip.reducer';
+import { TipEffects } from './model/tips/tip.effects';
 
 @NgModule({
   imports: [
     CommonModule,
     StoreModule.forRoot({
       ladderData: ladderReducer,
-      round: roundReducer
+      round: roundReducer,
+      tips: tipReducer
     }),
-    EffectsModule.forRoot([LadderEffects, RoundEffects]),
+    EffectsModule.forRoot([LadderEffects, RoundEffects, TipEffects]),
     environment.production ? [] : StoreDevtoolsModule.instrument()
   ]
 })

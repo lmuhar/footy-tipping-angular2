@@ -11,7 +11,7 @@
       <form class="form-inline" [formGroup]="selectForm">
         <mat-form-field>
           <mat-select placeholder="Select a round" formControlName="number">
-            <mat-option *ngFor="let t of (rounds | reverseSort: 'number')" [value]="t._id">
+            <mat-option *ngFor="let t of rounds | reverseSort: 'number'" [value]="t._id">
               Round {{ t.number }} - ({{ t.dateStart | date: 'dd MMM' }})
             </mat-option>
           </mat-select>
@@ -19,7 +19,7 @@
       </form>
     </div>
   </div>
-  <div class="row" *ngIf="!userTips.length"><div class="col s12 m6">No tips this round</div></div>
+  <div class="row" *ngIf="userTips && userTips.length === 0"><div class="col s12 m6">No tips this round</div></div>
   <div class="row">
     <div class="col s12 m6" *ngFor="let user of userTips">
       <div class="player-card">

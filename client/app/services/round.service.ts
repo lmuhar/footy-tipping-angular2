@@ -4,7 +4,9 @@ import { Observable } from 'rxjs/Observable';
 
 import { Round } from '../shared/models/round.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RoundService {
   constructor(private http: HttpClient) {}
 
