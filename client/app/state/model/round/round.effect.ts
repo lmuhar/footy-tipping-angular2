@@ -25,5 +25,13 @@ export class RoundEffects {
     })
   );
 
+  @Effect()
+  public editRound$: Observable<Action> = this.actions$.pipe(
+    ofType(roundActions.EDIT_ROUND),
+    switchMap((action: roundActions.EditRound) => {
+      return this.roundService.editRound(action.payload).pipe(map(response => new roundActions.EditRoundSuccess(true)));
+    })
+  );
+
   constructor(private actions$: Actions, private roundService: RoundService) {}
 }

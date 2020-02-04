@@ -3,7 +3,6 @@ import { ToastComponent } from './../shared/toast/toast.component';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
-import { RoundService } from '../services/round.service';
 import { TipService } from '../services/tip.service';
 
 import { Round } from '../shared/models/round.model';
@@ -31,7 +30,6 @@ export class EnterResultsComponent implements OnInit {
 
   constructor(
     public toast: ToastComponent,
-    private roundService: RoundService,
     private formBuilder: FormBuilder,
     private tipService: TipService,
     private store: Store<AppState>
@@ -90,10 +88,8 @@ export class EnterResultsComponent implements OnInit {
     });
     this.selectedRound.completed = true;
     // add join for this;
-    forkJoin([
-      this.roundService.editRound(this.selectedRound),
-      this.tipService.updateTipsWithResults(this.selectedRound._id, this.selectedRound.games)
-    ]).subscribe(
+    this.store.dispatch(new roundActions.EditRound(this.selectedRound));
+    forkJoin([this.tipService.updateTipsWithResults(this.selectedRound._id, this.selectedRound.games)]).subscribe(
       res => {
         this.toast.setMessage('Save results and update user results was successful', 'success');
         this.scrapeLadderData();

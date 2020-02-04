@@ -4,11 +4,13 @@ import * as roundActions from './round.actions';
 export interface RoundState {
   roundWithId: Round[];
   selectedRound: Round;
+  editRound: boolean;
 }
 
 const roundInitState: RoundState = {
   roundWithId: [],
-  selectedRound: null
+  selectedRound: null,
+  editRound: null
 };
 
 export function roundReducer(state = roundInitState, action: roundActions.RoundAction) {
@@ -35,6 +37,18 @@ export function roundReducer(state = roundInitState, action: roundActions.RoundA
       return {
         ...state,
         selectedRound: action.payload
+      };
+    }
+    case roundActions.EDIT_ROUND: {
+      return {
+        ...state,
+        editRound: null
+      };
+    }
+    case roundActions.EDIT_ROUND_SUCCESS: {
+      return {
+        ...state,
+        editRound: action.payload
       };
     }
     default: {
