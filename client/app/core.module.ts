@@ -4,7 +4,6 @@ import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { UserService } from './services/user.service';
-import { TeamService } from './services/team.service';
 import { EmailService } from './services/email.service';
 import { AflLadderService } from './services/afl-ladder.service';
 
@@ -16,7 +15,7 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [AuthService, AuthGuardAdmin, AuthGuardLogin, UserService, TeamService, EmailService, AflLadderService]
+      providers: [AuthService, AuthGuardAdmin, AuthGuardLogin, UserService, EmailService, AflLadderService]
     };
   }
 }

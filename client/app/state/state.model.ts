@@ -13,6 +13,8 @@ import { tipReducer } from './model/tips/tip.reducer';
 import { TipEffects } from './model/tips/tip.effects';
 import { locationReducer } from './model/locations/locations.reducer';
 import { LocationEffects } from './model/locations/locations.effect';
+import { teamReducer } from './model/team/team.reducer';
+import { TeamEffects } from './model/team/team.effect';
 
 @NgModule({
   imports: [
@@ -21,9 +23,10 @@ import { LocationEffects } from './model/locations/locations.effect';
       ladderData: ladderReducer,
       round: roundReducer,
       tips: tipReducer,
-      locationData: locationReducer
+      locationData: locationReducer,
+      teamData: teamReducer
     }),
-    EffectsModule.forRoot([LadderEffects, RoundEffects, TipEffects, LocationEffects]),
+    EffectsModule.forRoot([LadderEffects, RoundEffects, TipEffects, LocationEffects, TeamEffects]),
     environment.production ? [] : StoreDevtoolsModule.instrument()
   ]
 })

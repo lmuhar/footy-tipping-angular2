@@ -42,14 +42,14 @@
                 </div>
                 <div [formGroupName]="i">
                   <div class="row">
-                    <div class="col s12 m3">
+                    <div class="col s12 m3" *ngIf="teams && teams.length > 0">
                       <mat-form-field>
                         <mat-select placeholder="Home Team" formControlName="homeTeam">
                           <mat-option *ngFor="let t of teams | sort: 'name'" [value]="t.value"> {{ t.name }} </mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
-                    <div class="col s12 m3">
+                    <div class="col s12 m3" *ngIf="teams && teams.length > 0">
                       <mat-form-field>
                         <mat-select placeholder="Away Team" formControlName="awayTeam">
                           <mat-option *ngFor="let t of teams | sort: 'name'" [value]="t.value"> {{ t.name }} </mat-option>
