@@ -11,7 +11,7 @@
       <form [formGroup]="selectForm">
         <mat-form-field>
           <mat-select placeholder="Select a round" formControlName="number">
-            <mat-option *ngFor="let t of (rounds | reverseSort: 'number')" [value]="t._id">
+            <mat-option *ngFor="let t of rounds | reverseSort: 'number'" [value]="t._id">
               Round {{ t.number }} - ({{ t.dateStart | date: 'dd MMM' }})
             </mat-option>
           </mat-select>
@@ -22,7 +22,7 @@
   <div class="row">
     <div class="col s12 m6 margin-bottom-20"><app-afl-ladder></app-afl-ladder></div>
     <div class="col s12 m6">
-      <form [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
+      <form [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length > 0">
         <div formArrayName="tips">
           <mat-card class="margin-bottom-20" *ngFor="let tip of selectedRound.games; let i = index">
             <div class="row">
