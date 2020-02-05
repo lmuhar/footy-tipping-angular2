@@ -8,6 +8,7 @@ export interface RoundState {
   allRounds: Round[];
   deleteRound: boolean;
   addRound: boolean;
+  roundTotals: Round[];
 }
 
 const roundInitState: RoundState = {
@@ -16,7 +17,8 @@ const roundInitState: RoundState = {
   editRound: null,
   allRounds: [],
   deleteRound: null,
-  addRound: null
+  addRound: null,
+  roundTotals: null
 };
 
 export function roundReducer(state = roundInitState, action: roundActions.RoundAction) {
@@ -91,6 +93,18 @@ export function roundReducer(state = roundInitState, action: roundActions.RoundA
       return {
         ...state,
         addRound: true
+      };
+    }
+    case roundActions.GET_ROUND_TOTAL: {
+      return {
+        ...state,
+        roundTotals: null
+      };
+    }
+    case roundActions.GET_ROUND_TOTAL_SUCCESS: {
+      return {
+        ...state,
+        roundTotals: action.payload
       };
     }
     default: {

@@ -57,5 +57,13 @@ export class RoundEffects {
     })
   );
 
+  @Effect()
+  public getRoundTotal$: Observable<Action> = this.actions$.pipe(
+    ofType(roundActions.GET_ROUND_TOTAL),
+    switchMap((action: roundActions.GetRoundTotal) => {
+      return this.roundService.getRoundTotal().pipe(map(response => new roundActions.GetRoundTotalSuccess(response)));
+    })
+  );
+
   constructor(private actions$: Actions, private roundService: RoundService) {}
 }

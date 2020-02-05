@@ -15,6 +15,8 @@ import { locationReducer } from './model/locations/locations.reducer';
 import { LocationEffects } from './model/locations/locations.effect';
 import { teamReducer } from './model/team/team.reducer';
 import { TeamEffects } from './model/team/team.effect';
+import { userReducer } from './model/users/user.reducer';
+import { UserEffects } from './model/users/user.effects';
 
 @NgModule({
   imports: [
@@ -24,9 +26,10 @@ import { TeamEffects } from './model/team/team.effect';
       round: roundReducer,
       tips: tipReducer,
       locationData: locationReducer,
-      teamData: teamReducer
+      teamData: teamReducer,
+      users: userReducer
     }),
-    EffectsModule.forRoot([LadderEffects, RoundEffects, TipEffects, LocationEffects, TeamEffects]),
+    EffectsModule.forRoot([LadderEffects, RoundEffects, TipEffects, LocationEffects, TeamEffects, UserEffects]),
     environment.production ? [] : StoreDevtoolsModule.instrument()
   ]
 })

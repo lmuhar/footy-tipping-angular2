@@ -8,6 +8,12 @@ import { ImageHelper } from './../utils/helpers/imageHelper';
 
 import * as _ from 'lodash';
 import { forkJoin } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { AppState } from '../state/model/app-state.model';
+
+import * as roundActions from './../state/model/round/round.actions';
+import * as userActions from './../state/model/users/user.actions';
+import * as tipActions from './../state/model/tips/tip.actions';
 
 @Component({
   selector: 'app-ladder',

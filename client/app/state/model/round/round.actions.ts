@@ -13,6 +13,8 @@ export const DELETE_ROUND = 'DELETE_ROUND';
 export const DELETE_ROUND_SUCCESS = 'DELETE_ROUND_SUCCESS';
 export const ADD_ROUND = 'ADD_ROUND';
 export const ADD_ROUND_SUCCESS = 'ADD_ROUND_SUCCESS';
+export const GET_ROUND_TOTAL = 'GET_ROUND_TOTAL';
+export const GET_ROUND_TOTAL_SUCCESS = 'GET_ROUND_TOTAL_SUCCESS';
 
 export class GetRoundWithIdNumber implements Action {
   readonly type = ROUND_WITH_ID_NUMBER;
@@ -74,6 +76,16 @@ export class AddRoundSuccess implements Action {
   constructor(public payload: boolean) {}
 }
 
+export class GetRoundTotal implements Action {
+  readonly type = GET_ROUND_TOTAL;
+  constructor() {}
+}
+
+export class GetRoundTotalSuccess implements Action {
+  readonly type = GET_ROUND_TOTAL_SUCCESS;
+  constructor(public payload: Round[]) {}
+}
+
 export type RoundAction =
   | GetRoundWithIdNumber
   | GetRoundWithIdNumberSuccess
@@ -86,4 +98,6 @@ export type RoundAction =
   | DeleteRound
   | DeleteRoundSuccess
   | AddRound
-  | AddRoundSuccess;
+  | AddRoundSuccess
+  | GetRoundTotal
+  | GetRoundTotalSuccess;
