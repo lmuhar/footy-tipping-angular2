@@ -4,10 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../shared/models/user.model';
 import { Observable } from 'rxjs/Observable';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   register(user: User): Observable<User> {
     return this.http.post<User>('/api/user', user);
@@ -42,11 +43,10 @@ export class UserService {
   }
 
   deleteUser(user: User): Observable<string> {
-    return this.http.delete(`/api/user/${user._id}`, { responseType: 'text'});
+    return this.http.delete(`/api/user/${user._id}`, { responseType: 'text' });
   }
 
   getUserTotal(): Observable<any> {
     return this.http.get<any>('/api/users/ladder');
   }
-
 }

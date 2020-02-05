@@ -6,7 +6,9 @@ import 'rxjs/add/operator/map';
 
 import { UserService } from '../services/user.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
   loggedIn = false;
   isAdmin = false;
@@ -15,8 +17,7 @@ export class AuthService {
 
   currentUser: User = new User();
 
-  constructor(private userService: UserService,
-              private router: Router) {
+  constructor(private userService: UserService, private router: Router) {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedUser = this.decodeUserFromToken(token);
@@ -25,14 +26,12 @@ export class AuthService {
   }
 
   login(emailAndPassword) {
-    return this.userService.login(emailAndPassword).map(
-      res => {
-        localStorage.setItem('token', res.token);
-        const decodedUser = this.decodeUserFromToken(res.token);
-        this.setCurrentUser(decodedUser);
-        return this.loggedIn;
-      }
-    );
+    return this.userService.login(emailAndPassword).map(res => {
+      localStorage.setItem('token', res.token);
+      const decodedUser = this.decodeUserFromToken(res.token);
+      this.setCurrentUser(decodedUser);
+      return this.loggedIn;
+    });
   }
 
   logout() {
@@ -53,8 +52,7 @@ export class AuthService {
     this.currentUser.username = decodedUser.username;
     this.currentUser.role = decodedUser.role;
     this.currentUser.email = decodedUser.email;
-    decodedUser.role === 'admin' ? this.isAdmin = true : this.isAdmin = false;
+    decodedUser.role === 'admin' ? (this.isAdmin = true) : (this.isAdmin = false);
     delete decodedUser.role;
   }
-
 }

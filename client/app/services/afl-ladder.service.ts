@@ -3,25 +3,26 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AflLadderService {
+  constructor(private http: HttpClient) {}
 
-    constructor(private http: HttpClient) { }
+  getAflLadder(): Observable<any> {
+    return this.http.get<any>('/api/afl-ladder');
+  }
 
-    getAflLadder(): Observable<any> {
-        return this.http.get<any>('/api/afl-ladder');
-    }
+  newLadder(data): Observable<any> {
+    const item = { data: data };
+    return this.http.post<any>('/api/scraped-ladder', item);
+  }
 
-    newLadder(data): Observable<any> {
-        const item = {data: data};
-        return this.http.post<any>('/api/scraped-ladder', item);
-    }
+  editLadder(data, id): Observable<string> {
+    return this.http.put(`/api/scraped-ladder/${id}`, data, { responseType: 'text' });
+  }
 
-    editLadder(data, id): Observable<string> {
-        return this.http.put(`/api/scraped-ladder/${id}`, data, { responseType: 'text'});
-    }
-
-    getLatestLadder(): Observable<any> {
-        return this.http.get<any>('/api/scraped-ladder');
-    }
+  getLatestLadder(): Observable<any> {
+    return this.http.get<any>('/api/scraped-ladder');
+  }
 }

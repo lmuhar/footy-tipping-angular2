@@ -3,16 +3,17 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class EmailService {
+  constructor(private http: HttpClient) {}
 
-    constructor(private http: HttpClient) { }
+  testEmail(data): Observable<any> {
+    return this.http.post('/api/send-email', data);
+  }
 
-    testEmail(data): Observable<any> {
-        return this.http.post('/api/send-email', data);
-    }
-
-    enteredTipsEmail(data): Observable<any> {
-        return this.http.post('/api/enter-tips-success', data);
-    }
+  enteredTipsEmail(data): Observable<any> {
+    return this.http.post('/api/enter-tips-success', data);
+  }
 }
