@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@ang
 
 import { RoundService } from '../services/round.service';
 import { TeamService } from '../services/team.service';
-import { LocationService } from '../services/location.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
 import { Round } from '../shared/models/round.model';
@@ -12,8 +11,11 @@ import { Team } from '../shared/models/team.model';
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import * as locationActions from './../state/model/locations/locations.actions';
 
 import { Observable } from 'rxjs/Rx';
+import { AppState } from '../state/model/app-state.model';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-round',
@@ -41,9 +43,9 @@ export class RoundsComponent implements OnInit {
   constructor(
     private roundService: RoundService,
     private teamService: TeamService,
-    private locationService: LocationService,
     private formBuilder: FormBuilder,
-    public toast: ToastComponent
+    public toast: ToastComponent,
+    private store: Store<AppState>
   ) {}
 
   createGame(): FormGroup {
@@ -57,11 +59,17 @@ export class RoundsComponent implements OnInit {
   }
 
   public ngOnInit() {
-    Observable.forkJoin(this.roundService.getRounds(), this.teamService.getTeams(), this.locationService.getLocations()).subscribe(
+    this.store.dispatch(new locationActions.GetLocations());
+
+    this.store.pipe(select(state => state.locationData)).subscribe(res => {
+      if (res) {
+        this.locations = res.locations;
+      }
+    });
+    Observable.forkJoin(this.roundService.getRounds(), this.teamService.getTeams()).subscribe(
       results => {
         this.rounds = results[0];
         this.teams = results[1];
-        this.locations = results[2];
         this.test = _.groupBy(this.rounds, 'year');
       },
       error => console.log(error),

@@ -45,21 +45,21 @@
                     <div class="col s12 m3">
                       <mat-form-field>
                         <mat-select placeholder="Home Team" formControlName="homeTeam">
-                          <mat-option *ngFor="let t of (teams | sort: 'name')" [value]="t.value"> {{ t.name }} </mat-option>
+                          <mat-option *ngFor="let t of teams | sort: 'name'" [value]="t.value"> {{ t.name }} </mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
                     <div class="col s12 m3">
                       <mat-form-field>
                         <mat-select placeholder="Away Team" formControlName="awayTeam">
-                          <mat-option *ngFor="let t of (teams | sort: 'name')" [value]="t.value"> {{ t.name }} </mat-option>
+                          <mat-option *ngFor="let t of teams | sort: 'name'" [value]="t.value"> {{ t.name }} </mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
-                    <div class="col s12 m3">
+                    <div class="col s12 m3" *ngIf="locations && locations.length > 0">
                       <mat-form-field>
                         <mat-select placeholder="Location" formControlName="location">
-                          <mat-option *ngFor="let t of (locations | sort: 'name')" [value]="t.name"> {{ t.name }} </mat-option>
+                          <mat-option *ngFor="let t of locations | sort: 'name'" [value]="t.name"> {{ t.name }} </mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
@@ -98,10 +98,10 @@
   </div>
 
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let item of (test | keyvalue)">
+    <mat-expansion-panel *ngFor="let item of test | keyvalue">
       <mat-expansion-panel-header> {{ item.key }} </mat-expansion-panel-header>
       <mat-accordion>
-        <mat-expansion-panel *ngFor="let round of (item.value | sort: 'dateStart')">
+        <mat-expansion-panel *ngFor="let round of item.value | sort: 'dateStart'">
           <mat-expansion-panel-header>
             <mat-panel-title> Round {{ round.number }} </mat-panel-title>
             <mat-panel-description> {{ round.dateStart | date }} - {{ round.dateEnd | date }} </mat-panel-description>
