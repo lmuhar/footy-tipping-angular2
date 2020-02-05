@@ -83,7 +83,7 @@ export class GetRoundTotal implements Action {
 
 export class GetRoundTotalSuccess implements Action {
   readonly type = GET_ROUND_TOTAL_SUCCESS;
-  constructor(public payload: Round[]) {}
+  constructor(public payload: any) {}
 }
 
 export type RoundAction =

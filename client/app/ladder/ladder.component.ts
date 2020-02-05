@@ -1,13 +1,8 @@
-import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 
-import { RoundService } from './../services/round.service';
-import { TipService } from './../services/tip.service';
-import { UserService } from '../services/user.service';
 import { ImageHelper } from './../utils/helpers/imageHelper';
 
 import * as _ from 'lodash';
-import { forkJoin } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../state/model/app-state.model';
 
@@ -22,41 +17,50 @@ import * as tipActions from './../state/model/tips/tip.actions';
 })
 export class LadderComponent implements OnInit {
   public users = [];
-  public roundData = { number: null, id: null };
+  public roundData: any;
   public isLoading = true;
   public roundTotal = null;
   public roundNumber = null;
+  public requestMade = false;
 
-  constructor(private userService: UserService, private roundService: RoundService, private tipService: TipService) {}
+  constructor(private store: Store<AppState>) {}
 
   public ngOnInit() {
-    forkJoin([this.roundService.getRoundTotal(), this.userService.getUserTotal()]).subscribe(
-      res => {
-        if (res[0][0] && res[0][0]._id && res[1]) {
-          this.roundData = res[0][0]._id;
-          this.roundNumber = this.roundData.number;
-          this.users = res[1];
-          this.tipService.allTipsForRound(this.roundData.id).subscribe(
-            result => {
-              this.roundTotal = result;
-              this.users.map(item => {
-                const found = _.find(this.roundTotal, r => {
-                  return r.user_data.username === item.username;
-                });
-                if (found && found.total) {
-                  item.roundTotal = found.total;
-                }
-                return item;
-              });
-            },
-            error => console.log(error),
-            () => (this.isLoading = false)
-          );
-        }
-      },
-      error => console.log(error),
-      () => (this.isLoading = false)
-    );
+    this.store.dispatch(new roundActions.GetRoundTotal());
+    this.store.dispatch(new userActions.GetUserTotals());
+
+    this.store.pipe(select(state => state)).subscribe(res => {
+      if (
+        res.round.roundTotals &&
+        res.round.roundTotals[0] &&
+        res.round.roundTotals[0]._id &&
+        res.users.userTotals &&
+        res.users.userTotals.length > 0 &&
+        !this.requestMade
+      ) {
+        this.roundData = res.round.roundTotals[0]._id;
+        this.users = res.users.userTotals;
+
+        this.store.dispatch(new tipActions.GetAllTipsForRound(this.roundData.id));
+        this.requestMade = true;
+      }
+    });
+
+    this.store.pipe(select(state => state.tips)).subscribe(res => {
+      if (res.allTipsForRound && this.requestMade) {
+        this.roundTotal = res.allTipsForRound;
+        this.users.map(item => {
+          const found = _.find(this.roundTotal, r => {
+            return r.user_data.username === item.username;
+          });
+          if (found && found.total) {
+            item.roundTotal = found.total;
+          }
+          return item;
+        });
+        this.isLoading = false;
+      }
+    });
   }
 
   public returnUserImage(name) {
