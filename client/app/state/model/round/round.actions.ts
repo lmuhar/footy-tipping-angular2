@@ -7,6 +7,12 @@ export const GET_ROUND = 'GET_ROUND';
 export const GET_ROUND_SUCCESS = 'GET_ROUND_SUCCESS';
 export const EDIT_ROUND = 'EDIT_ROUND';
 export const EDIT_ROUND_SUCCESS = 'EDIT_ROUND_SUCCESS';
+export const GET_ALL_ROUNDS = 'GET_ALL_ROUNDS';
+export const GET_ALL_ROUNDS_SUCCESS = 'GET_ALL_ROUNDS_SUCCESS';
+export const DELETE_ROUND = 'DELETE_ROUND';
+export const DELETE_ROUND_SUCCESS = 'DELETE_ROUND_SUCCESS';
+export const ADD_ROUND = 'ADD_ROUND';
+export const ADD_ROUND_SUCCESS = 'ADD_ROUND_SUCCESS';
 
 export class GetRoundWithIdNumber implements Action {
   readonly type = ROUND_WITH_ID_NUMBER;
@@ -38,4 +44,46 @@ export class EditRoundSuccess implements Action {
   constructor(public payload: boolean) {}
 }
 
-export type RoundAction = GetRoundWithIdNumber | GetRoundWithIdNumberSuccess | GetRound | GetRoundSuccess | EditRound | EditRoundSuccess;
+export class GetAllRounds implements Action {
+  readonly type = GET_ALL_ROUNDS;
+  constructor() {}
+}
+
+export class GetAllRoundsSuccess implements Action {
+  readonly type = GET_ALL_ROUNDS_SUCCESS;
+  constructor(public payload: Round[]) {}
+}
+
+export class DeleteRound implements Action {
+  readonly type = DELETE_ROUND;
+  constructor(public payload: Round) {}
+}
+
+export class DeleteRoundSuccess implements Action {
+  readonly type = DELETE_ROUND_SUCCESS;
+  constructor(public payload: boolean) {}
+}
+
+export class AddRound implements Action {
+  readonly type = ADD_ROUND;
+  constructor(public payload: Round) {}
+}
+
+export class AddRoundSuccess implements Action {
+  readonly type = ADD_ROUND_SUCCESS;
+  constructor(public payload: boolean) {}
+}
+
+export type RoundAction =
+  | GetRoundWithIdNumber
+  | GetRoundWithIdNumberSuccess
+  | GetRound
+  | GetRoundSuccess
+  | EditRound
+  | EditRoundSuccess
+  | GetAllRounds
+  | GetAllRoundsSuccess
+  | DeleteRound
+  | DeleteRoundSuccess
+  | AddRound
+  | AddRoundSuccess;

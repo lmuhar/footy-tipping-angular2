@@ -33,5 +33,29 @@ export class RoundEffects {
     })
   );
 
+  @Effect()
+  public getAllRounds$: Observable<Action> = this.actions$.pipe(
+    ofType(roundActions.GET_ALL_ROUNDS),
+    switchMap((action: roundActions.GetAllRounds) => {
+      return this.roundService.getRounds().pipe(map(response => new roundActions.GetAllRoundsSuccess(response)));
+    })
+  );
+
+  @Effect()
+  public deleteRound$: Observable<Action> = this.actions$.pipe(
+    ofType(roundActions.DELETE_ROUND),
+    switchMap((action: roundActions.DeleteRound) => {
+      return this.roundService.deleteRound(action.payload).pipe(map(response => new roundActions.DeleteRoundSuccess(true)));
+    })
+  );
+
+  @Effect()
+  public addRound$: Observable<Action> = this.actions$.pipe(
+    ofType(roundActions.ADD_ROUND),
+    switchMap((action: roundActions.AddRound) => {
+      return this.roundService.addRound(action.payload).pipe(map(response => new roundActions.AddRoundSuccess(true)));
+    })
+  );
+
   constructor(private actions$: Actions, private roundService: RoundService) {}
 }

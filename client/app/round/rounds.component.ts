@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 
-import { RoundService } from '../services/round.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
 import { Round } from '../shared/models/round.model';
@@ -12,8 +11,8 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import * as locationActions from './../state/model/locations/locations.actions';
 import * as teamActions from './../state/model/team/team.actions';
+import * as roundActions from './../state/model/round/round.actions';
 
-import { Observable } from 'rxjs/Rx';
 import { AppState } from '../state/model/app-state.model';
 import { Store, select } from '@ngrx/store';
 
@@ -24,28 +23,23 @@ import { Store, select } from '@ngrx/store';
 })
 export class RoundsComponent implements OnInit {
   public round = new Round();
-  public rounds: Round[] = [];
-  public teams: Team[] = [];
-  public locations: Location[] = [];
+  public rounds: Round[];
+  public teams: Team[];
+  public locations: Location[];
   public totalRounds = 0;
   public isLoading = true;
   public isEditing = false;
   public panelOpenState = false;
   public now = null;
 
-  public test = [];
+  public groupedRounds: Round[];
 
   public addRoundForm: FormGroup;
   public number = new FormControl('', Validators.required);
   public dateStart = new FormControl(null, Validators.required);
   public dateEnd = new FormControl(null, Validators.required);
 
-  constructor(
-    private roundService: RoundService,
-    private formBuilder: FormBuilder,
-    public toast: ToastComponent,
-    private store: Store<AppState>
-  ) {}
+  constructor(private formBuilder: FormBuilder, public toast: ToastComponent, private store: Store<AppState>) {}
 
   createGame(): FormGroup {
     return this.formBuilder.group({
@@ -60,26 +54,23 @@ export class RoundsComponent implements OnInit {
   public ngOnInit() {
     this.store.dispatch(new locationActions.GetLocations());
     this.store.dispatch(new teamActions.GetTeams());
+    this.store.dispatch(new roundActions.GetAllRounds());
 
-    this.store.pipe(select(state => state.locationData)).subscribe(res => {
-      if (res) {
-        this.locations = res.locations;
+    this.store.pipe(select(state => state)).subscribe(res => {
+      if (res.locationData.locations && res.teamData.teams) {
+        this.locations = res.locationData.locations;
+        this.teams = res.teamData.teams;
+        this.isLoading = false;
       }
     });
 
-    this.store.pipe(select(state => state.teamData)).subscribe(res => {
+    this.store.pipe(select(state => state.round.allRounds)).subscribe(res => {
       if (res) {
-        this.teams = res.teams;
+        this.rounds = res;
+        this.groupedRounds = _.groupBy(res, 'year');
+        this.isLoading = false;
       }
     });
-    Observable.forkJoin(this.roundService.getRounds()).subscribe(
-      results => {
-        this.rounds = results[0];
-        this.test = _.groupBy(this.rounds, 'year');
-      },
-      error => console.log(error),
-      () => (this.isLoading = false)
-    );
 
     this.addRoundForm = this.formBuilder.group({
       number: this.number,
@@ -103,26 +94,31 @@ export class RoundsComponent implements OnInit {
       delete this.addRoundForm.value.games[0].time;
       game.dateTime = dateTime;
     });
-    this.roundService.addRound(this.addRoundForm.value).subscribe(
-      res => {
-        this.rounds.push(res);
+    this.store.dispatch(new roundActions.AddRound(this.addRoundForm.value));
+
+    this.store.pipe(select(state => state.round.addRound)).subscribe(res => {
+      if (res) {
+        this.store.dispatch(new roundActions.GetAllRounds());
         this.addRoundForm.reset();
         this.toast.setMessage('round successfully added.', 'success');
-      },
-      error => console.log(error)
-    );
+      }
+    });
   }
 
   public deleteRound(round) {
     if (window.confirm('Are you sure you want to permanently delete this item?')) {
-      this.roundService.deleteRound(round).subscribe(
-        res => {
+      this.isLoading = true;
+      this.store.dispatch(new roundActions.DeleteRound(round));
+
+      this.store.pipe(select(state => state.round.deleteRound)).subscribe(res => {
+        if (res) {
           const pos = this.rounds.map(elem => elem._id).indexOf(round._id);
           this.rounds.splice(pos, 1);
           this.toast.setMessage('item deleted successfully.', 'success');
-        },
-        error => console.log(error)
-      );
+          this.isLoading = false;
+          this.store.dispatch(new roundActions.GetAllRounds());
+        }
+      });
     }
   }
 }

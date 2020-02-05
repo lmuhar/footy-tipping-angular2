@@ -98,7 +98,7 @@
   </div>
 
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let item of test | keyvalue">
+    <mat-expansion-panel *ngFor="let item of groupedRounds | keyvalue">
       <mat-expansion-panel-header> {{ item.key }} </mat-expansion-panel-header>
       <mat-accordion>
         <mat-expansion-panel *ngFor="let round of item.value | sort: 'dateStart'">
