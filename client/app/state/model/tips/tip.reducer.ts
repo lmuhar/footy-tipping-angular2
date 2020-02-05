@@ -3,10 +3,12 @@ import * as tipActions from './tip.actions';
 
 export interface TipState {
   allTipsForRound: Tip[];
+  updateTipResults: boolean;
 }
 
 const tipInitState: TipState = {
-  allTipsForRound: null
+  allTipsForRound: null,
+  updateTipResults: null
 };
 
 export function tipReducer(state = tipInitState, action: tipActions.TipAction) {
@@ -21,6 +23,18 @@ export function tipReducer(state = tipInitState, action: tipActions.TipAction) {
       return {
         ...state,
         allTipsForRound: action.payload
+      };
+    }
+    case tipActions.UPDATE_TIP_RESULTS: {
+      return {
+        ...state,
+        updateTipResults: null
+      };
+    }
+    case tipActions.UPDATE_TIP_RESULTS_SUCCESS: {
+      return {
+        ...state,
+        updateTipResults: true
       };
     }
     default: {

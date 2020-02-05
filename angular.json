@@ -48,7 +48,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "port": 4200,
+            "port": 4444,
             "baseHref": "/",
             "browserTarget": "angular2-full-stack:build"
           },

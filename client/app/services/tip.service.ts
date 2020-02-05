@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { Tip } from '../shared/models/tip.model';
+import { Round } from '../shared/models/round.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class TipService {
     return this.http.get<Tip[]>(`/api/tips/roundId/${roundId}`);
   }
 
-  updateTipsWithResults(roundId, games): Observable<string> {
-    return this.http.put(`/api/tips/roundId/${roundId}/results`, games, { responseType: 'text' });
+  updateTipsWithResults(tipData: Round): Observable<string> {
+    return this.http.put(`/api/tips/roundId/${tipData._id}/results`, tipData.games, { responseType: 'text' });
   }
 }

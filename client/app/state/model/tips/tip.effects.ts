@@ -17,5 +17,13 @@ export class TipEffects {
     })
   );
 
+  @Effect()
+  public updateTipResults$: Observable<Action> = this.actions$.pipe(
+    ofType(tipActions.UPDATE_TIP_RESULTS),
+    switchMap((action: tipActions.UpdateTipsWithResults) => {
+      return this.tipService.updateTipsWithResults(action.payload).pipe(map(response => new tipActions.UpdateTipsWithResultsSuccess(true)));
+    })
+  );
+
   constructor(private actions$: Actions, private tipService: TipService) {}
 }

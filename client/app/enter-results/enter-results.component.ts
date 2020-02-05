@@ -1,15 +1,13 @@
-import { forkJoin } from 'rxjs/observable/forkJoin';
 import { ToastComponent } from './../shared/toast/toast.component';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-
-import { TipService } from '../services/tip.service';
 
 import { Round } from '../shared/models/round.model';
 import { ImageHelper } from './../utils/helpers/imageHelper';
 
 import * as ladderActions from './../../app/state/model/ladder/ladder.actions';
 import * as roundActions from './../../app/state/model/round/round.actions';
+import * as tipActions from './../../app/state/model/tips/tip.actions';
 import { AppState } from '../state/model/app-state.model';
 import { Store, select } from '@ngrx/store';
 
@@ -28,12 +26,7 @@ export class EnterResultsComponent implements OnInit {
   public selectForm: FormGroup;
   public enterResultsForm: FormGroup;
 
-  constructor(
-    public toast: ToastComponent,
-    private formBuilder: FormBuilder,
-    private tipService: TipService,
-    private store: Store<AppState>
-  ) {}
+  constructor(public toast: ToastComponent, private formBuilder: FormBuilder, private store: Store<AppState>) {}
 
   public ngOnInit() {
     this.store.dispatch(new roundActions.GetRoundWithIdNumber());
@@ -87,16 +80,15 @@ export class EnterResultsComponent implements OnInit {
       i++;
     });
     this.selectedRound.completed = true;
-    // add join for this;
+
+    this.store.dispatch(new tipActions.UpdateTipsWithResults(this.selectedRound));
     this.store.dispatch(new roundActions.EditRound(this.selectedRound));
-    forkJoin([this.tipService.updateTipsWithResults(this.selectedRound._id, this.selectedRound.games)]).subscribe(
-      res => {
-        this.toast.setMessage('Save results and update user results was successful', 'success');
-        this.scrapeLadderData();
-      },
-      error => this.toast.setMessage(`Save tips failed due to: ${error}`, 'warning'),
-      () => (this.isLoading = false)
-    );
+
+    this.store.pipe(select(state => state)).subscribe(res => {
+      if (res.round.editRound && res.tips.updateTipResults) {
+        this.isLoading = false;
+      }
+    });
   }
 
   public scrapeLadderData() {
