@@ -6,7 +6,6 @@ import * as moment from 'moment';
 
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-import { TipService } from '../services/tip.service';
 import { EmailService } from '../services/email.service';
 
 import { Round } from '../shared/models/round.model';
@@ -40,7 +39,6 @@ export class TipsComponent implements OnInit {
     public toast: ToastComponent,
     private auth: AuthService,
     private userService: UserService,
-    private tipService: TipService,
     private formBuilder: FormBuilder,
     private emailService: EmailService,
     private store: Store<AppState>
@@ -103,14 +101,16 @@ export class TipsComponent implements OnInit {
       data.ownerId = this.auth.currentUser._id;
       data.roundId = this.selectedRoundId;
       data._id = this.userRoundId;
-      this.tipService.editTips(data).subscribe(
-        () => {
+      this.isLoading = true;
+      this.store.dispatch(new tipActions.EditTips(data));
+
+      this.store.pipe(select(state => state.tips.editTips)).subscribe(res => {
+        if (res) {
           this.sendSaveEmail(emailData);
           this.toast.setMessage('Tips successfully updated', 'success');
-        },
-        error => this.toast.setMessage('Updated tips failed, please try again', 'warning'),
-        () => (this.isLoading = false)
-      );
+          this.isLoading = false;
+        }
+      });
     }
   }
 

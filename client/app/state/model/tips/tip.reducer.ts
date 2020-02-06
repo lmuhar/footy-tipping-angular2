@@ -5,12 +5,14 @@ export interface TipState {
   allTipsForRound: Tip[];
   updateTipResults: boolean;
   userTips: Tip;
+  editTips: boolean;
 }
 
 const tipInitState: TipState = {
   allTipsForRound: [],
   updateTipResults: null,
-  userTips: null
+  userTips: null,
+  editTips: null
 };
 
 export function tipReducer(state = tipInitState, action: tipActions.TipAction) {
@@ -49,6 +51,18 @@ export function tipReducer(state = tipInitState, action: tipActions.TipAction) {
       return {
         ...state,
         userTips: action.payload
+      };
+    }
+    case tipActions.EDIT_TIPS: {
+      return {
+        ...state,
+        editTips: null
+      };
+    }
+    case tipActions.EDIT_TIPS_SUCCESS: {
+      return {
+        ...state,
+        editTips: true
       };
     }
     default: {

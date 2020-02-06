@@ -8,6 +8,8 @@ export const UPDATE_TIP_RESULTS = 'UPDATE_TIP_RESULTS';
 export const UPDATE_TIP_RESULTS_SUCCESS = 'UPDATE_TIP_RESULTS_SUCCESS';
 export const GET_USER_TIPS_ROUND = 'GET_USER_TIPS_ROUND';
 export const GET_USER_TIPS_ROUND_SUCCESS = 'GET_USER_TIPS_ROUND_SUCCESS';
+export const EDIT_TIPS = 'EDIT_TIPS';
+export const EDIT_TIPS_SUCCESS = 'EDIT_TIPS_SUCCESS';
 
 export class GetAllTipsForRound implements Action {
   readonly type = GET_ALL_TIPS_ROUND;
@@ -39,10 +41,22 @@ export class GetUserTipsForRoundSuccess implements Action {
   constructor(public payload: Tip) {}
 }
 
+export class EditTips implements Action {
+  readonly type = EDIT_TIPS;
+  constructor(public payload: Tip) {}
+}
+
+export class EditTipsSuccess implements Action {
+  readonly type = EDIT_TIPS_SUCCESS;
+  constructor(public payload: boolean) {}
+}
+
 export type TipAction =
   | GetAllTipsForRound
   | GetAllTipsForRoundSuccess
   | UpdateTipsWithResults
   | UpdateTipsWithResultsSuccess
   | GetUserTipsForRound
-  | GetUserTipsForRoundSuccess;
+  | GetUserTipsForRoundSuccess
+  | EditTips
+  | EditTipsSuccess;

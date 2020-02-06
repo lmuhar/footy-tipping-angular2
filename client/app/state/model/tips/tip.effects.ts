@@ -33,5 +33,13 @@ export class TipEffects {
     })
   );
 
+  @Effect()
+  public editTips$: Observable<Action> = this.actions$.pipe(
+    ofType(tipActions.EDIT_TIPS),
+    switchMap((action: tipActions.EditTips) => {
+      return this.tipService.editTips(action.payload).pipe(map(response => new tipActions.EditTipsSuccess(true)));
+    })
+  );
+
   constructor(private actions$: Actions, private tipService: TipService) {}
 }
