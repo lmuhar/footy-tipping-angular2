@@ -1,13 +1,16 @@
+import { Tip } from './../../../shared/models/tip.model';
 import { User } from './../../../shared/models/user.model';
 
 import * as userActions from './user.actions';
 
 export interface UserState {
   userTotals: User[];
+  newUserTip: Tip;
 }
 
 const userInitState: UserState = {
-  userTotals: []
+  userTotals: [],
+  newUserTip: null
 };
 
 export function userReducer(state = userInitState, action: userActions.UserAction) {
@@ -22,6 +25,18 @@ export function userReducer(state = userInitState, action: userActions.UserActio
       return {
         ...state,
         userTotals: action.payload
+      };
+    }
+    case userActions.NEW_USER_TIPS: {
+      return {
+        ...state,
+        newUserTip: null
+      };
+    }
+    case userActions.NEW_USER_TIPS_SUCCESS: {
+      return {
+        ...state,
+        newUserTip: action.payload
       };
     }
     default: {

@@ -5,17 +5,17 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@ang
 import * as moment from 'moment';
 
 import { AuthService } from '../services/auth.service';
-import { UserService } from '../services/user.service';
 import { EmailService } from '../services/email.service';
 
 import { Round } from '../shared/models/round.model';
 import { ImageHelper } from './../utils/helpers/imageHelper';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../state/model/app-state.model';
-import { GetUserTips } from '../shared/models/tip.model';
+import { GetUserTips, Tip } from '../shared/models/tip.model';
 
 import * as roundActions from './../../app/state/model/round/round.actions';
 import * as tipActions from './../../app/state/model/tips/tip.actions';
+import * as userActions from './../../app/state/model/users/user.actions';
 
 @Component({
   selector: 'app-tips',
@@ -29,16 +29,18 @@ export class TipsComponent implements OnInit {
   public selectedRoundId = null;
   public isNew = true;
 
-  public selectForm: FormGroup;
-  public number = new FormControl('', Validators.required);
+  public selectForm = this.formBuilder.group({
+    number: ['', Validators.required]
+  });
 
   public userRoundId = null;
-  public enterTipsForm: FormGroup;
+  public enterTipsForm = this.formBuilder.group({
+    tips: this.formBuilder.array([])
+  });
 
   constructor(
     public toast: ToastComponent,
     private auth: AuthService,
-    private userService: UserService,
     private formBuilder: FormBuilder,
     private emailService: EmailService,
     private store: Store<AppState>
@@ -54,17 +56,9 @@ export class TipsComponent implements OnInit {
       }
     });
 
-    this.selectForm = this.formBuilder.group({
-      number: this.number
-    });
-
-    this.enterTipsForm = this.formBuilder.group({
-      tips: this.formBuilder.array([])
-    });
-
     this.selectForm.valueChanges.subscribe(change => {
       this.getSelectedRoundData(change.number);
-      this.enterTipsForm.setControl('tips', this.formBuilder.array([]));
+      // this.enterTipsForm.setControl('tips', this.formBuilder.array([]));
     });
   }
 
@@ -86,16 +80,22 @@ export class TipsComponent implements OnInit {
       round: this.selectedRound
     };
     if (this.isNew) {
-      this.userService.newUserTips(this.auth.currentUser._id, this.selectedRoundId, this.enterTipsForm.value).subscribe(
-        res => {
+      const data: Tip = {
+        ownerId: this.auth.currentUser._id,
+        roundId: this.selectedRoundId,
+        tips: this.enterTipsForm.value
+      };
+      this.store.dispatch(new userActions.NewUserTips(data));
+
+      this.store.pipe(select(state => state.users.newUserTip)).subscribe(res => {
+        if (res) {
           this.isNew = false;
           this.userRoundId = res._id;
           this.sendSaveEmail(emailData);
           this.toast.setMessage('Tips successfully saved', 'success');
-        },
-        error => this.toast.setMessage('Save tips failed, please try again', 'warning'),
-        () => (this.isLoading = false)
-      );
+          this.isLoading = false;
+        }
+      });
     } else {
       const data = this.enterTipsForm.value;
       data.ownerId = this.auth.currentUser._id;
@@ -142,13 +142,18 @@ export class TipsComponent implements OnInit {
       if (res && res._id) {
         this.selectedRound = res;
         this.selectedRoundId = res._id;
+        /*this.enterTipsForm = this.formBuilder.group({
+          tips: this.formBuilder.array([])
+        });*/
 
         const control = <FormArray>this.enterTipsForm.controls['tips'];
 
         res.games.forEach(game => {
-          control.push(new FormControl(null, Validators.required));
+          control.push(
+            new FormControl({ value: null, disabled: this.disabledButton(game.dateTime) }, Validators.compose([Validators.required]))
+          );
         });
-        this.enterTipsForm.reset();
+        // this.enterTipsForm.reset();
         const userData: GetUserTips = {
           roundId: this.selectedRoundId,
           userId: this.auth.currentUser._id
@@ -159,18 +164,17 @@ export class TipsComponent implements OnInit {
     });
 
     this.store.pipe(select(state => state.tips.userTips)).subscribe(res => {
+      console.log('res', res);
       if (res && res._id) {
         this.isNew = false;
         this.userRoundId = res._id;
-        this.enterTipsForm.patchValue({
-          tips: res.tips
-        });
+        this.enterTipsForm.patchValue({ tips: res.tips });
         this.isLoading = false;
       } else {
         this.isNew = true;
         this.userRoundId = null;
-        this.enterTipsForm.reset();
-        this.setDefaultData();
+        // this.enterTipsForm.reset();
+        // this.setDefaultData();
         this.isLoading = false;
       }
     });

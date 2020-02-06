@@ -4,7 +4,9 @@
 
 <div class="container" *ngIf="!isLoading">
   <div class="row">
-    <div class="col s12"><h4>Current Tips</h4></div>
+    <div class="col s12">
+      <h4>Current Tips</h4>
+    </div>
   </div>
   <div class="row">
     <div class="col s12 m6">
@@ -20,7 +22,9 @@
     </div>
   </div>
   <div class="row">
-    <div class="col s12 m6 margin-bottom-20"><app-afl-ladder></app-afl-ladder></div>
+    <div class="col s12 m6 margin-bottom-20">
+      <app-afl-ladder></app-afl-ladder>
+    </div>
     <div class="col s12 m6">
       <form [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length > 0">
         <div formArrayName="tips">
@@ -33,12 +37,12 @@
             <mat-card-content>
               <div class="row">
                 <div class="col s12">
-                  <mat-radio-group class="test-class" formControlName="{{ i }}" [disabled]="disabledButton(tip.dateTime)">
+                  <mat-radio-group class="test-class" formControlName="{{ i }}">
                     <div class="col s5">
                       <mat-radio-button [value]="0">
                         <div>{{ tip.homeTeam | humanize }}</div>
-                        <div><img src="{{ returnName(tip.homeTeam) }}" /></div
-                      ></mat-radio-button>
+                        <div><img src="{{ returnName(tip.homeTeam) }}" /></div>
+                      </mat-radio-button>
                     </div>
                     <div class="col s2" style="line-height: 40px">V</div>
                     <div class="col s5">
@@ -67,4 +71,5 @@
       </div>
     </div>
   </div>
+  <pre>{{ enterTipsForm.value | json }}</pre>
 </div>

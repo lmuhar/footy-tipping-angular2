@@ -17,5 +17,13 @@ export class UserEffects {
     })
   );
 
+  @Effect()
+  public newUserTips$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.NEW_USER_TIPS),
+    switchMap((action: userActions.NewUserTips) => {
+      return this.userService.newUserTips(action.payload).pipe(map(response => new userActions.NewUserTipsSuccess(response)));
+    })
+  );
+
   constructor(private actions$: Actions, private userService: UserService) {}
 }

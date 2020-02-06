@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { User } from '../shared/models/user.model';
 import { Observable } from 'rxjs/Observable';
+import { Tip } from '../shared/models/tip.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class UserService {
     return this.http.post<any>('/api/login', credentials);
   }
 
-  newUserTips(id, roundId, tips): Observable<any> {
-    return this.http.post<any>(`/api/user/${id}/tips/${roundId}`, tips);
+  newUserTips(tip: Tip): Observable<Tip> {
+    return this.http.post<any>(`/api/user/${tip.ownerId}/tips/${tip.roundId}`, tip.tips);
   }
 
   getUsers(): Observable<User[]> {

@@ -1,8 +1,11 @@
 import { Action } from '@ngrx/store';
 import { User } from './../../../shared/models/user.model';
+import { Tip } from './../../../shared/models/tip.model';
 
 export const GET_USER_TOTALS = 'GET_USER_TOTALS';
 export const GET_USER_TOTALS_SUCCESS = 'GET_USER_TOTALS_SUCCESS';
+export const NEW_USER_TIPS = 'NEW_USER_TIPS';
+export const NEW_USER_TIPS_SUCCESS = 'NEW_USER_TIPS_SUCCESS';
 
 export class GetUserTotals implements Action {
   readonly type = GET_USER_TOTALS;
@@ -14,4 +17,14 @@ export class GetUserTotalsSuccess implements Action {
   constructor(public payload: User[]) {}
 }
 
-export type UserAction = GetUserTotals | GetUserTotalsSuccess;
+export class NewUserTips implements Action {
+  readonly type = NEW_USER_TIPS;
+  constructor(public payload: Tip) {}
+}
+
+export class NewUserTipsSuccess implements Action {
+  readonly type = NEW_USER_TIPS_SUCCESS;
+  constructor(public payload: Tip) {}
+}
+
+export type UserAction = GetUserTotals | GetUserTotalsSuccess | NewUserTips | NewUserTipsSuccess;
