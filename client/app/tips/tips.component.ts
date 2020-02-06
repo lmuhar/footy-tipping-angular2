@@ -4,7 +4,6 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@ang
 
 import * as moment from 'moment';
 
-import { RoundService } from '../services/round.service';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { TipService } from '../services/tip.service';
@@ -14,8 +13,10 @@ import { Round } from '../shared/models/round.model';
 import { ImageHelper } from './../utils/helpers/imageHelper';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../state/model/app-state.model';
+import { GetUserTips } from '../shared/models/tip.model';
 
 import * as roundActions from './../../app/state/model/round/round.actions';
+import * as tipActions from './../../app/state/model/tips/tip.actions';
 
 @Component({
   selector: 'app-tips',
@@ -38,7 +39,6 @@ export class TipsComponent implements OnInit {
   constructor(
     public toast: ToastComponent,
     private auth: AuthService,
-    private roundService: RoundService,
     private userService: UserService,
     private tipService: TipService,
     private formBuilder: FormBuilder,
@@ -116,14 +116,16 @@ export class TipsComponent implements OnInit {
 
   public setDefaultData() {
     const data = [];
-    this.selectedRound.games.forEach(game => {
-      if (moment().isAfter(game.dateTime)) {
-        data.push(1);
-      } else {
-        data.push(null);
-      }
-    });
-    this.enterTipsForm.setValue({
+    if (this.selectedRound && this.selectedRound.games && this.selectedRound.games.length > 0) {
+      this.selectedRound.games.forEach(game => {
+        if (moment().isAfter(game.dateTime)) {
+          data.push(1);
+        } else {
+          data.push(null);
+        }
+      });
+    }
+    this.enterTipsForm.patchValue({
       tips: data
     });
   }
@@ -134,8 +136,10 @@ export class TipsComponent implements OnInit {
 
   private getSelectedRoundData(id) {
     this.isLoading = true;
-    this.roundService.getRound(id).subscribe(
-      res => {
+    this.store.dispatch(new roundActions.GetRound(id));
+
+    this.store.pipe(select(state => state.round.selectedRound)).subscribe(res => {
+      if (res && res._id) {
         this.selectedRound = res;
         this.selectedRoundId = res._id;
 
@@ -144,25 +148,31 @@ export class TipsComponent implements OnInit {
         res.games.forEach(game => {
           control.push(new FormControl(null, Validators.required));
         });
-        this.tipService.getUserTipsForRound(this.auth.currentUser._id, this.selectedRoundId).subscribe(
-          result => {
-            this.isNew = false;
-            this.userRoundId = result._id;
-            this.enterTipsForm.setValue({
-              tips: result.tips
-            });
-          },
-          error => {
-            console.log(error), (this.isNew = true), (this.userRoundId = null);
-            this.enterTipsForm.reset();
+        this.enterTipsForm.reset();
+        const userData: GetUserTips = {
+          roundId: this.selectedRoundId,
+          userId: this.auth.currentUser._id
+        };
 
-            this.setDefaultData();
-          },
-          () => (this.isLoading = false)
-        );
-      },
-      error => console.log(error),
-      () => (this.isLoading = false)
-    );
+        this.store.dispatch(new tipActions.GetUserTipsForRound(userData));
+      }
+    });
+
+    this.store.pipe(select(state => state.tips.userTips)).subscribe(res => {
+      if (res && res._id) {
+        this.isNew = false;
+        this.userRoundId = res._id;
+        this.enterTipsForm.patchValue({
+          tips: res.tips
+        });
+        this.isLoading = false;
+      } else {
+        this.isNew = true;
+        this.userRoundId = null;
+        this.enterTipsForm.reset();
+        this.setDefaultData();
+        this.isLoading = false;
+      }
+    });
   }
 }

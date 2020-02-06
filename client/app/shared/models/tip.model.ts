@@ -11,3 +11,8 @@ export class Tip {
 export interface UserName {
   username: string;
 }
+
+export interface GetUserTips {
+  userId: string;
+  roundId: string;
+}

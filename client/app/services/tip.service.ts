@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { Tip } from '../shared/models/tip.model';
+import { Tip, GetUserTips, UserTips } from '../shared/models/tip.model';
 import { Round } from '../shared/models/round.model';
 
 @Injectable({
@@ -23,8 +23,8 @@ export class TipService {
     return this.http.get<any>('/api/tips/total');
   }
 
-  getUserTipsForRound(userId, roundId): Observable<any> {
-    return this.http.get<any>(`/api/user/${userId}/round/${roundId}`);
+  getUserTipsForRound(requestData: GetUserTips): Observable<UserTips> {
+    return this.http.get<any>(`/api/user/${requestData.userId}/round/${requestData.roundId}`);
   }
 
   editTips(data: Tip): Observable<string> {

@@ -25,5 +25,13 @@ export class TipEffects {
     })
   );
 
+  @Effect()
+  public getUserTipsForRound$: Observable<Action> = this.actions$.pipe(
+    ofType(tipActions.GET_USER_TIPS_ROUND),
+    switchMap((action: tipActions.GetUserTipsForRound) => {
+      return this.tipService.getUserTipsForRound(action.payload).pipe(map(response => new tipActions.GetUserTipsForRoundSuccess(response)));
+    })
+  );
+
   constructor(private actions$: Actions, private tipService: TipService) {}
 }

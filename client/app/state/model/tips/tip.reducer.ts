@@ -4,11 +4,13 @@ import * as tipActions from './tip.actions';
 export interface TipState {
   allTipsForRound: Tip[];
   updateTipResults: boolean;
+  userTips: Tip;
 }
 
 const tipInitState: TipState = {
-  allTipsForRound: null,
-  updateTipResults: null
+  allTipsForRound: [],
+  updateTipResults: null,
+  userTips: null
 };
 
 export function tipReducer(state = tipInitState, action: tipActions.TipAction) {
@@ -35,6 +37,18 @@ export function tipReducer(state = tipInitState, action: tipActions.TipAction) {
       return {
         ...state,
         updateTipResults: true
+      };
+    }
+    case tipActions.GET_USER_TIPS_ROUND: {
+      return {
+        ...state,
+        userTips: []
+      };
+    }
+    case tipActions.GET_USER_TIPS_ROUND_SUCCESS: {
+      return {
+        ...state,
+        userTips: action.payload
       };
     }
     default: {
