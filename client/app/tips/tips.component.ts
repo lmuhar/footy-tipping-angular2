@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastComponent } from './../shared/toast/toast.component';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { Validators, FormBuilder, FormArray } from '@angular/forms';
 
 import * as moment from 'moment';
 
@@ -58,7 +58,7 @@ export class TipsComponent implements OnInit {
 
     this.selectForm.valueChanges.subscribe(change => {
       this.getSelectedRoundData(change.number);
-      // this.enterTipsForm.setControl('tips', this.formBuilder.array([]));
+      this.enterTipsForm.setControl('tips', this.formBuilder.array([]));
     });
   }
 
@@ -114,22 +114,6 @@ export class TipsComponent implements OnInit {
     }
   }
 
-  public setDefaultData() {
-    const data = [];
-    if (this.selectedRound && this.selectedRound.games && this.selectedRound.games.length > 0) {
-      this.selectedRound.games.forEach(game => {
-        if (moment().isAfter(game.dateTime)) {
-          data.push(1);
-        } else {
-          data.push(null);
-        }
-      });
-    }
-    this.enterTipsForm.patchValue({
-      tips: data
-    });
-  }
-
   public returnName(name) {
     return ImageHelper.returnAssetUrl(name);
   }
@@ -141,19 +125,14 @@ export class TipsComponent implements OnInit {
     this.store.pipe(select(state => state.round.selectedRound)).subscribe(res => {
       if (res && res._id) {
         this.selectedRound = res;
-        this.selectedRoundId = res._id;
-        /*this.enterTipsForm = this.formBuilder.group({
-          tips: this.formBuilder.array([])
-        });*/
+        this.selectedRoundId = id;
+        this.enterTipsForm.setControl('tips', this.formBuilder.array([]));
+        this.enterTipsForm.reset();
 
         const control = <FormArray>this.enterTipsForm.controls['tips'];
-
-        res.games.forEach(game => {
-          control.push(
-            new FormControl({ value: null, disabled: this.disabledButton(game.dateTime) }, Validators.compose([Validators.required]))
-          );
+        res.games.forEach((game, i) => {
+          control.push(new FormControl(this.disabledButton(game.dateTime) ? 1 : null, Validators.compose([Validators.required])));
         });
-        // this.enterTipsForm.reset();
         const userData: GetUserTips = {
           roundId: this.selectedRoundId,
           userId: this.auth.currentUser._id
@@ -164,17 +143,18 @@ export class TipsComponent implements OnInit {
     });
 
     this.store.pipe(select(state => state.tips.userTips)).subscribe(res => {
-      console.log('res', res);
       if (res && res._id) {
         this.isNew = false;
         this.userRoundId = res._id;
-        this.enterTipsForm.patchValue({ tips: res.tips });
+        const data = [];
+        res.tips.forEach((item, i) => {
+          data.push(item);
+        });
+        this.enterTipsForm.setControl('tips', this.formBuilder.array(data));
         this.isLoading = false;
       } else {
         this.isNew = true;
         this.userRoundId = null;
-        // this.enterTipsForm.reset();
-        // this.setDefaultData();
         this.isLoading = false;
       }
     });
