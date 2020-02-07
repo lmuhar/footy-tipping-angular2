@@ -6,11 +6,15 @@ import * as userActions from './user.actions';
 export interface UserState {
   userTotals: User[];
   newUserTip: Tip;
+  allUsers: User[];
+  deleteUserResponse: boolean;
 }
 
 const userInitState: UserState = {
   userTotals: [],
-  newUserTip: null
+  newUserTip: null,
+  allUsers: [],
+  deleteUserResponse: null
 };
 
 export function userReducer(state = userInitState, action: userActions.UserAction) {
@@ -37,6 +41,30 @@ export function userReducer(state = userInitState, action: userActions.UserActio
       return {
         ...state,
         newUserTip: action.payload
+      };
+    }
+    case userActions.GET_ALL_USERS: {
+      return {
+        ...state,
+        allUsers: []
+      };
+    }
+    case userActions.GET_ALL_USERS_SUCCESS: {
+      return {
+        ...state,
+        allUsers: action.payload
+      };
+    }
+    case userActions.DELETE_USER: {
+      return {
+        ...state,
+        deleteUserResponse: null
+      };
+    }
+    case userActions.DELETE_USER_SUCCESS: {
+      return {
+        ...state,
+        deleteUserResponse: true
       };
     }
     default: {

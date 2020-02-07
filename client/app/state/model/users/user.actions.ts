@@ -6,6 +6,10 @@ export const GET_USER_TOTALS = 'GET_USER_TOTALS';
 export const GET_USER_TOTALS_SUCCESS = 'GET_USER_TOTALS_SUCCESS';
 export const NEW_USER_TIPS = 'NEW_USER_TIPS';
 export const NEW_USER_TIPS_SUCCESS = 'NEW_USER_TIPS_SUCCESS';
+export const GET_ALL_USERS = 'GET_ALL_USERS';
+export const GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS';
+export const DELETE_USER = 'DELETE_USER';
+export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
 
 export class GetUserTotals implements Action {
   readonly type = GET_USER_TOTALS;
@@ -27,4 +31,32 @@ export class NewUserTipsSuccess implements Action {
   constructor(public payload: Tip) {}
 }
 
-export type UserAction = GetUserTotals | GetUserTotalsSuccess | NewUserTips | NewUserTipsSuccess;
+export class GetAllUsers implements Action {
+  readonly type = GET_ALL_USERS;
+  constructor() {}
+}
+
+export class GetAllUsersSuccess implements Action {
+  readonly type = GET_ALL_USERS_SUCCESS;
+  constructor(public payload: User[]) {}
+}
+
+export class DeleteUser implements Action {
+  readonly type = DELETE_USER;
+  constructor(public payload: User) {}
+}
+
+export class DeleteUserSuccess implements Action {
+  readonly type = DELETE_USER_SUCCESS;
+  constructor(public payload: boolean) {}
+}
+
+export type UserAction =
+  | GetUserTotals
+  | GetUserTotalsSuccess
+  | NewUserTips
+  | NewUserTipsSuccess
+  | GetAllUsers
+  | GetAllUsersSuccess
+  | DeleteUser
+  | DeleteUserSuccess;

@@ -14,10 +14,6 @@ export class RoundService {
     return this.http.get<Round[]>('/api/rounds');
   }
 
-  countRounds(): Observable<number> {
-    return this.http.get<number>('/api/rounds/count');
-  }
-
   addRound(round: Round): Observable<Round> {
     return this.http.post<Round>('/api/round', round);
   }

@@ -25,5 +25,21 @@ export class UserEffects {
     })
   );
 
+  @Effect()
+  public getAllUsers$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.GET_ALL_USERS),
+    switchMap((action: userActions.GetAllUsers) => {
+      return this.userService.getUsers().pipe(map(response => new userActions.GetAllUsersSuccess(response)));
+    })
+  );
+
+  @Effect()
+  public deleteUser$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.DELETE_USER),
+    switchMap((action: userActions.DeleteUser) => {
+      return this.userService.deleteUser(action.payload).pipe(map(response => new userActions.DeleteUserSuccess(true)));
+    })
+  );
+
   constructor(private actions$: Actions, private userService: UserService) {}
 }

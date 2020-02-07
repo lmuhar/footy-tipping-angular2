@@ -19,10 +19,6 @@ export class TipService {
     return this.http.post<Tip[]>('/api/tip', tips);
   }
 
-  getTotal(id): Observable<any> {
-    return this.http.get<any>('/api/tips/total');
-  }
-
   getUserTipsForRound(requestData: GetUserTips): Observable<Tip> {
     return this.http.get<any>(`/api/user/${requestData.userId}/round/${requestData.roundId}`);
   }
