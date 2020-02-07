@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastComponent } from './../shared/toast/toast.component';
-import { Validators, FormBuilder, FormArray } from '@angular/forms';
+import { FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 
 import * as moment from 'moment';
 
