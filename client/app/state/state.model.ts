@@ -17,6 +17,8 @@ import { teamReducer } from './model/team/team.reducer';
 import { TeamEffects } from './model/team/team.effect';
 import { userReducer } from './model/users/user.reducer';
 import { UserEffects } from './model/users/user.effects';
+import { emailReducer } from './model/email/email.reducer';
+import { EmailEffects } from './model/email/email.effect';
 
 @NgModule({
   imports: [
@@ -27,9 +29,10 @@ import { UserEffects } from './model/users/user.effects';
       tips: tipReducer,
       locationData: locationReducer,
       teamData: teamReducer,
-      users: userReducer
+      users: userReducer,
+      emails: emailReducer
     }),
-    EffectsModule.forRoot([LadderEffects, RoundEffects, TipEffects, LocationEffects, TeamEffects, UserEffects]),
+    EffectsModule.forRoot([LadderEffects, RoundEffects, TipEffects, LocationEffects, TeamEffects, UserEffects, EmailEffects]),
     environment.production ? [] : StoreDevtoolsModule.instrument()
   ]
 })

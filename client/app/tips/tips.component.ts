@@ -5,7 +5,6 @@ import { FormControl, Validators, FormBuilder, FormArray } from '@angular/forms'
 import * as moment from 'moment';
 
 import { AuthService } from '../services/auth.service';
-import { EmailService } from '../services/email.service';
 
 import { Round } from '../shared/models/round.model';
 import { ImageHelper } from './../utils/helpers/imageHelper';
@@ -16,6 +15,7 @@ import { GetUserTips, Tip } from '../shared/models/tip.model';
 import * as roundActions from './../../app/state/model/round/round.actions';
 import * as tipActions from './../../app/state/model/tips/tip.actions';
 import * as userActions from './../../app/state/model/users/user.actions';
+import * as emailActions from './../../app/state/model/email/email.actions';
 
 @Component({
   selector: 'app-tips',
@@ -38,13 +38,7 @@ export class TipsComponent implements OnInit {
     tips: this.formBuilder.array([])
   });
 
-  constructor(
-    public toast: ToastComponent,
-    private auth: AuthService,
-    private formBuilder: FormBuilder,
-    private emailService: EmailService,
-    private store: Store<AppState>
-  ) {}
+  constructor(public toast: ToastComponent, private auth: AuthService, private formBuilder: FormBuilder, private store: Store<AppState>) {}
 
   public ngOnInit() {
     this.store.dispatch(new roundActions.GetRoundWithIdNumber());
@@ -67,9 +61,7 @@ export class TipsComponent implements OnInit {
   }
 
   private sendSaveEmail(data) {
-    this.emailService.enteredTipsEmail(data).subscribe(res => {
-      console.log('sent', res);
-    });
+    this.store.dispatch(new emailActions.SendTipsSavedEmail(data));
   }
 
   public saveTips() {
@@ -147,6 +139,8 @@ export class TipsComponent implements OnInit {
         this.isNew = false;
         this.userRoundId = res._id;
         const data = [];
+        this.enterTipsForm.setControl('tips', this.formBuilder.array([]));
+        this.enterTipsForm.reset();
         res.tips.forEach((item, i) => {
           data.push(item);
         });

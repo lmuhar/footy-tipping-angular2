@@ -4,6 +4,7 @@ import { RoundState } from './round/round.reducer';
 import { TipState } from './tips/tip.reducer';
 import { TeamState } from './team/team.reducer';
 import { UserState } from './users/user.reducer';
+import { EmailState } from './email/email.reducer';
 
 export interface AppState {
   ladderData: LadderState;
@@ -12,4 +13,5 @@ export interface AppState {
   locationData: LocationState;
   teamData: TeamState;
   users: UserState;
+  emails: EmailState;
 }
