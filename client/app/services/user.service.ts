@@ -35,8 +35,8 @@ export class UserService {
     return this.http.post<User>('/api/user', user);
   }
 
-  getUser(user: User): Observable<User> {
-    return this.http.get<User>(`/api/user/${user._id}`);
+  getUser(id: string): Observable<User> {
+    return this.http.get<User>(`/api/user/${id}`);
   }
 
   editUser(user: User): Observable<User> {

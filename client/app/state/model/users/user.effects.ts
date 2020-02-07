@@ -41,5 +41,13 @@ export class UserEffects {
     })
   );
 
+  @Effect()
+  public getUserData$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.GET_USER_DATA),
+    switchMap((action: userActions.GetUserData) => {
+      return this.userService.getUser(action.payload).pipe(map(response => new userActions.GetUserDataSuccess(response)));
+    })
+  );
+
   constructor(private actions$: Actions, private userService: UserService) {}
 }

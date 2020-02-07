@@ -8,13 +8,15 @@ export interface UserState {
   newUserTip: Tip;
   allUsers: User[];
   deleteUserResponse: boolean;
+  userData: User;
 }
 
 const userInitState: UserState = {
   userTotals: [],
   newUserTip: null,
   allUsers: [],
-  deleteUserResponse: null
+  deleteUserResponse: null,
+  userData: null
 };
 
 export function userReducer(state = userInitState, action: userActions.UserAction) {
@@ -65,6 +67,18 @@ export function userReducer(state = userInitState, action: userActions.UserActio
       return {
         ...state,
         deleteUserResponse: true
+      };
+    }
+    case userActions.GET_USER_DATA: {
+      return {
+        ...state,
+        userData: null
+      };
+    }
+    case userActions.GET_USER_DATA_SUCCESS: {
+      return {
+        ...state,
+        userData: action.payload
       };
     }
     default: {

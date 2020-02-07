@@ -10,6 +10,8 @@ export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS';
 export const DELETE_USER = 'DELETE_USER';
 export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
+export const GET_USER_DATA = 'GET_USER_DATA';
+export const GET_USER_DATA_SUCCESS = 'GET_USER_DATA_SUCCESS';
 
 export class GetUserTotals implements Action {
   readonly type = GET_USER_TOTALS;
@@ -51,6 +53,16 @@ export class DeleteUserSuccess implements Action {
   constructor(public payload: boolean) {}
 }
 
+export class GetUserData implements Action {
+  readonly type = GET_USER_DATA;
+  constructor(public payload: string) {}
+}
+
+export class GetUserDataSuccess implements Action {
+  readonly type = GET_USER_DATA_SUCCESS;
+  constructor(public payload: User) {}
+}
+
 export type UserAction =
   | GetUserTotals
   | GetUserTotalsSuccess
@@ -59,4 +71,6 @@ export type UserAction =
   | GetAllUsers
   | GetAllUsersSuccess
   | DeleteUser
-  | DeleteUserSuccess;
+  | DeleteUserSuccess
+  | GetUserData
+  | GetUserDataSuccess;
