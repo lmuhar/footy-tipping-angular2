@@ -2,6 +2,7 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators, FormBuilder } from '@angular/forms';
+import { AppState } from '../state/model/app-state.model';
 
 import { AuthService } from '../services/auth.service';
 
