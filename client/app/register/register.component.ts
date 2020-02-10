@@ -1,8 +1,11 @@
+import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { ToastComponent } from '../shared/toast/toast.component';
+
+import * as toastMessageActions from './../state/model/toast-message/toast-message.actions';
+import { AppState } from '../state/model/app-state.model';
 
 @Component({
   selector: 'app-register',
@@ -18,15 +21,15 @@ export class RegisterComponent {
     password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
   });
 
-  constructor(private formBuilder: FormBuilder, private router: Router, public toast: ToastComponent, private userService: UserService) {}
+  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, private store: Store<AppState>) {}
 
   register() {
     this.userService.register(this.registerForm.value).subscribe(
       res => {
-        this.toast.setMessage('you successfully registered!', 'success');
+        this.store.dispatch(new toastMessageActions.ToastMessage({ body: 'you successfully registered!', type: 'success' }));
         this.router.navigate(['/login']);
       },
-      error => this.toast.setMessage('email already exists', 'danger')
+      error => this.store.dispatch(new toastMessageActions.ToastMessage({ body: 'email already exists', type: 'danger' }))
     );
   }
 }

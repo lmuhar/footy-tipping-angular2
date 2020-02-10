@@ -19,6 +19,7 @@ import { userReducer } from './model/users/user.reducer';
 import { UserEffects } from './model/users/user.effects';
 import { emailReducer } from './model/email/email.reducer';
 import { EmailEffects } from './model/email/email.effect';
+import { toastMessageReducer } from './model/toast-message/toast-message.reducer';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { EmailEffects } from './model/email/email.effect';
       locationData: locationReducer,
       teamData: teamReducer,
       users: userReducer,
-      emails: emailReducer
+      emails: emailReducer,
+      toastMessage: toastMessageReducer
     }),
     EffectsModule.forRoot([LadderEffects, RoundEffects, TipEffects, LocationEffects, TeamEffects, UserEffects, EmailEffects]),
     environment.production ? [] : StoreDevtoolsModule.instrument()

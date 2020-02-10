@@ -12,6 +12,7 @@ import * as _ from 'lodash';
 import * as locationActions from './../state/model/locations/locations.actions';
 import * as teamActions from './../state/model/team/team.actions';
 import * as roundActions from './../state/model/round/round.actions';
+import * as toastMessageActions from './../state/model/toast-message/toast-message.actions';
 
 import { AppState } from '../state/model/app-state.model';
 import { Store, select } from '@ngrx/store';
@@ -100,7 +101,7 @@ export class RoundsComponent implements OnInit {
       if (res) {
         this.store.dispatch(new roundActions.GetAllRounds());
         this.addRoundForm.reset();
-        this.toast.setMessage('round successfully added.', 'success');
+        this.store.dispatch(new toastMessageActions.ToastMessage({ body: 'round successfully added.', type: 'success' }));
       }
     });
   }
@@ -114,7 +115,7 @@ export class RoundsComponent implements OnInit {
         if (res) {
           const pos = this.rounds.map(elem => elem._id).indexOf(round._id);
           this.rounds.splice(pos, 1);
-          this.toast.setMessage('item deleted successfully.', 'success');
+          this.store.dispatch(new toastMessageActions.ToastMessage({ body: 'item deleted successfully.', type: 'success' }));
           this.isLoading = false;
           this.store.dispatch(new roundActions.GetAllRounds());
         }

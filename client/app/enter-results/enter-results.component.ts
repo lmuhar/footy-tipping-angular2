@@ -8,6 +8,7 @@ import { ImageHelper } from './../utils/helpers/imageHelper';
 import * as ladderActions from './../../app/state/model/ladder/ladder.actions';
 import * as roundActions from './../../app/state/model/round/round.actions';
 import * as tipActions from './../../app/state/model/tips/tip.actions';
+
 import { AppState } from '../state/model/app-state.model';
 import { Store, select } from '@ngrx/store';
 

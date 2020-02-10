@@ -1,14 +1,13 @@
 import { Store, select } from '@ngrx/store';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { ToastComponent } from '../shared/toast/toast.component';
-
 import { User } from '../shared/models/user.model';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AppState } from '../state/model/app-state.model';
 
 import * as userActions from './../state/model/users/user.actions';
+import * as toastMessageActions from './../state/model/toast-message/toast-message.actions';
 
 @Component({
   selector: 'app-admin',
@@ -22,7 +21,7 @@ export class AdminComponent implements OnInit {
   public users: User[] = [];
   public isLoading = true;
 
-  constructor(public toast: ToastComponent, private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {}
 
   public ngOnInit() {
     this.store.dispatch(new userActions.GetAllUsers());
@@ -43,7 +42,7 @@ export class AdminComponent implements OnInit {
       this.store.dispatch(new userActions.DeleteUser(user));
       this.store.pipe(select(state => state.users.deleteUserResponse)).subscribe(res => {
         if (res) {
-          this.toast.setMessage('user deleted successfully.', 'success');
+          this.store.dispatch(new toastMessageActions.ToastMessage({ body: 'user deleted successfully.', type: 'success' }));
           this.store.dispatch(new userActions.GetAllUsers());
         }
       });

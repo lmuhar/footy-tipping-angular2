@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastComponent } from './../shared/toast/toast.component';
 import { FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 
 import * as moment from 'moment';
@@ -16,6 +15,7 @@ import * as roundActions from './../../app/state/model/round/round.actions';
 import * as tipActions from './../../app/state/model/tips/tip.actions';
 import * as userActions from './../../app/state/model/users/user.actions';
 import * as emailActions from './../../app/state/model/email/email.actions';
+import * as toastMessageActions from './../../app/state/model/toast-message/toast-message.actions';
 
 @Component({
   selector: 'app-tips',
@@ -38,7 +38,7 @@ export class TipsComponent implements OnInit {
     tips: this.formBuilder.array([])
   });
 
-  constructor(public toast: ToastComponent, private auth: AuthService, private formBuilder: FormBuilder, private store: Store<AppState>) {}
+  constructor(private auth: AuthService, private formBuilder: FormBuilder, private store: Store<AppState>) {}
 
   public ngOnInit() {
     this.store.dispatch(new roundActions.GetRoundWithIdNumber());
@@ -84,7 +84,7 @@ export class TipsComponent implements OnInit {
           this.isNew = false;
           this.userRoundId = res._id;
           this.sendSaveEmail(emailData);
-          this.toast.setMessage('Tips successfully saved', 'success');
+          this.store.dispatch(new toastMessageActions.ToastMessage({ body: 'Tips successfully saved', type: 'success' }));
           this.isLoading = false;
         }
       });
@@ -99,7 +99,7 @@ export class TipsComponent implements OnInit {
       this.store.pipe(select(state => state.tips.editTips)).subscribe(res => {
         if (res) {
           this.sendSaveEmail(emailData);
-          this.toast.setMessage('Tips successfully updated', 'success');
+          this.store.dispatch(new toastMessageActions.ToastMessage({ body: 'Tips successfully updated', type: 'success' }));
           this.isLoading = false;
         }
       });

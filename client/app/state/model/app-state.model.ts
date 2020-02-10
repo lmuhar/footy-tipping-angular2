@@ -5,6 +5,7 @@ import { TipState } from './tips/tip.reducer';
 import { TeamState } from './team/team.reducer';
 import { UserState } from './users/user.reducer';
 import { EmailState } from './email/email.reducer';
+import { ToastMessageState } from './toast-message/toast-message.reducer';
 
 export interface AppState {
   ladderData: LadderState;
@@ -14,4 +15,5 @@ export interface AppState {
   teamData: TeamState;
   users: UserState;
   emails: EmailState;
+  toastMessage: ToastMessageState;
 }

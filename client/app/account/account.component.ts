@@ -8,6 +8,7 @@ import { User } from '../shared/models/user.model';
 import { AppState } from '../state/model/app-state.model';
 
 import * as userActions from './../state/model/users/user.actions';
+import * as toastMessageActions from './../state/model/toast-message/toast-message.actions';
 
 @Component({
   selector: 'app-account',
@@ -52,7 +53,9 @@ export class AccountComponent implements OnInit {
 
   public save(user) {
     this.userService.editUser(user).subscribe(
-      res => this.toast.setMessage('account settings saved!', 'success'),
+      res => {
+        this.store.dispatch(new toastMessageActions.ToastMessage({ body: 'account settings saved!', type: 'success' }));
+      },
       error => console.log(error)
     );
   }
