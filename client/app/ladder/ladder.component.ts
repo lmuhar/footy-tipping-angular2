@@ -36,18 +36,17 @@ export class LadderComponent implements OnInit {
         res.round.roundTotals[0]._id &&
         res.users.userTotals &&
         res.users.userTotals.length > 0 &&
-        !this.requestMade
+        res.round.roundTotalRequest
       ) {
         this.roundData = res.round.roundTotals[0]._id;
         this.users = res.users.userTotals;
 
         this.store.dispatch(new tipActions.GetAllTipsForRound(this.roundData.id));
-        this.requestMade = true;
       }
     });
 
     this.store.pipe(select(state => state.tips)).subscribe(res => {
-      if (res.allTipsForRound && this.requestMade) {
+      if (res.allTipsForRound) {
         this.roundTotal = res.allTipsForRound;
         this.users.map(item => {
           const found = _.find(this.roundTotal, r => {
