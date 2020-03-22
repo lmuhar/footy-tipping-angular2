@@ -22,6 +22,7 @@ export class LadderComponent implements OnInit {
   public roundTotal = null;
   public roundNumber = null;
   public requestMade = false;
+  public round = null;
 
   constructor(private store: Store<AppState>) {}
 
@@ -38,15 +39,19 @@ export class LadderComponent implements OnInit {
         res.users.userTotals.length > 0 &&
         res.round.roundTotalRequest
       ) {
+        this.round = res.round.roundTotals[0]._id;
+        if (this.round && this.round.id && this.roundTotal && !this.requestMade) {
+          this.store.dispatch(new tipActions.GetAllTipsForRound(this.round.id));
+        }
+
         this.roundData = res.round.roundTotals[0]._id;
         this.users = res.users.userTotals;
-
-        this.store.dispatch(new tipActions.GetAllTipsForRound(this.roundData.id));
+        this.requestMade = res.round.roundTotalRequest;
       }
     });
 
     this.store.pipe(select(state => state.tips)).subscribe(res => {
-      if (res.allTipsForRound) {
+      if (res && res.allTipsForRound) {
         this.roundTotal = res.allTipsForRound;
         this.users.map(item => {
           const found = _.find(this.roundTotal, r => {
