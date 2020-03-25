@@ -1,18 +1,21 @@
-import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
-import { ToastComponent } from './../shared/toast/toast.component';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 
 import * as moment from 'moment';
 
-import { RoundService } from '../services/round.service';
 import { AuthService } from '../services/auth.service';
-import { UserService } from '../services/user.service';
-import { TipService } from '../services/tip.service';
-import { EmailService } from '../services/email.service';
 
 import { Round } from '../shared/models/round.model';
 import { ImageHelper } from './../utils/helpers/imageHelper';
+import { Store, select } from '@ngrx/store';
+import { AppState } from '../state/model/app-state.model';
+import { GetUserTips, Tip } from '../shared/models/tip.model';
+
+import * as roundActions from './../../app/state/model/round/round.actions';
+import * as tipActions from './../../app/state/model/tips/tip.actions';
+import * as userActions from './../../app/state/model/users/user.actions';
+import * as emailActions from './../../app/state/model/email/email.actions';
+import * as toastMessageActions from './../../app/state/model/toast-message/toast-message.actions';
 
 @Component({
   selector: 'app-tips',
@@ -26,37 +29,25 @@ export class TipsComponent implements OnInit {
   public selectedRoundId = null;
   public isNew = true;
 
-  public selectForm: FormGroup;
-  public number = new FormControl('', Validators.required);
+  public selectForm = this.formBuilder.group({
+    number: ['', Validators.required]
+  });
 
   public userRoundId = null;
-  public enterTipsForm: FormGroup;
+  public enterTipsForm = this.formBuilder.group({
+    tips: this.formBuilder.array([])
+  });
 
-  constructor(
-    public toast: ToastComponent,
-    private auth: AuthService,
-    private roundService: RoundService,
-    private userService: UserService,
-    private tipService: TipService,
-    private formBuilder: FormBuilder,
-    private emailService: EmailService
-  ) {}
+  constructor(private auth: AuthService, private formBuilder: FormBuilder, private store: Store<AppState>) {}
 
   public ngOnInit() {
-    this.roundService.getRoundWithIdNumber().subscribe(
-      result => {
-        this.rounds = result;
-      },
-      error => console.log(error),
-      () => (this.isLoading = false)
-    );
+    this.store.dispatch(new roundActions.GetRoundWithIdNumber());
 
-    this.selectForm = this.formBuilder.group({
-      number: this.number
-    });
-
-    this.enterTipsForm = this.formBuilder.group({
-      tips: this.formBuilder.array([])
+    this.store.pipe(select(state => state.round.roundWithId)).subscribe(res => {
+      if (res) {
+        this.rounds = res;
+        this.isLoading = false;
+      }
     });
 
     this.selectForm.valueChanges.subscribe(change => {
@@ -70,9 +61,7 @@ export class TipsComponent implements OnInit {
   }
 
   private sendSaveEmail(data) {
-    this.emailService.enteredTipsEmail(data).subscribe(res => {
-      console.log('sent', res);
-    });
+    this.store.dispatch(new emailActions.SendTipsSavedEmail(data));
   }
 
   public saveTips() {
@@ -83,44 +72,38 @@ export class TipsComponent implements OnInit {
       round: this.selectedRound
     };
     if (this.isNew) {
-      this.userService.newUserTips(this.auth.currentUser._id, this.selectedRoundId, this.enterTipsForm.value).subscribe(
-        res => {
+      const data: Tip = {
+        ownerId: this.auth.currentUser._id,
+        roundId: this.selectedRoundId,
+        tips: this.enterTipsForm.value
+      };
+      this.store.dispatch(new userActions.NewUserTips(data));
+
+      this.store.pipe(select(state => state.users.newUserTip)).subscribe(res => {
+        if (res) {
           this.isNew = false;
           this.userRoundId = res._id;
           this.sendSaveEmail(emailData);
-          this.toast.setMessage('Tips successfully saved', 'success');
-        },
-        error => this.toast.setMessage('Save tips failed, please try again', 'warning'),
-        () => (this.isLoading = false)
-      );
+          this.store.dispatch(new toastMessageActions.ToastMessage({ body: 'Tips successfully saved', type: 'success' }));
+          this.isLoading = false;
+        }
+      });
     } else {
       const data = this.enterTipsForm.value;
       data.ownerId = this.auth.currentUser._id;
       data.roundId = this.selectedRoundId;
       data._id = this.userRoundId;
-      this.tipService.editTips(data).subscribe(
-        () => {
-          this.sendSaveEmail(emailData);
-          this.toast.setMessage('Tips successfully updated', 'success');
-        },
-        error => this.toast.setMessage('Updated tips failed, please try again', 'warning'),
-        () => (this.isLoading = false)
-      );
-    }
-  }
+      this.isLoading = true;
+      this.store.dispatch(new tipActions.EditTips(data));
 
-  public setDefaultData() {
-    const data = [];
-    this.selectedRound.games.forEach(game => {
-      if (moment().isAfter(game.dateTime)) {
-        data.push(1);
-      } else {
-        data.push(null);
-      }
-    });
-    this.enterTipsForm.setValue({
-      tips: data
-    });
+      this.store.pipe(select(state => state.tips.editTips)).subscribe(res => {
+        if (res) {
+          this.sendSaveEmail(emailData);
+          this.store.dispatch(new toastMessageActions.ToastMessage({ body: 'Tips successfully updated', type: 'success' }));
+          this.isLoading = false;
+        }
+      });
+    }
   }
 
   public returnName(name) {
@@ -129,35 +112,45 @@ export class TipsComponent implements OnInit {
 
   private getSelectedRoundData(id) {
     this.isLoading = true;
-    this.roundService.getRound(id).subscribe(
-      res => {
+    this.store.dispatch(new roundActions.GetRound(id));
+
+    this.store.pipe(select(state => state.round.selectedRound)).subscribe(res => {
+      if (res && res._id) {
         this.selectedRound = res;
-        this.selectedRoundId = res._id;
+        this.selectedRoundId = id;
+        this.enterTipsForm.setControl('tips', this.formBuilder.array([]));
+        this.enterTipsForm.reset();
 
         const control = <FormArray>this.enterTipsForm.controls['tips'];
-
-        res.games.forEach(game => {
-          control.push(new FormControl(null, Validators.required));
+        res.games.forEach((game, i) => {
+          control.push(new FormControl(this.disabledButton(game.dateTime) ? 1 : null, Validators.compose([Validators.required])));
         });
-        this.tipService.getUserTipsForRound(this.auth.currentUser._id, this.selectedRoundId).subscribe(
-          result => {
-            this.isNew = false;
-            this.userRoundId = result._id;
-            this.enterTipsForm.setValue({
-              tips: result.tips
-            });
-          },
-          error => {
-            console.log(error), (this.isNew = true), (this.userRoundId = null);
-            this.enterTipsForm.reset();
+        const userData: GetUserTips = {
+          roundId: this.selectedRoundId,
+          userId: this.auth.currentUser._id
+        };
 
-            this.setDefaultData();
-          },
-          () => (this.isLoading = false)
-        );
-      },
-      error => console.log(error),
-      () => (this.isLoading = false)
-    );
+        this.store.dispatch(new tipActions.GetUserTipsForRound(userData));
+      }
+    });
+
+    this.store.pipe(select(state => state.tips.userTips)).subscribe(res => {
+      if (res && res._id) {
+        this.isNew = false;
+        this.userRoundId = res._id;
+        const data = [];
+        this.enterTipsForm.setControl('tips', this.formBuilder.array([]));
+        this.enterTipsForm.reset();
+        res.tips.forEach((item, i) => {
+          data.push(item);
+        });
+        this.enterTipsForm.setControl('tips', this.formBuilder.array(data));
+        this.isLoading = false;
+      } else {
+        this.isNew = true;
+        this.userRoundId = null;
+        this.isLoading = false;
+      }
+    });
   }
 }

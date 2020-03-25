@@ -1,23 +1,21 @@
 <app-loading [condition]="isLoading"></app-loading>
 
-<app-toast [message]="toast.message"></app-toast>
-
 <div class="container" *ngIf="!isLoading">
   <h4>Account settings</h4>
-  <form #accountForm="ngForm" (ngSubmit)="save(user)">
+  <form [formGroup]="accountForm" (ngSubmit)="save(user)">
     <div class="row">
       <mat-form-field class="col s4 m6">
-        <input matInput type="text" name="username" [(ngModel)]="user.username" placeholder="Username" required />
+        <input matInput type="text" formControlName="username" placeholder="Username" />
       </mat-form-field>
     </div>
     <div class="row">
       <mat-form-field class="col s4 m6">
-        <input matInput type="email" name="email" [(ngModel)]="user.email" placeholder="Email" required />
+        <input matInput type="email" formControlName="email" placeholder="Email" />
       </mat-form-field>
     </div>
     <div class="row">
       <div class="col s4 m6">
-        <button mat-raised-button color="accent" type="submit" [disabled]="!accountForm.form.valid"><i class="fa fa-save"></i> Save</button>
+        <button mat-raised-button color="accent" type="submit" [disabled]="!accountForm.valid"><i class="fa fa-save"></i> Save</button>
       </div>
     </div>
   </form>

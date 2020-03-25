@@ -483,7 +483,7 @@ body{background-color:#fff}.logo a:hover,.logo a:focus{color:#859bb1 !important}
 
               <div style="Margin-left: 20px;Margin-right: 20px;">
       <div style="mso-line-height-rule: exactly;mso-text-raise: 4px;">
-        <h3 class="size-12" style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #281557;font-size: 12px;line-height: 19px;font-family: Avenir,sans-serif;text-align: center;" lang="x-size-12"><span style="color:#fff"><strong>2019 AFL FOOTY TIPPING</strong></span></h3>
+        <h3 class="size-12" style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #281557;font-size: 12px;line-height: 19px;font-family: Avenir,sans-serif;text-align: center;" lang="x-size-12"><span style="color:#fff"><strong>2020 AFL FOOTY TIPPING</strong></span></h3>
       </div>
     </div>
 

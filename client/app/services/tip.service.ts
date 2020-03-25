@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { Tip } from '../shared/models/tip.model';
+import { Tip, GetUserTips } from '../shared/models/tip.model';
+import { Round } from '../shared/models/round.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TipService {
-
   constructor(private http: HttpClient) {}
 
   getTipByRound(id): Observable<Tip> {
@@ -17,23 +19,19 @@ export class TipService {
     return this.http.post<Tip[]>('/api/tip', tips);
   }
 
-  getTotal(id): Observable<any> {
-    return this.http.get<any>('/api/tips/total');
-  }
-
-  getUserTipsForRound(userId, roundId): Observable<any> {
-    return this.http.get<any>(`/api/user/${userId}/round/${roundId}`);
+  getUserTipsForRound(requestData: GetUserTips): Observable<Tip> {
+    return this.http.get<any>(`/api/user/${requestData.userId}/round/${requestData.roundId}`);
   }
 
   editTips(data: Tip): Observable<string> {
-    return this.http.put(`/api/tip/${data._id}`, data, { responseType: 'text'});
+    return this.http.put(`/api/tip/${data._id}`, data, { responseType: 'text' });
   }
 
   allTipsForRound(roundId): Observable<Tip[]> {
     return this.http.get<Tip[]>(`/api/tips/roundId/${roundId}`);
   }
 
-  updateTipsWithResults(roundId, games): Observable<string> {
-    return this.http.put(`/api/tips/roundId/${roundId}/results`, games, { responseType: 'text'});
+  updateTipsWithResults(tipData: Round): Observable<string> {
+    return this.http.put(`/api/tips/roundId/${tipData._id}/results`, tipData.games, { responseType: 'text' });
   }
 }

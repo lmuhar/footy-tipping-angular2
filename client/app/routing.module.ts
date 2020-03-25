@@ -9,7 +9,6 @@ import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 
 const routes: Routes = [
   { path: '', loadChildren: 'app/about/about.module#AboutModule' },
-  { path: 'cats', loadChildren: 'app/cats/cats.module#CatsModule' },
   { path: 'register', loadChildren: 'app/register/register.module#RegisterModule' },
   { path: 'login', loadChildren: 'app/login/login.module#LoginModule' },
   { path: 'logout', component: LogoutComponent },

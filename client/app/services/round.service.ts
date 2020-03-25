@@ -4,16 +4,14 @@ import { Observable } from 'rxjs/Observable';
 
 import { Round } from '../shared/models/round.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RoundService {
   constructor(private http: HttpClient) {}
 
   getRounds(): Observable<Round[]> {
     return this.http.get<Round[]>('/api/rounds');
-  }
-
-  countRounds(): Observable<number> {
-    return this.http.get<number>('/api/rounds/count');
   }
 
   addRound(round: Round): Observable<Round> {

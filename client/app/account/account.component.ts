@@ -1,9 +1,14 @@
+import { Store, select } from '@ngrx/store';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { User } from '../shared/models/user.model';
+import { AppState } from '../state/model/app-state.model';
+
+import * as userActions from './../state/model/users/user.actions';
+import * as toastMessageActions from './../state/model/toast-message/toast-message.actions';
 
 @Component({
   selector: 'app-account',
@@ -13,7 +18,13 @@ export class AccountComponent implements OnInit {
   public user = new User();
   public isLoading = true;
 
-  constructor(private auth: AuthService, public toast: ToastComponent, private fb: FormBuilder, private userService: UserService) {}
+  constructor(
+    private auth: AuthService,
+    private store: Store<AppState>,
+    public toast: ToastComponent,
+    private fb: FormBuilder,
+    private userService: UserService
+  ) {}
 
   public accountForm = this.fb.group({
     username: [
@@ -25,18 +36,27 @@ export class AccountComponent implements OnInit {
   });
 
   public ngOnInit() {
-    this.getUser();
-  }
+    this.store.dispatch(new userActions.GetUserData(this.auth.currentUser._id));
 
-  public getUser() {
-    this.userService
-      .getUser(this.auth.currentUser)
-      .subscribe(data => (this.user = data), error => console.log(error), () => (this.isLoading = false));
+    this.store.pipe(select(state => state.users.userData)).subscribe(res => {
+      if (res) {
+        this.user = res;
+        this.isLoading = false;
+        this.accountForm.setValue({
+          username: res.username,
+          email: res.email,
+          role: res.role
+        });
+      }
+    });
   }
 
   public save(user) {
-    this.userService
-      .editUser(user)
-      .subscribe(res => this.toast.setMessage('account settings saved!', 'success'), error => console.log(error));
+    this.userService.editUser(user).subscribe(
+      res => {
+        this.store.dispatch(new toastMessageActions.ToastMessage({ body: 'account settings saved!', type: 'success' }));
+      },
+      error => console.log(error)
+    );
   }
 }

@@ -1,15 +1,16 @@
-import { Observable } from 'rxjs/Observable';
-import { forkJoin } from 'rxjs/observable/forkJoin';
 import { ToastComponent } from './../shared/toast/toast.component';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
-import { RoundService } from '../services/round.service';
-import { TipService } from '../services/tip.service';
-import { AflLadderService } from '../services/afl-ladder.service';
-
 import { Round } from '../shared/models/round.model';
 import { ImageHelper } from './../utils/helpers/imageHelper';
+
+import * as ladderActions from './../../app/state/model/ladder/ladder.actions';
+import * as roundActions from './../../app/state/model/round/round.actions';
+import * as tipActions from './../../app/state/model/tips/tip.actions';
+
+import { AppState } from '../state/model/app-state.model';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-enter-tips',
@@ -26,22 +27,17 @@ export class EnterResultsComponent implements OnInit {
   public selectForm: FormGroup;
   public enterResultsForm: FormGroup;
 
-  constructor(
-    public toast: ToastComponent,
-    private roundService: RoundService,
-    private formBuilder: FormBuilder,
-    private tipService: TipService,
-    private aflLadderService: AflLadderService
-  ) {}
+  constructor(public toast: ToastComponent, private formBuilder: FormBuilder, private store: Store<AppState>) {}
 
   public ngOnInit() {
-    this.roundService.getRoundWithIdNumber().subscribe(
-      res => {
+    this.store.dispatch(new roundActions.GetRoundWithIdNumber());
+
+    this.store.pipe(select(state => state.round.roundWithId)).subscribe(res => {
+      if (res) {
         this.rounds = res;
-      },
-      error => console.log(error),
-      () => (this.isLoading = false)
-    );
+        this.isLoading = false;
+      }
+    });
 
     this.selectForm = this.formBuilder.group({
       number: this.number
@@ -58,20 +54,20 @@ export class EnterResultsComponent implements OnInit {
 
   private getSelectedRoundData(id) {
     this.isLoading = true;
-    this.roundService.getRound(id).subscribe(
-      res => {
-        this.selectedRound = res;
+    this.store.dispatch(new roundActions.GetRound(id));
 
+    this.store.pipe(select(state => state.round.selectedRound)).subscribe(res => {
+      if (res) {
+        this.selectedRound = res;
         this.enterResultsForm.reset();
 
         const control = <FormArray>this.enterResultsForm.controls['results'];
         res.games.forEach(game => {
           control.push(new FormControl(game.result, Validators.required));
         });
-      },
-      error => this.toast.setMessage(`Retrieve tips failed due to: ${error}`, 'warning'),
-      () => (this.isLoading = false)
-    );
+        this.isLoading = false;
+      }
+    });
   }
   public returnName(name) {
     return ImageHelper.returnAssetUrl(name);
@@ -85,30 +81,25 @@ export class EnterResultsComponent implements OnInit {
       i++;
     });
     this.selectedRound.completed = true;
-    // add join for this;
-    forkJoin([
-      this.roundService.editRound(this.selectedRound),
-      this.tipService.updateTipsWithResults(this.selectedRound._id, this.selectedRound.games)
-    ]).subscribe(
-      res => {
-        this.toast.setMessage('Save results and update user results was successful', 'success');
-        this.scrapeLadderData();
-      },
-      error => this.toast.setMessage(`Save tips failed due to: ${error}`, 'warning'),
-      () => (this.isLoading = false)
-    );
+
+    this.store.dispatch(new tipActions.UpdateTipsWithResults(this.selectedRound));
+    this.store.dispatch(new roundActions.EditRound(this.selectedRound));
+
+    this.store.pipe(select(state => state)).subscribe(res => {
+      if (res.round.editRound && res.tips.updateTipResults) {
+        this.isLoading = false;
+      }
+    });
   }
 
   public scrapeLadderData() {
     this.isLoading = true;
-    this.aflLadderService.getAflLadder().subscribe(res => {
-      this.aflLadderService.newLadder(res).subscribe(
-        result => {
-          this.toast.setMessage('Ladder data retrieved', 'success');
-        },
-        error => this.toast.setMessage(`Get ladder information failed due to: ${error}`, 'warning'),
-        () => (this.isLoading = false)
-      );
+    this.store.dispatch(new ladderActions.GetScrappedLadder());
+
+    this.store.pipe(select(state => state.ladderData.addNewRecord)).subscribe(res => {
+      if (res) {
+        this.isLoading = false;
+      }
     });
   }
 }

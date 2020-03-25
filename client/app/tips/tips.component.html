@@ -1,17 +1,17 @@
 <app-loading [condition]="isLoading"></app-loading>
 
-<app-toast [message]="toast.message"></app-toast>
-
 <div class="container" *ngIf="!isLoading">
   <div class="row">
-    <div class="col s12"><h4>Current Tips</h4></div>
+    <div class="col s12">
+      <h4>Current Tips</h4>
+    </div>
   </div>
   <div class="row">
     <div class="col s12 m6">
       <form [formGroup]="selectForm">
         <mat-form-field>
           <mat-select placeholder="Select a round" formControlName="number">
-            <mat-option *ngFor="let t of (rounds | reverseSort: 'number')" [value]="t._id">
+            <mat-option *ngFor="let t of rounds | reverseSort: 'number'" [value]="t._id">
               Round {{ t.number }} - ({{ t.dateStart | date: 'dd MMM' }})
             </mat-option>
           </mat-select>
@@ -20,9 +20,11 @@
     </div>
   </div>
   <div class="row">
-    <div class="col s12 m6 margin-bottom-20"><app-afl-ladder></app-afl-ladder></div>
+    <div class="col s12 m6 margin-bottom-20">
+      <app-afl-ladder></app-afl-ladder>
+    </div>
     <div class="col s12 m6">
-      <form [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length !== '0'">
+      <form [formGroup]="enterTipsForm" *ngIf="selectedRound.games && selectedRound.games.length > 0">
         <div formArrayName="tips">
           <mat-card class="margin-bottom-20" *ngFor="let tip of selectedRound.games; let i = index">
             <div class="row">
@@ -37,8 +39,8 @@
                     <div class="col s5">
                       <mat-radio-button [value]="0">
                         <div>{{ tip.homeTeam | humanize }}</div>
-                        <div><img src="{{ returnName(tip.homeTeam) }}" /></div
-                      ></mat-radio-button>
+                        <div><img src="{{ returnName(tip.homeTeam) }}" /></div>
+                      </mat-radio-button>
                     </div>
                     <div class="col s2" style="line-height: 40px">V</div>
                     <div class="col s5">

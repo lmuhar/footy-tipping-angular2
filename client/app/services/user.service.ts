@@ -3,11 +3,13 @@ import { HttpClient } from '@angular/common/http';
 
 import { User } from '../shared/models/user.model';
 import { Observable } from 'rxjs/Observable';
+import { Tip } from '../shared/models/tip.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   register(user: User): Observable<User> {
     return this.http.post<User>('/api/user', user);
@@ -17,8 +19,8 @@ export class UserService {
     return this.http.post<any>('/api/login', credentials);
   }
 
-  newUserTips(id, roundId, tips): Observable<any> {
-    return this.http.post<any>(`/api/user/${id}/tips/${roundId}`, tips);
+  newUserTips(tip: Tip): Observable<Tip> {
+    return this.http.post<any>(`/api/user/${tip.ownerId}/tips/${tip.roundId}`, tip.tips);
   }
 
   getUsers(): Observable<User[]> {
@@ -33,8 +35,8 @@ export class UserService {
     return this.http.post<User>('/api/user', user);
   }
 
-  getUser(user: User): Observable<User> {
-    return this.http.get<User>(`/api/user/${user._id}`);
+  getUser(id: string): Observable<User> {
+    return this.http.get<User>(`/api/user/${id}`);
   }
 
   editUser(user: User): Observable<User> {
@@ -42,11 +44,10 @@ export class UserService {
   }
 
   deleteUser(user: User): Observable<string> {
-    return this.http.delete(`/api/user/${user._id}`, { responseType: 'text'});
+    return this.http.delete(`/api/user/${user._id}`, { responseType: 'text' });
   }
 
   getUserTotal(): Observable<any> {
     return this.http.get<any>('/api/users/ladder');
   }
-
 }

@@ -25,13 +25,14 @@
     <div class="wrapper">
       <div class="toolbar">
         <mat-toolbar color="primary">
-          <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset | async)">
+          <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset | async">
             <mat-icon aria-label=" Side nav toggle icon">menu</mat-icon>
           </button>
-          <span>2019 Footy Tipping </span>
+          <span>2020 Footy Tipping </span>
         </mat-toolbar>
       </div>
       <div class="content"><router-outlet></router-outlet></div>
+      <app-toast></app-toast>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

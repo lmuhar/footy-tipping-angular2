@@ -1,5 +1,4 @@
 import * as express from 'express';
-import CatCtrl from './controllers/cat';
 import UserCtrl from './controllers/user';
 import RoundCtrl from './controllers/round';
 import TeamCtrl from './controllers/team';
@@ -9,7 +8,6 @@ import SendGridCtrl from './controllers/sendgrid';
 import AflLadderCtrl from './controllers/afl-ladder';
 import ScrapedLadderCtrl from './controllers/scraped-ladder';
 
-import Cat from './models/cat';
 import User from './models/user';
 import Round from './models/rounds';
 import Team from './models/team';
@@ -19,7 +17,6 @@ import Location from './models/location';
 export default function setRoutes(app) {
   const router = express.Router();
 
-  const catCtrl = new CatCtrl();
   const userCtrl = new UserCtrl();
   const roundCtrl = new RoundCtrl();
   const teamCtrl = new TeamCtrl();
@@ -28,14 +25,6 @@ export default function setRoutes(app) {
   const sendGridCtrl = new SendGridCtrl();
   const aflLadderCtrl = new AflLadderCtrl();
   const scrapedLadderCtrl = new ScrapedLadderCtrl();
-
-  // Cats
-  router.route('/cats').get(catCtrl.getAll);
-  router.route('/cats/count').get(catCtrl.count);
-  router.route('/cat').post(catCtrl.insert);
-  router.route('/cat/:id').get(catCtrl.get);
-  router.route('/cat/:id').put(catCtrl.update);
-  router.route('/cat/:id').delete(catCtrl.delete);
 
   // Users
   router.route('/login').post(userCtrl.login);
