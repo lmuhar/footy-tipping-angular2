@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/footy-tipping-angular2
     docker:
-      - image: circleci/node:12-browsers
+      - image: circleci/node:10-browsers
       - image: mongo:3.4.4
     steps:
       - checkout
