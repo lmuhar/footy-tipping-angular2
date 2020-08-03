@@ -1,4 +1,5 @@
 import * as dotenv from 'dotenv';
+import * as discordWebhook from 'webhook-discord';
 import * as jwt from 'jsonwebtoken';
 import * as mongoose from 'mongoose';
 const ObjectId = mongoose.Types.ObjectId;
@@ -28,6 +29,8 @@ export default class UserCtrl extends BaseCtrl {
 
   newTipsUser = (req, res) => {
     const { id, roundId } = req.params;
+    const discordUrl = process.env.DISCORD_URL;
+    const hook = new discordWebhook.Webhook(discordUrl);
     // Create a new tip
     const newTip = new Tip(req.body);
     // Get User
@@ -45,6 +48,13 @@ export default class UserCtrl extends BaseCtrl {
           user.tips.push(newTip);
           user.save();
           res.status(201).json(newTip);
+
+          const msg = new discordWebhook.MessageBuilder()
+            .setName('Spideybot')
+            .setColor('#aabbcc')
+            .setText(`Tips saved for ${user.username} - Round ${round.number}`)
+            .setTime();
+          hook.send(msg);
         });
       });
     });
